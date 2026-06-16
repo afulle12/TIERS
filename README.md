@@ -38,6 +38,7 @@ WMD handled as a continuous severity modulator rather than a separate tier.
 - [Validation](#validation)
 - [Limitations](#limitations)
 - [Citation](#citation)
+- [Acknowledgments](#acknowledgments)
 - [License](#license)
 
 ---
@@ -227,6 +228,19 @@ specification document and the upstream data sources listed in
 ```
 
 See `CITATION.cff` for machine-readable citation metadata.
+
+---
+
+## Acknowledgments
+
+This project was developed with the assistance of large language model
+(LLM) tools. They were used for code review, refactoring, documentation
+drafting, and infrastructure scaffolding. All theoretical content — model
+specifications, tier taxonomy, variable definitions, mathematical
+formulations, and the integration and interpretation of empirical
+results — is the author's own work. The intent of this disclosure is
+transparency: LLMs were used as a productivity aid, not as a source of
+intellectual contribution.
 
 ---
 

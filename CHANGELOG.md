@@ -34,6 +34,16 @@ project version.
   pipeline. Download links and licensing notes are in `README.md` and
   `DATA_PROVENANCE.md`.
 
+### Added — Acknowledgments and history rewrite
+- New `Acknowledgments` section in `README.md` disclosing the use of
+  large language model tools for code review, refactoring, documentation,
+  and infrastructure work.
+- `README.md` table of contents updated to include the new section.
+- Git history rewritten with `git filter-branch` to fully purge any
+  raw data references from the object store. `.git` reduced from
+  ~90 MB to ~3 MB. The two-commit structure is preserved; commit SHAs
+  have changed.
+
 ### Model — v27.0 specification (code still implementing v21-level, tracked in next release)
 - T6 (Strategic WMD Employment) **removed** as a separate tier; the ordered
   ladder collapses to T0–T5.
