@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIW v25.0 — Interstate War Model</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#070c16; --surf:#0e1825; --surf2:#152030; --surf3:#1b2b3f;
+  --bdr:#1d2f45; --bdr2:#2a4060;
+  --txt:#c4d4e8; --muted:#4e6a88; --muted2:#3a5270;
+  --amber:#f59e0b; --amber-d:#b45309; --amber-bg:#160d00;
+  --emerald:#10b981; --emerald-d:#059669; --emerald-bg:#001910;
+  --red:#ef4444; --red-bg:#160000;
+  --sky:#38bdf8; --sky-bg:#011525;
+  --violet:#8b5cf6; --violet-bg:#0f0a1e;
+  --sans:'IBM Plex Sans',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --t0:#475569; --t1:#78716c; --t2:#b45309; --t3:#c2410c;
+  --t3h:#991b1b; --t4:#9f1239; --t5:#6d28d9; --t6:#312e81;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);padding:14px;min-height:100vh;font-size:13px}
+/* ─── HEADER ─── */
+.hdr{display:flex;align-items:center;gap:10px;padding:11px 16px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;margin-bottom:10px;flex-wrap:wrap}
+.hdr-title{font-family:var(--mono);font-size:.95rem;font-weight:600;color:#dde8f5;letter-spacing:-.02em}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:var(--mono)}
+.bv{background:var(--sky-bg);color:var(--sky);border:1px solid #0a3a5a}
+.bs{background:var(--amber-bg);color:var(--amber);border:1px solid #3d2000}
+.b-full{background:#021a0c;color:#4ade80;border:1px solid #14532d}
+.b-pub{background:var(--sky-bg);color:var(--sky);border:1px solid #0a3a5a}
+.b-myop{background:#111;color:#94a3b8;border:1px solid #374151}
+.b-diag{background:#1a0505;color:#fca5a5;border:1px solid #7f1d1d}
+.hdr-eq{font-family:var(--mono);font-size:.57rem;color:var(--muted);margin-left:auto}
+/* ─── ID BAR ─── */
+.id-bar{display:flex;gap:8px;align-items:center;padding:8px 13px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;margin-bottom:10px;flex-wrap:wrap}
+.id-lbl{font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.id-inp{background:var(--surf2);border:1px solid var(--bdr2);border-radius:4px;padding:4px 8px;color:var(--txt);font-family:var(--mono);font-size:.78rem;width:90px}
+.id-inp:focus{outline:none;border-color:var(--amber)}
+.sel-inp{background:var(--surf2);border:1px solid var(--bdr2);border-radius:4px;padding:4px 7px;color:var(--txt);font-family:var(--mono);font-size:.75rem;cursor:pointer}
+.sel-inp:focus{outline:none;border-color:var(--amber)}
+/* ─── COVERAGE BAR ─── */
+.cov-bar{display:flex;align-items:center;gap:6px;padding:8px 13px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;margin-bottom:10px;flex-wrap:wrap}
+.cov-lbl{font-size:.58rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.cov-item{display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:4px;font-size:.57rem;font-family:var(--mono);font-weight:500}
+.cov-obs{background:#021a0c;color:#4ade80;border:1px solid #14532d}
+.cov-def{background:#1a1000;color:#fbbf24;border:1px solid #451a03}
+.cov-abs{background:#1a0505;color:#fca5a5;border:1px solid #7f1d1d}
+.cov-conf{margin-left:auto;font-family:var(--mono);font-size:.72rem;font-weight:700}
+.member-wrap{display:flex;align-items:center;gap:6px}
+/* ─── PANELS ─── */
+.panel{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:11px}
+.ph{display:flex;align-items:center;justify-content:space-between;padding-bottom:7px;margin-bottom:9px;border-bottom:1px solid var(--bdr)}
+.ph-t{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.ph-t.amb{color:var(--amber)} .ph-t.em{color:var(--emerald)} .ph-t.sky{color:var(--sky)}
+.grp{margin-bottom:8px}
+.gt{font-size:.56rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted2);margin-bottom:4px}
+.irow{display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.ilbl{font-family:var(--mono);font-size:.66rem;flex:1;min-width:0;color:#94a3b8;display:flex;align-items:center;gap:3px}
+.sym{color:var(--txt);font-weight:600}
+.dsub{font-size:.52rem;color:var(--muted)}
+.rng{flex:1;min-width:36px;height:4px;accent-color:var(--amber);cursor:pointer}
+.ni{width:50px;background:var(--surf2);border:1px solid var(--bdr2);border-radius:3px;padding:2px 4px;color:var(--txt);font-family:var(--mono);font-size:.66rem;text-align:right}
+.ni:focus{outline:none;border-color:var(--amber)}
+.ni-s{border-color:var(--sky)!important} .ni-e{border-color:var(--emerald)!important} .ni-a{border-color:var(--amber)!important}
+/* absent toggle */
+.abs-tog{display:flex;align-items:center;gap:2px;cursor:pointer;font-size:.52rem;color:var(--muted);white-space:nowrap}
+.abs-tog input{accent-color:var(--muted);cursor:pointer;margin:0;width:11px;height:11px}
+/* ─── MAIN 3-COL ─── */
+.main-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:960px){.main-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.main-grid{grid-template-columns:1fr}}
+/* ─── COST FIELD TABLE ─── */
+.cost-wrap{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:11px;margin-bottom:10px}
+.cost-tbl{width:100%;border-collapse:collapse}
+.cost-tbl th{font-size:.6rem;color:var(--muted);font-family:var(--mono);padding:4px 8px;border-bottom:1px solid var(--bdr);text-align:center;font-weight:600}
+.cost-tbl th:first-child{text-align:left}
+.cost-tbl td{padding:3px 4px;border-bottom:1px solid #0e1825}
+.tier-pill{display:inline-flex;align-items:center;gap:5px;padding:1px 7px;border-radius:3px;font-size:.62rem;font-weight:700;font-family:var(--mono)}
+.ci{width:62px;background:var(--surf2);border:1px solid var(--bdr2);border-radius:3px;padding:2px 5px;color:var(--txt);font-family:var(--mono);font-size:.7rem;text-align:right;transition:opacity .2s}
+.ci:focus{outline:none;border-color:var(--amber)}
+.ci.dim{opacity:.3;pointer-events:none}
+.cur-tier-row{background:rgba(245,158,11,.05)!important;outline:1px solid rgba(245,158,11,.25);outline-offset:-1px;border-radius:2px}
+/* ─── BELIEF / MODIFIER SECTION ─── */
+.bm-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:700px){.bm-grid{grid-template-columns:1fr}}
+/* ─── BARRIERS ─── */
+.bar-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:600px){.bar-grid{grid-template-columns:1fr}}
+/* ─── RESULTS ─── */
+.res-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:960px){.res-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.res-grid{grid-template-columns:1fr}}
+.rcard{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:11px}
+.rcard-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.rcard-name{font-size:.72rem;font-weight:700;color:var(--txt)}
+.rcard-risk{text-align:right}
+.risk-lbl{font-size:.52rem;color:var(--muted);display:block}
+.risk-val{font-size:1.15rem;font-weight:800;font-family:var(--mono);display:block}
+.sbar{display:flex;height:18px;border-radius:4px;overflow:hidden;margin-bottom:7px}
+.sseg{display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:rgba(255,255,255,.88);font-family:var(--mono);overflow:hidden;white-space:nowrap}
+.pgrid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:7px}
+.pcell{text-align:center}
+.plbl{font-size:.48rem;color:var(--muted);font-family:var(--mono)}
+.pval{font-size:.75rem;font-weight:700;font-family:var(--mono)}
+.pbar{height:3px;border-radius:1px;margin:1px auto 0}
+.dir-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:7px}
+.dir-card{border:1.5px solid;border-radius:5px;padding:5px 4px;text-align:center}
+.dir-pct{font-size:1.1rem;font-weight:800;font-family:var(--mono);display:block}
+.dir-lbl{font-size:.5rem;text-transform:uppercase;letter-spacing:.05em;display:block;margin-top:1px}
+.met-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:5px}
+.met{background:var(--surf2);border-radius:3px;padding:3px 4px;text-align:center}
+.ml{font-size:.5rem;color:var(--muted);font-family:var(--mono);display:block}
+.mv{font-size:.7rem;font-weight:600;font-family:var(--mono)}
+.enote{font-size:.56rem;padding:3px 6px;border-radius:3px;margin-top:3px;font-family:var(--mono);line-height:1.4;border-left:2px solid}
+.en-a{background:var(--amber-bg);color:var(--amber);border-color:var(--amber)}
+.en-e{background:var(--emerald-bg);color:var(--emerald);border-color:var(--emerald)}
+.en-r{background:var(--red-bg);color:#fca5a5;border-color:var(--red)}
+.en-s{background:var(--surf2);color:var(--muted);border-color:var(--muted2)}
+.en-v{background:var(--violet-bg);color:#c4b5fd;border-color:var(--violet)}
+/* ─── COLLAPSIBLE ─── */
+details{margin-bottom:10px}
+summary{display:flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:9px 14px;cursor:pointer;font-size:.66rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:'▶';font-size:.52rem;transition:transform .2s;flex-shrink:0}
+details[open] summary{border-radius:8px 8px 0 0;border-bottom:none}
+details[open] summary::before{transform:rotate(90deg)}
+.dbody{background:var(--surf);border:1px solid var(--bdr);border-top:none;border-radius:0 0 8px 8px;padding:11px}
+/* ─── BUTTONS ─── */
+.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border:none;border-radius:5px;cursor:pointer;font-size:.66rem;font-weight:600;font-family:var(--sans);transition:opacity .15s}
+.btn:hover{opacity:.85} .btn:active{transform:scale(.97)}
+.btn-a{background:var(--amber);color:#0a0a0a}
+.btn-s{background:#2a3f55;color:#c4d4e8}
+.btn-e{background:#047857;color:#fff}
+.btn-w{width:100%;justify-content:center;margin-top:5px}
+/* ─── PROMPT ─── */
+.ta-p{width:100%;height:170px;background:var(--surf2);border:1px solid var(--bdr2);border-radius:4px;padding:7px;color:var(--txt);font-family:var(--mono);font-size:.6rem;resize:vertical;line-height:1.5}
+.ta-i{width:100%;height:65px;background:var(--surf2);border:1px solid var(--bdr2);border-radius:4px;padding:7px;color:var(--txt);font-family:var(--mono);font-size:.6rem;resize:vertical}
+textarea:focus{outline:none;border-color:var(--amber)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px}
+@media(max-width:640px){.g2{grid-template-columns:1fr}}
+.sep{border-top:1px solid var(--bdr);margin:7px 0}
+.full{grid-column:1/-1}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <span class="hdr-title">UIW v25.0</span>
+  <span class="badge bv">Nested-Model Family</span>
+  <span class="badge bv">8-Tier T0–T6</span>
+  <span class="badge bs">Spec Phase · Uncalibrated</span>
+  <span class="hdr-eq">π_kj = P↓·ω⁻ | P0 | P↑·ω⁺ &nbsp;·&nbsp; cost-gradient engine &nbsp;·&nbsp; graceful degradation &nbsp;·&nbsp; full ⊃ public ⊃ myopic ⊃ diagnostic</span>
+</div>
+
+<div class="id-bar">
+  <span class="id-lbl">Year</span>
+  <input class="id-inp" id="g_yr" type="number" value="2026" style="width:68px">
+  <span class="id-lbl">Month</span>
+  <select class="sel-inp" id="g_mo">
+    <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option>
+    <option value="4">Apr</option><option value="5" selected>May</option><option value="6">Jun</option>
+    <option value="7">Jul</option><option value="8">Aug</option><option value="9">Sep</option>
+    <option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option>
+  </select>
+  <span class="id-lbl">Actor A</span>
+  <input class="id-inp" id="g_nA" type="text" value="USA">
+  <span class="id-lbl">Actor B</span>
+  <input class="id-inp" id="g_nB" type="text" value="China">
+  <span class="id-lbl">Current Tier X<sub>t</sub></span>
+  <select class="sel-inp" id="S_tier" onchange="sync()">
+    <option value="0">T0 — Peace</option>
+    <option value="1">T1 — Diplomatic Crisis</option>
+    <option value="2" selected>T2 — Economic Coercion</option>
+    <option value="3">T3 — Proxy/Indirect</option>
+    <option value="4">T3H — Gray-Zone Campaign</option>
+    <option value="5">T4 — Limited Direct</option>
+    <option value="6">T5 — Strategic War</option>
+    <option value="7">T6 — Nuclear Exchange</option>
+  </select>
+  <button class="btn btn-a" onclick="sync()">Sync</button>
+</div>
+
+<!-- COVERAGE + MODEL MEMBER -->
+<div class="cov-bar" id="cov-bar">
+  <span class="cov-lbl">Coverage</span>
+  <span id="cov-items">—</span>
+  <span class="member-wrap" id="member-wrap"></span>
+  <span class="cov-conf" id="cov-conf">conf: —</span>
+</div>
+
+<!-- MAIN 3-COLUMN INPUTS -->
+<div class="main-grid">
+
+<!-- ACTOR A -->
+<div class="panel">
+  <div class="ph"><span class="ph-t amb" id="ttlA">USA → China (A→B)</span></div>
+
+  <div class="grp">
+    <div class="gt">Directional — A initiating against B</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">FMA</span><span class="dsub">First-mover adv</span></label>
+      <input class="rng" id="A_fma_s" type="range" min="0" max="1" step=".01" value=".10">
+      <input class="ni ni-a" id="A_fma" type="number" min="0" max="1" step=".01" value=".10">
+      <label class="abs-tog"><input type="checkbox" id="A_fma_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">-Ẇ</span><span class="dsub">Closing window</span></label>
+      <input class="rng" id="A_wdot_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni ni-a" id="A_wdot" type="number" min="0" max="1" step=".01" value=".00">
+      <label class="abs-tog"><input type="checkbox" id="A_wdot_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">SQB<sub>A</sub></span><span class="dsub">Status-quo burden</span></label>
+      <input class="rng" id="A_sqb_s" type="range" min="0" max="1" step=".01" value=".30">
+      <input class="ni ni-a" id="A_sqb" type="number" min="0" max="1" step=".01" value=".30">
+      <label class="abs-tog"><input type="checkbox" id="A_sqb_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Nuc<sub>A</sub></span><span class="dsub">Nuclear capable</span></label>
+      <select class="sel-inp" id="A_nuke">
+        <option value="1" selected>1 — Nuclear-armed</option>
+        <option value="0">0 — Non-nuclear</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="grp">
+    <div class="gt">Belief Term — Ĉ<sub>A</sub>(C<sub>B</sub>) — gated by δ</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">State</span></label>
+      <select class="sel-inp" id="A_bst">
+        <option value="absent">absent (δ=0 → public member)</option>
+        <option value="observed">observed</option>
+      </select>
+    </div>
+    <div class="irow" id="A_brow1">
+      <label class="ilbl"><span class="sym">δ-adj</span><span class="dsub">Belief uplift to escalation cost (-=embolden)</span></label>
+      <input class="rng" id="A_bdelta_s" type="range" min="-.30" max=".30" step=".01" value=".00">
+      <input class="ni ni-s" id="A_bdelta" type="number" min="-.30" max=".30" step=".01" value=".00">
+    </div>
+    <div class="irow" id="A_brow2">
+      <label class="ilbl"><span class="sym">conf</span><span class="dsub">Confidence in belief</span></label>
+      <input class="rng" id="A_bconf_s" type="range" min="0" max="1" step=".01" value=".50">
+      <input class="ni ni-s" id="A_bconf" type="number" min="0" max="1" step=".01" value=".50">
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="grp">
+    <div class="gt">Modifier Vector — each carries a state</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Attr</span><span class="dsub">Attribution / deniability</span></label>
+      <input class="rng" id="A_attr_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="A_attr" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="A_attr_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Intg</span><span class="dsub">Integration depth (patron)</span></label>
+      <input class="rng" id="A_intg_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="A_intg" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="A_intg_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Stks</span><span class="dsub">Stakes modifier</span></label>
+      <input class="rng" id="A_stk_s" type="range" min="0" max="1" step=".01" value=".50">
+      <input class="ni" id="A_stk" type="number" min="0" max="1" step=".01" value=".50">
+      <select class="sel-inp" id="A_stk_st" style="width:66px">
+        <option value="defaulted">def</option>
+        <option value="observed">obs</option>
+        <option value="absent">absent</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Intent</span><span class="dsub">Intent/selectivity (T3 gate)</span></label>
+      <input class="rng" id="A_int_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="A_int" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="A_int_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- SHARED -->
+<div class="panel">
+  <div class="ph"><span class="ph-t sky">Shared / Symmetric Inputs</span></div>
+
+  <div class="grp">
+    <div class="gt">Structural</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Ω</span><span class="dsub">Rivalry</span></label>
+      <input class="rng" id="S_Omega_s" type="range" min="0" max="1" step=".01" value=".35">
+      <input class="ni ni-s" id="S_Omega" type="number" min="0" max="1" step=".01" value=".35">
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Ξ</span><span class="dsub">Contiguity {0, 0.5, 1}</span></label>
+      <select class="sel-inp" id="S_Xi">
+        <option value="0" selected>0 — None</option>
+        <option value="0.5">0.5 — Partial</option>
+        <option value="1">1 — Adjacent</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Path Dependency</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">D<sub>k</sub></span><span class="dsub">Duration at tier (mo÷10)</span></label>
+      <input class="rng" id="S_Dk_s" type="range" min="0" max="10" step=".1" value="0">
+      <input class="ni ni-s" id="S_Dk" type="number" min="0" max="10" step=".1" value="0">
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Economic</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">W<sub>x</sub></span><span class="dsub">Exhaustion</span></label>
+      <input class="rng" id="S_Wx_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni ni-s" id="S_Wx" type="number" min="0" max="1" step=".01" value=".00">
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Operational & Diplomatic</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">ORA</span><span class="dsub">Off-ramp absence</span></label>
+      <input class="rng" id="S_ORA_s" type="range" min="0" max="1" step=".01" value=".30">
+      <input class="ni ni-e" id="S_ORA" type="number" min="0" max="1" step=".01" value=".30">
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Stal</span><span class="dsub">Stalemate</span></label>
+      <input class="rng" id="S_Stal_s" type="range" min="0" max="1" step=".01" value=".30">
+      <input class="ni ni-e" id="S_Stal" type="number" min="0" max="1" step=".01" value=".30">
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Dip</span><span class="dsub">Diplomatic capacity</span></label>
+      <input class="rng" id="S_Dip_s" type="range" min="0" max="1" step=".01" value=".50">
+      <input class="ni ni-e" id="S_Dip" type="number" min="0" max="1" step=".01" value=".50">
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="gt">Catalysts & Environment</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Shock<sub>k</sub></span><span class="dsub">Kinetic shock (activation energy)</span></label>
+      <input class="rng" id="S_Shock_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni ni-a" id="S_Shock" type="number" min="0" max="1" step=".01" value=".00">
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Nuc</span><span class="dsub">Nuclear gate [high-salience]</span></label>
+      <input class="rng" id="S_Nuc_s" type="range" min="0" max="1" step=".01" value=".90">
+      <input class="ni ni-a" id="S_Nuc" type="number" min="0" max="1" step=".01" value=".90">
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">V<sub>con</sub></span><span class="dsub">Contagion [-1,+1]</span></label>
+      <input class="rng" id="S_Vcon_s" type="range" min="-1" max="1" step=".01" value=".00">
+      <input class="ni ni-s" id="S_Vcon" type="number" min="-1" max="1" step=".01" value=".00">
+    </div>
+  </div>
+</div>
+
+<!-- ACTOR B -->
+<div class="panel">
+  <div class="ph"><span class="ph-t em" id="ttlB">China → USA (B→A)</span></div>
+
+  <div class="grp">
+    <div class="gt">Directional — B initiating against A</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">FMA</span><span class="dsub">First-mover adv</span></label>
+      <input class="rng" id="B_fma_s" type="range" min="0" max="1" step=".01" value=".10">
+      <input class="ni ni-a" id="B_fma" type="number" min="0" max="1" step=".01" value=".10">
+      <label class="abs-tog"><input type="checkbox" id="B_fma_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">-Ẇ</span><span class="dsub">Closing window</span></label>
+      <input class="rng" id="B_wdot_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni ni-a" id="B_wdot" type="number" min="0" max="1" step=".01" value=".00">
+      <label class="abs-tog"><input type="checkbox" id="B_wdot_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">SQB<sub>B</sub></span><span class="dsub">Status-quo burden</span></label>
+      <input class="rng" id="B_sqb_s" type="range" min="0" max="1" step=".01" value=".30">
+      <input class="ni ni-a" id="B_sqb" type="number" min="0" max="1" step=".01" value=".30">
+      <label class="abs-tog"><input type="checkbox" id="B_sqb_abs"><span>abs</span></label>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Nuc<sub>B</sub></span><span class="dsub">Nuclear capable</span></label>
+      <select class="sel-inp" id="B_nuke">
+        <option value="1" selected>1 — Nuclear-armed</option>
+        <option value="0">0 — Non-nuclear</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="grp">
+    <div class="gt">Belief Term — Ĉ<sub>B</sub>(C<sub>A</sub>) — gated by δ</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">State</span></label>
+      <select class="sel-inp" id="B_bst">
+        <option value="absent">absent (δ=0 → public member)</option>
+        <option value="observed">observed</option>
+      </select>
+    </div>
+    <div class="irow" id="B_brow1">
+      <label class="ilbl"><span class="sym">δ-adj</span><span class="dsub">Belief uplift to escalation cost (-=embolden)</span></label>
+      <input class="rng" id="B_bdelta_s" type="range" min="-.30" max=".30" step=".01" value=".00">
+      <input class="ni ni-s" id="B_bdelta" type="number" min="-.30" max=".30" step=".01" value=".00">
+    </div>
+    <div class="irow" id="B_brow2">
+      <label class="ilbl"><span class="sym">conf</span><span class="dsub">Confidence in belief</span></label>
+      <input class="rng" id="B_bconf_s" type="range" min="0" max="1" step=".01" value=".50">
+      <input class="ni ni-s" id="B_bconf" type="number" min="0" max="1" step=".01" value=".50">
+    </div>
+  </div>
+
+  <div class="sep"></div>
+  <div class="grp">
+    <div class="gt">Modifier Vector</div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Attr</span><span class="dsub">Attribution / deniability</span></label>
+      <input class="rng" id="B_attr_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="B_attr" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="B_attr_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Intg</span><span class="dsub">Integration depth (patron)</span></label>
+      <input class="rng" id="B_intg_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="B_intg" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="B_intg_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Stks</span><span class="dsub">Stakes modifier</span></label>
+      <input class="rng" id="B_stk_s" type="range" min="0" max="1" step=".01" value=".50">
+      <input class="ni" id="B_stk" type="number" min="0" max="1" step=".01" value=".50">
+      <select class="sel-inp" id="B_stk_st" style="width:66px">
+        <option value="defaulted">def</option>
+        <option value="observed">obs</option>
+        <option value="absent">absent</option>
+      </select>
+    </div>
+    <div class="irow">
+      <label class="ilbl"><span class="sym">Intent</span><span class="dsub">Intent/selectivity (T3 gate)</span></label>
+      <input class="rng" id="B_int_s" type="range" min="0" max="1" step=".01" value=".00">
+      <input class="ni" id="B_int" type="number" min="0" max="1" step=".01" value=".00">
+      <select class="sel-inp" id="B_int_st" style="width:66px">
+        <option value="absent">absent</option>
+        <option value="observed">obs</option>
+        <option value="defaulted">def</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main-grid -->
+
+<!-- COST FIELD MATRIX -->
+<div class="cost-wrap">
+  <div class="ph">
+    <span class="ph-t amb">Cost Field — C<sub>i</sub>(j) per Tier &nbsp;·&nbsp; Occupancy costs for each actor at each tier &nbsp;·&nbsp; C<sub>i</sub>(j) ∈ [0, 1.5] &nbsp;·&nbsp; Mark absent → diagnostic-fallback for that transition</span>
+    <button class="btn btn-s" onclick="resetCosts()">Reset defaults</button>
+  </div>
+  <div style="font-size:.58rem;color:var(--muted);font-family:var(--mono);margin-bottom:8px;padding:4px 8px;background:var(--surf2);border-radius:4px">
+    U↑ = [C<sub>i</sub>(k) − C<sub>i</sub>(k+1)] − B↑ + u_Z·Shock &nbsp;|&nbsp; U↓ = [C<sub>i</sub>(k) − C<sub>i</sub>(k−1)] − B↓ &nbsp;|&nbsp;
+    High cost at war tiers = resistance; low cost = recklessness. Current tier highlighted ▶
+  </div>
+  <table class="cost-tbl" id="cost-table">
+    <thead>
+      <tr>
+        <th style="text-align:left;width:140px">Tier</th>
+        <th id="cost-hA">Actor A (USA)</th>
+        <th style="width:20px"></th>
+        <th id="cost-hB">Actor B (China)</th>
+        <th style="width:20px"></th>
+        <th style="width:110px;text-align:left">Default rationale</th>
+      </tr>
+    </thead>
+    <tbody id="cost-tbody"></tbody>
+  </table>
+</div>
+
+<!-- BARRIERS (collapsible) -->
+<details>
+  <summary>Activation Barriers B<sub>k→j</sub> &nbsp;·&nbsp; Modifier → barrier suppression &nbsp;·&nbsp; TBD in calibration</summary>
+  <div class="dbody">
+    <div style="font-size:.58rem;color:var(--muted);font-family:var(--mono);margin-bottom:10px">
+      Attribution modifier suppresses all upward barriers (×(1 − attr×0.50)). Integration depth suppresses T3H→T4 barrier specifically (×(1 − intg×0.60)). Nuc gate blocks T5→T6 when Nuc &lt; 0.01.
+    </div>
+    <div class="bar-grid">
+      <div>
+        <div class="gt" style="margin-bottom:6px">Upward barriers (k → k+1)</div>
+        <div id="bar-up-inputs"></div>
+      </div>
+      <div>
+        <div class="gt" style="margin-bottom:6px">Downward barriers (k → k−1)</div>
+        <div id="bar-dn-inputs"></div>
+      </div>
+    </div>
+    <div style="margin-top:8px">
+      <div class="gt" style="margin-bottom:4px">Global model parameters (priors — v22; TBD in calibration)</div>
+      <div class="irow">
+        <label class="ilbl"><span class="sym">a<sub>0</sub></span><span class="dsub">U0 base</span></label>
+        <input class="ni" id="P_a0" type="number" value=".20" step=".05">
+        <label class="ilbl"><span class="sym">r<sub>D</sub></span><span class="dsub">D_k weight in U0</span></label>
+        <input class="ni" id="P_rD" type="number" value=".03" step=".01">
+        <label class="ilbl"><span class="sym">u<sub>Z</sub></span><span class="dsub">Shock weight in U↑</span></label>
+        <input class="ni" id="P_uZ" type="number" value=".55" step=".05">
+        <label class="ilbl"><span class="sym">λ<sub>+</sub></span><span class="dsub">Skip decay ↑</span></label>
+        <input class="ni" id="P_lp" type="number" value="1.20" step=".05">
+        <label class="ilbl"><span class="sym">λ<sub>−</sub></span><span class="dsub">Skip decay ↓</span></label>
+        <input class="ni" id="P_lm" type="number" value="1.20" step=".05">
+        <label class="ilbl"><span class="sym">δ</span><span class="dsub">Belief coupling weight</span></label>
+        <input class="ni" id="P_delta" type="number" value=".50" step=".05">
+      </div>
+    </div>
+  </div>
+</details>
+
+<!-- RESULTS -->
+<div class="res-grid" id="res-grid">
+  <div class="rcard" id="res-A"><span style="color:var(--muted);font-size:.7rem">Computing…</span></div>
+  <div class="rcard" id="res-B"><span style="color:var(--muted);font-size:.7rem">Computing…</span></div>
+  <div class="rcard" id="res-R"><span style="color:var(--muted);font-size:.7rem">Computing…</span></div>
+</div>
+
+<!-- PROMPT + IMPORT -->
+<div class="g2">
+  <div class="panel">
+    <div class="ph"><span class="ph-t sky">LLM Parameter Prompt (v25.0 Hardened)</span></div>
+    <textarea class="ta-p" id="prompt-out" readonly></textarea>
+    <button class="btn btn-a btn-w" onclick="copyPrompt(this)">Copy Prompt</button>
+  </div>
+  <div class="panel">
+    <div class="ph"><span class="ph-t em">Load Parameters (JSON)</span></div>
+    <textarea class="ta-i" id="imp" placeholder="Paste v25.0 JSON…"></textarea>
+    <button class="btn btn-e btn-w" onclick="importRun()">Execute v25.0 Model</button>
+    <div class="sep"></div>
+    <div style="display:flex;gap:6px;margin-top:4px">
+      <button class="btn btn-s" onclick="exportJSON()" style="flex:1;justify-content:center">{ } Export JSON</button>
+      <button class="btn btn-s" onclick="exportHTML()" style="flex:1;justify-content:center">⬇ Save Report</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  v25.0 MODEL CONSTANTS
+// ═══════════════════════════════════════════
+
+const TIERS = [
+  {k:0,id:'T0', label:'T0',  name:'Peace',               short:'Peace',   color:'#475569',bg:'#1e293b',rationale:'Absolute minimum; peace absorbs diplomatic costs'},
+  {k:1,id:'T1', label:'T1',  name:'Diplomatic Crisis',   short:'Diplo',   color:'#78716c',bg:'#1c1917',rationale:'Friction cost: envoys, PR, UN credibility'},
+  {k:2,id:'T2', label:'T2',  name:'Economic Coercion',   short:'Econ',    color:'#b45309',bg:'#1c1407',rationale:'Sanction burden raised; war tiers cheaper if coercion failing'},
+  {k:3,id:'T3', label:'T3',  name:'Proxy/Indirect',      short:'Proxy',   color:'#c2410c',bg:'#1c0a00',rationale:'Sustained selective support; blood/matériel via proxies'},
+  {k:4,id:'T3H',label:'T3H', name:'Gray-Zone Campaign',  short:'GrayZ',   color:'#991b1b',bg:'#1c0808',rationale:'Deniable kinetic campaign; low attributable cost, latched'},
+  {k:5,id:'T4', label:'T4',  name:'Limited Direct Mil',  short:'LimDir',  color:'#9f1239',bg:'#1c0712',rationale:'Open combat; blood/matériel spike, reputational commitment'},
+  {k:6,id:'T5', label:'T5',  name:'Strategic War',       short:'StratWar',color:'#7c3aed',bg:'#120a1c',rationale:'Sustained campaigns; peak exhaustion, global economy shock'},
+  {k:7,id:'T6', label:'T6',  name:'Nuclear Exchange',    short:'Nuclear', color:'#312e81',bg:'#0a0a1c',rationale:'Existential; nuclear gate required; peak of all costs'},
+];
+
+// Default upward barriers k→k+1 (indices 0..6)
+const B_UP_DEF = [0.35, 0.30, 0.25, 0.20, 0.30, 0.40, 0.60];
+// Default downward barriers k→k-1 (indices 1..7 → stored as 0..6 matching from-tier-1)
+const B_DN_DEF = [0.15, 0.20, 0.25, 0.15, 0.25, 0.30, 0.50];
+
+// Default occupancy costs per tier (reasonable priors for typical great-power dyad)
+const C_DEFAULT = [0.18, 0.32, 0.45, 0.50, 0.52, 0.65, 0.80, 0.95];
+
+// Confidence retention factors ρ_t (smaller = more salience)
+const RHO = {belief:0.80, forward:0.90, attribution:0.95, integration:0.92, stakes:0.95, intent:0.85, occupancy:0.75};
+
+// Diagnostic fallback weights (v22 priors)
+const DW = {
+  a1:0.30, a2:0.25, a3:0.20, a4:0.20, a5:0.15, a6:0.15, a7:0.50,
+  t1:0.35, t2:0.30, t3:0.20, t4:0.15,
+  r1:0.30, r2:0.25, r3:0.25, r4:0.20
+};
+
+let nA = 'USA', nB = 'China';
+
+// ═══════════════════════════════════════════
+//  BUILD UI ELEMENTS
+// ═══════════════════════════════════════════
+
+function buildBarrierInputs() {
+  const up = document.getElementById('bar-up-inputs');
+  const dn = document.getElementById('bar-dn-inputs');
+  for (let i = 0; i < 7; i++) {
+    const from = TIERS[i], to = TIERS[i+1];
+    up.innerHTML += `<div class="irow">
+      <label class="ilbl"><span class="sym" style="color:${from.color}">${from.label}</span>
+      <span style="color:var(--muted)">→</span>
+      <span class="sym" style="color:${to.color}">${to.label}</span></label>
+      <input class="ni" id="BU_${i}" type="number" min="0" max="2" step=".05" value="${B_UP_DEF[i]}">
+    </div>`;
+    dn.innerHTML += `<div class="irow">
+      <label class="ilbl"><span class="sym" style="color:${to.color}">${to.label}</span>
+      <span style="color:var(--muted)">→</span>
+      <span class="sym" style="color:${from.color}">${from.label}</span></label>
+      <input class="ni" id="BD_${i}" type="number" min="0" max="2" step=".05" value="${B_DN_DEF[i]}">
+    </div>`;
+  }
+}
+
+function buildCostTable() {
+  const hA = document.getElementById('cost-hA');
+  const hB = document.getElementById('cost-hB');
+  hA.textContent = nA;
+  hB.textContent = nB;
+  const tbody = document.getElementById('cost-tbody');
+  tbody.innerHTML = '';
+  TIERS.forEach((t, i) => {
+    const tr = document.createElement('tr');
+    tr.id = `ctr_${i}`;
+    tr.innerHTML = `
+      <td><span class="tier-pill" style="background:${t.bg};color:${t.color};border:1px solid ${t.color}40">${t.label} ${t.name}</span></td>
+      <td style="text-align:center">
+        <input class="ci" id="A_cost_${i}" type="number" min="0" max="1.5" step=".01" value="${C_DEFAULT[i]}" oninput="sync()">
+        <label style="display:inline-flex;align-items:center;gap:3px;font-size:.54rem;color:var(--muted);cursor:pointer;margin-left:4px">
+          <input type="checkbox" id="A_cost_${i}_abs" class="absent-chk" onchange="toggleCostAbs('A',${i})"> abs
+        </label>
+      </td>
+      <td></td>
+      <td style="text-align:center">
+        <input class="ci" id="B_cost_${i}" type="number" min="0" max="1.5" step=".01" value="${C_DEFAULT[i]}" oninput="sync()">
+        <label style="display:inline-flex;align-items:center;gap:3px;font-size:.54rem;color:var(--muted);cursor:pointer;margin-left:4px">
+          <input type="checkbox" id="B_cost_${i}_abs" class="absent-chk" onchange="toggleCostAbs('B',${i})"> abs
+        </label>
+      </td>
+      <td></td>
+      <td style="font-size:.55rem;color:var(--muted);font-family:var(--mono)">${t.rationale}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleCostAbs(p, i) {
+  const abs = document.getElementById(`${p}_cost_${i}_abs`).checked;
+  document.getElementById(`${p}_cost_${i}`).classList.toggle('dim', abs);
+  sync();
+}
+
+function highlightCurrentTierRow() {
+  const k = parseInt(document.getElementById('S_tier').value) || 0;
+  TIERS.forEach((_, i) => {
+    const tr = document.getElementById(`ctr_${i}`);
+    if (tr) tr.className = i === k ? 'cur-tier-row' : '';
+  });
+}
+
+function resetCosts() {
+  TIERS.forEach((_, i) => {
+    ['A','B'].forEach(p => {
+      const el = document.getElementById(`${p}_cost_${i}`);
+      const ab = document.getElementById(`${p}_cost_${i}_abs`);
+      if (el) el.value = C_DEFAULT[i];
+      if (ab) { ab.checked = false; el.classList.remove('dim'); }
+    });
+  });
+  sync();
+}
+
+// ═══════════════════════════════════════════
+//  STATE READING
+// ═══════════════════════════════════════════
+
+function gv(id) { const el = document.getElementById(id); return el ? parseFloat(el.value) || 0 : 0; }
+function gstr(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+function gb(id) { const el = document.getElementById(id); return el ? el.checked : false; }
+
+function readShared() {
+  return {
+    k: parseInt(gstr('S_tier')) || 0,
+    Omega: gv('S_Omega'), Xi: parseFloat(gstr('S_Xi')) || 0,
+    Dk: gv('S_Dk'), Wx: gv('S_Wx'),
+    ORA: gv('S_ORA'), Stal: gv('S_Stal'), Dip: gv('S_Dip'),
+    Shock: gv('S_Shock'), Nuc: gv('S_Nuc'), Vcon: gv('S_Vcon')
+  };
+}
+
+function readActor(p) {
+  const fmaAbs = gb(`${p}_fma_abs`);
+  const wdotAbs = gb(`${p}_wdot_abs`);
+  const sqbAbs = gb(`${p}_sqb_abs`);
+  const bst = gstr(`${p}_bst`);
+  const costs = TIERS.map((_, i) => ({
+    value: gv(`${p}_cost_${i}`),
+    absent: gb(`${p}_cost_${i}_abs`)
+  }));
+  return {
+    fma: fmaAbs ? null : gv(`${p}_fma`), fmaAbs,
+    wdot: wdotAbs ? null : gv(`${p}_wdot`), wdotAbs,
+    sqb: sqbAbs ? null : gv(`${p}_sqb`), sqbAbs,
+    hasNuke: parseInt(gstr(`${p}_nuke`)) || 0,
+    belief: {
+      state: bst,
+      delta: gv(`${p}_bdelta`),
+      conf: gv(`${p}_bconf`)
+    },
+    mods: {
+      attr: { v: gv(`${p}_attr`), st: gstr(`${p}_attr_st`) },
+      intg: { v: gv(`${p}_intg`), st: gstr(`${p}_intg_st`) },
+      stk:  { v: gv(`${p}_stk`),  st: gstr(`${p}_stk_st`) },
+      intent: { v: gv(`${p}_int`), st: gstr(`${p}_int_st`) }
+    },
+    costs
+  };
+}
+
+function readBarriers() {
+  const up = [], dn = [];
+  for (let i = 0; i < 7; i++) {
+    up.push(gv(`BU_${i}`) || B_UP_DEF[i]);
+    dn.push(gv(`BD_${i}`) || B_DN_DEF[i]);
+  }
+  return {up, dn};
+}
+
+function readParams() {
+  return {
+    a0: gv('P_a0') || 0.20,
+    rD: gv('P_rD') || 0.03,
+    uZ: gv('P_uZ') || 0.55,
+    lp: gv('P_lp') || 1.20,
+    lm: gv('P_lm') || 1.20,
+    delta: gv('P_delta') || 0.50
+  };
+}
+
+// ═══════════════════════════════════════════
+//  MODEL MATH
+// ═══════════════════════════════════════════
+
+function clip(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
+function sig(x) { return 1 / (1 + Math.exp(-Math.max(-30, Math.min(30, x)))); }
+
+function softmax3(a, b, c) {
+  const fa = isFinite(a), fb = isFinite(b), fc = isFinite(c);
+  const vals = [fa?a:-1e9, fb?b:-1e9, fc?c:-1e9];
+  const m = Math.max(...vals);
+  const e = vals.map(v => Math.exp(v - m));
+  if (!fa) e[0] = 0;
+  if (!fc) e[2] = 0;
+  const s = e.reduce((a,b)=>a+b, 0) || 1;
+  return e.map(v => v / s);
+}
+
+// Diagnostic fallback indices
+function computeEt(actor, sh) {
+  const FMA = actor.fmaAbs ? 0 : (actor.fma || 0);
+  const wdot = actor.wdotAbs ? 0 : (actor.wdot || 0);
+  const SQB = actor.sqbAbs ? 0.5 : (actor.sqb || 0);
+  return clip(DW.a1*sh.Omega + DW.a2*sh.Xi + DW.a3*FMA + DW.a4*wdot + DW.a5*SQB + DW.a6*sh.Vcon + DW.a7*(sh.Omega*sh.Xi), 0, 1);
+}
+function computeDt(actor, sh) {
+  const SQB = actor.sqbAbs ? 0.5 : (actor.sqb || 0);
+  return clip(DW.t1*sh.Wx + DW.t2*sh.Dip + DW.t3*(1-SQB) - DW.t4*sh.Vcon, 0, 1);
+}
+function computeSt(sh) {
+  return clip(DW.r1*sh.Stal + DW.r2*sh.ORA + DW.r3*Math.min(sh.Dk/10, 1) + DW.r4*sh.Vcon, 0, 1);
+}
+
+function runDirection(actor, sh, bars, params) {
+  const k = sh.k;
+  const n = TIERS.length;
+
+  // Determine occupancy coverage for transitions around k
+  const cUp = k < n-1 ? (!actor.costs[k].absent && !actor.costs[k+1].absent) : false;
+  const cDn = k > 0   ? (!actor.costs[k].absent && !actor.costs[k-1].absent) : true;
+  const anyOccupancyAbsent = actor.costs.some(c => c.absent);
+
+  // Model member
+  const beliefObs = actor.belief.state === 'observed';
+  const wdotObs = !actor.wdotAbs;
+  const useDiag = !cUp && k < n-1; // can't compute upward gradient if costs absent
+  let member = 'full';
+  if (!beliefObs) member = 'public';
+  if (!wdotObs && member !== 'diagnostic') member = member === 'full' ? 'myopic' : member;
+  if (useDiag) member = 'diagnostic';
+
+  // Effective barriers with modifier suppression
+  const bUp = [...bars.up];
+  const bDn = [...bars.dn];
+  const attr = actor.mods.attr;
+  const intg = actor.mods.intg;
+  if (attr.st === 'observed') {
+    for (let i = 0; i < bUp.length; i++) bUp[i] *= (1 - attr.v * 0.50);
+  }
+  if (intg.st === 'observed') {
+    bUp[4] *= (1 - intg.v * 0.60); // T3H→T4 suppression
+  }
+
+  // Movement scores
+  let U_up, U_dn, U_0;
+  let Et = 0, Dt = 0, St = 0;
+
+  if (useDiag) {
+    Et = computeEt(actor, sh);
+    Dt = computeDt(actor, sh);
+    St = computeSt(sh);
+    const Bup = k < n-1 ? bUp[k] : 0;
+    const Bdn = k > 0 ? bDn[k-1] : 0;
+    U_up = Et - Bup + params.uZ * sh.Shock;
+    U_dn = Dt - Bdn;
+    U_0  = params.a0 + 0.8 * St + params.rD * sh.Dk;
+  } else {
+    const C = actor.costs.map(c => c.value);
+    const Bup = k < n-1 ? bUp[k] : 0;
+    const Bdn = k > 0 ? bDn[k-1] : 0;
+
+    // Belief coupling adjustment
+    let beliefAdj = 0;
+    if (beliefObs) {
+      const delta = params.delta;
+      // Positive delta-adj = escalation perceived as more costly (deterrent belief)
+      // Negative = escalation cheaper (emboldening belief)
+      beliefAdj = -delta * actor.belief.delta * actor.belief.conf;
+    }
+
+    // Forward-looking (coarse: closing window adds urgency to escalate)
+    let fwdAdj = 0;
+    if (wdotObs) {
+      const gamma = 0.25; // TBD
+      fwdAdj = gamma * (actor.wdot || 0) * 0.15;
+    }
+
+    U_up = k < n-1 ? (C[k] - C[k+1]) - Bup + params.uZ * sh.Shock + beliefAdj + fwdAdj : -Infinity;
+    U_dn = k > 0   ? (C[k] - C[k-1]) - Bdn : -Infinity;
+    U_0  = params.a0 + params.rD * sh.Dk;
+  }
+
+  // Nuclear gate at T5→T6
+  if (k === 6 && sh.Nuc < 0.01) U_up = -Infinity;
+  // Boundary
+  if (k === 0) U_dn = -Infinity;
+  if (k === n-1) U_up = -Infinity;
+
+  const [pDn, pZr, pUp] = softmax3(U_dn, U_0, U_up);
+
+  // Upward allocation ω+
+  const FMA = actor.fmaAbs ? 0 : (actor.fma || 0);
+  const wdot = actor.wdotAbs ? 0 : (actor.wdot || 0);
+  const Sigma = Math.pow(FMA, 1) * Math.pow(wdot, 1) * Math.pow(sh.ORA, 1) * Math.max(0, 1 - Math.pow(sh.Nuc, 1));
+  const lp = params.lp;
+  const upAlloc = [];
+  for (let j = k+1; j < n; j++) {
+    if (j === n-1 && sh.Nuc < 0.01) { upAlloc.push(0); continue; }
+    upAlloc.push(Math.exp(-lp * (j-k-1) * (1 - Sigma)));
+  }
+  const upSum = upAlloc.reduce((a,b)=>a+b, 0) || 1;
+  const omegaUp = upAlloc.map(w => w / upSum);
+
+  // Downward allocation ω- (bimodal)
+  const c0 = -1.0, cW = 2.0, cDip = 1.5, cStal = 1.5, cORA = 1.0;
+  const kappa = sig(c0 + cW*sh.Wx + cDip*sh.Dip - cStal*sh.Stal - cORA*sh.ORA);
+  const lm = params.lm;
+  const dnItems = [];
+  for (let j = k-1; j >= 0; j--) {
+    const dist = k - j - 1;
+    const step = Math.exp(-lm * dist);
+    const collapse = j === 0 ? 1 : 0;
+    dnItems.push({j, w: (1-kappa)*step + kappa*collapse});
+  }
+  const dnSum = dnItems.reduce((a,b) => a+b.w, 0) || 1;
+  const omegaDn = dnItems.map(d => ({j: d.j, w: d.w / dnSum}));
+
+  // Compose π
+  const pi = new Array(n).fill(0);
+  pi[k] = pZr;
+  omegaDn.forEach(d => { pi[d.j] = pDn * d.w; });
+  omegaUp.forEach((w, idx) => { if (k+1+idx < n) pi[k+1+idx] = pUp * w; });
+
+  return {U_up, U_dn, U_0, pDn, pZr, pUp, pi, member, Et, Dt, St, Sigma, kappa, beliefObs, wdotObs, useDiag};
+}
+
+function reconcile(dA, dB, k) {
+  const pUp = Math.max(dA.pUp, dB.pUp);
+  const pDn = k === 0 ? 0 : Math.min(dA.pDn, dB.pDn);
+  const pZr = Math.max(0, 1 - pUp - pDn);
+  return {pUp, pDn, pZr};
+}
+
+// Coverage & confidence
+function getCoverage(actor) {
+  const items = [];
+  const check = (name, state) => items.push({name, state});
+  check('Belief(δΦ)', actor.belief.state);
+  check('γ(-Ẇ)', actor.wdotAbs ? 'absent' : 'observed');
+  check('Attribution', actor.mods.attr.st);
+  check('Integration', actor.mods.intg.st);
+  check('Stakes', actor.mods.stk.st);
+  check('Intent/Sel', actor.mods.intent.st);
+  const costsObs = actor.costs.every(c => !c.absent);
+  check('CostField', costsObs ? 'observed' : (actor.costs.some(c => !c.absent) ? 'defaulted' : 'absent'));
+  const conf = items.reduce((acc, item) => {
+    const key = item.name.includes('Belief') ? 'belief'
+      : item.name.includes('γ') ? 'forward'
+      : item.name.includes('Attribution') ? 'attribution'
+      : item.name.includes('Integration') ? 'integration'
+      : item.name.includes('Stakes') ? 'stakes'
+      : item.name.includes('Intent') ? 'intent' : 'occupancy';
+    return item.state !== 'observed' ? acc * RHO[key] : acc;
+  }, 1.0);
+  return {items, conf};
+}
+
+// ═══════════════════════════════════════════
+//  RENDER FUNCTIONS
+// ═══════════════════════════════════════════
+
+const TC = TIERS.map(t => t.color);
+const TBG = TIERS.map(t => t.bg);
+
+function renderBar(pi) {
+  return pi.map((p, i) => {
+    const w = (p*100).toFixed(1);
+    return `<div class="sseg" style="width:${w}%;background:${TC[i]}" title="${TIERS[i].label}: ${w}%">${p>.09?w+'%':''}</div>`;
+  }).join('');
+}
+
+function renderPGrid(pi, k) {
+  return pi.map((p, i) => {
+    const isK = i === k;
+    return `<div class="pcell" style="${isK?'background:rgba(245,158,11,.08);border-radius:3px;outline:1px solid rgba(245,158,11,.3)':''}">
+      ${isK?`<div style="font-size:.44rem;color:var(--amber);font-weight:700;font-family:var(--mono)">X_t</div>`:''}
+      <div class="plbl" style="color:${TC[i]}">${TIERS[i].label}</div>
+      <div class="pval" style="color:${TC[i]};${isK?'font-size:.85rem;':''}">${(p*100).toFixed(1)}%</div>
+      <div class="pbar" style="background:${TC[i]};width:${Math.min(100,p*100*1.4).toFixed(0)}%"></div>
+    </div>`;
+  }).join('');
+}
+
+function memberBadge(m) {
+  const map = {full:'b-full', public:'b-pub', myopic:'b-myop', diagnostic:'b-diag'};
+  const labels = {full:'Full Model', public:'Public (δ=0)', myopic:'Myopic (γ=0)', diagnostic:'Diagnostic Fallback'};
+  return `<span class="badge ${map[m]||'b-diag'}">${labels[m]||m}</span>`;
+}
+
+function renderDirCard(label, dir, sh, actor) {
+  const k = sh.k;
+  const risk = 1 - dir.pi[0];
+  const rc = risk < .03 ? '#64748b' : risk < .10 ? '#f59e0b' : risk < .25 ? '#fb923c' : '#ef4444';
+  const pUpPct = k === 7 ? 'N/A' : (dir.pUp*100).toFixed(1)+'%';
+  const pDnPct = k === 0 ? 'N/A' : (dir.pDn*100).toFixed(1)+'%';
+
+  return `
+  <div class="rcard-hdr">
+    <div>
+      <div class="rcard-name">${label}</div>
+      <div style="margin-top:3px">${memberBadge(dir.member)}</div>
+    </div>
+    <div class="rcard-risk">
+      <span class="risk-lbl">non-peace risk</span>
+      <span class="risk-val" style="color:${rc}">${(risk*100).toFixed(1)}%</span>
+    </div>
+  </div>
+  <div class="sbar">${renderBar(dir.pi)}</div>
+  <div class="pgrid">${renderPGrid(dir.pi, k)}</div>
+  <div class="dir-row">
+    ${k===0
+      ? `<div class="dir-card" style="border-color:var(--muted2);opacity:.4"><span class="dir-pct" style="color:var(--muted)">N/A</span><span class="dir-lbl" style="color:var(--muted)">P↓ de-escalate</span></div>`
+      : `<div class="dir-card" style="border-color:var(--emerald);background:var(--emerald-bg)">
+          <span class="dir-pct" style="color:var(--emerald)">${pDnPct}</span>
+          <span class="dir-lbl" style="color:var(--emerald-d)">P↓ de-escalate</span>
+        </div>`}
+    <div class="dir-card" style="border-color:var(--muted2);background:var(--surf2)">
+      <span class="dir-pct" style="color:var(--muted)">${(dir.pZr*100).toFixed(1)}%</span>
+      <span class="dir-lbl" style="color:var(--muted)">${k===0?'P0 remain at peace':'P0 persist'}</span>
+    </div>
+    ${k===7
+      ? `<div class="dir-card" style="border-color:var(--muted2);opacity:.4"><span class="dir-pct" style="color:var(--muted)">N/A</span><span class="dir-lbl" style="color:var(--muted)">P↑ escalate</span></div>`
+      : `<div class="dir-card" style="border-color:${dir.pUp>.25?'var(--red)':'var(--amber)'};background:${dir.pUp>.25?'var(--red-bg)':'var(--amber-bg)'}">
+          <span class="dir-pct" style="color:${dir.pUp>.25?'#fca5a5':'var(--amber)'}">${pUpPct}</span>
+          <span class="dir-lbl" style="color:${dir.pUp>.25?'#dc2626':'var(--amber-d)'}">P↑ escalate</span>
+        </div>`}
+  </div>
+  <div class="met-row">
+    <div class="met"><span class="ml">U↑</span><span class="mv">${isFinite(dir.U_up)?dir.U_up.toFixed(2):'−∞'}</span></div>
+    <div class="met"><span class="ml">U0</span><span class="mv">${dir.U_0.toFixed(2)}</span></div>
+    <div class="met"><span class="ml">U↓</span><span class="mv">${isFinite(dir.U_dn)?dir.U_dn.toFixed(2):'−∞'}</span></div>
+    <div class="met"><span class="ml">Σ↑ (skip)</span><span class="mv" style="color:var(--violet)">${dir.Sigma.toFixed(3)}</span></div>
+    ${dir.useDiag
+      ? `<div class="met"><span class="ml">E_t (diag)</span><span class="mv" style="color:var(--amber)">${dir.Et.toFixed(3)}</span></div>
+         <div class="met"><span class="ml">D_t (diag)</span><span class="mv" style="color:var(--emerald)">${dir.Dt.toFixed(3)}</span></div>
+         <div class="met"><span class="ml">S_t (diag)</span><span class="mv">${dir.St.toFixed(3)}</span></div>`
+      : `<div class="met"><span class="ml">belief adj</span><span class="mv">${dir.beliefObs?'active':'δ=0'}</span></div>
+         <div class="met"><span class="ml">fwd (γ)</span><span class="mv">${dir.wdotObs?'active':'γ=0'}</span></div>
+         <div class="met"><span class="ml">κ (collapse)</span><span class="mv">${dir.kappa.toFixed(3)}</span></div>`}
+  </div>
+  ${dir.useDiag
+    ? `<div class="enote en-a">⚠ Diagnostic fallback — cost-field occupancy absent → using E_t/D_t/S_t indices. Degrade-flagged in coverage.</div>`
+    : `<div class="enote en-s">Cost-gradient engine active. ${dir.beliefObs?'Belief coupling (δΦ) applied.':'Belief absent → δ=0 (public member).'} ${dir.wdotObs?'Forward-looking term (γ) active.':'γ=0 (myopic).'}</div>`}`;
+}
+
+function renderReconciled(pUp, pDn, pZr, k, piA, piB) {
+  // Compose reconciled π from reconciled directions + average of actor allocations
+  const n = TIERS.length;
+  const piRec = new Array(n).fill(0);
+  piRec[k] = pZr;
+  for (let j = 0; j < k; j++) {
+    const avgW = ((piA[j] / (piA.slice(0,k).reduce((a,b)=>a+b,0)||1)) + (piB[j] / (piB.slice(0,k).reduce((a,b)=>a+b,0)||1))) / 2;
+    piRec[j] = pDn * avgW;
+  }
+  for (let j = k+1; j < n; j++) {
+    const avgW = ((piA[j] / (piA.slice(k+1).reduce((a,b)=>a+b,0)||1)) + (piB[j] / (piB.slice(k+1).reduce((a,b)=>a+b,0)||1))) / 2;
+    piRec[j] = pUp * avgW;
+  }
+  const risk = 1 - piRec[0];
+  const rc = risk < .03 ? '#64748b' : risk < .10 ? '#f59e0b' : risk < .25 ? '#fb923c' : '#ef4444';
+  const pUpPct = k===7?'N/A':(pUp*100).toFixed(1)+'%';
+  const pDnPct = k===0?'N/A':(pDn*100).toFixed(1)+'%';
+
+  return `
+  <div class="rcard-hdr">
+    <div>
+      <div class="rcard-name" id="rec-name">Reconciled (A↔B)</div>
+      <div style="font-size:.56rem;color:var(--muted);font-family:var(--mono);margin-top:2px">P↑=max(A,B) · P↓=min(A,B) · §3.6</div>
+    </div>
+    <div class="rcard-risk">
+      <span class="risk-lbl">conflict risk</span>
+      <span class="risk-val" style="color:${rc}">${(risk*100).toFixed(1)}%</span>
+    </div>
+  </div>
+  <div class="sbar">${renderBar(piRec)}</div>
+  <div class="pgrid">${renderPGrid(piRec, k)}</div>
+  <div class="dir-row">
+    ${k===0
+      ? `<div class="dir-card" style="border-color:var(--muted2);opacity:.4"><span class="dir-pct" style="color:var(--muted)">N/A</span><span class="dir-lbl" style="color:var(--muted)">P↓ mutual consent</span></div>`
+      : `<div class="dir-card" style="border-color:var(--emerald);background:var(--emerald-bg)">
+          <span class="dir-pct" style="color:var(--emerald)">${pDnPct}</span>
+          <span class="dir-lbl" style="color:var(--emerald-d)">P↓ mutual consent</span>
+        </div>`}
+    <div class="dir-card" style="border-color:var(--muted2);background:var(--surf2)">
+      <span class="dir-pct" style="color:var(--muted)">${(pZr*100).toFixed(1)}%</span>
+      <span class="dir-lbl" style="color:var(--muted)">P0 persist</span>
+    </div>
+    ${k===7
+      ? `<div class="dir-card" style="border-color:var(--muted2);opacity:.4"><span class="dir-pct" style="color:var(--muted)">N/A</span><span class="dir-lbl" style="color:var(--muted)">P↑ unilateral</span></div>`
+      : `<div class="dir-card" style="border-color:${pUp>.25?'var(--red)':'var(--amber)'};background:${pUp>.25?'var(--red-bg)':'var(--amber-bg)'}">
+          <span class="dir-pct" style="color:${pUp>.25?'#fca5a5':'var(--amber)'}">${pUpPct}</span>
+          <span class="dir-lbl" style="color:${pUp>.25?'#dc2626':'var(--amber-d)'}">P↑ unilateral</span>
+        </div>`}
+  </div>
+  <div class="enote en-s">Escalation: unilaterally enforceable → max. De-escalation: requires mutual consent → min. Integration depth can make a patron the gating actor.</div>
+  <div class="enote en-v" style="margin-top:3px">‖π<sup>full</sup>−π<sup>public</sup>‖ divergence = signal of privileged belief contribution. Run both model members to compute.</div>`;
+}
+
+// ═══════════════════════════════════════════
+//  COVERAGE VECTOR DISPLAY
+// ═══════════════════════════════════════════
+
+function updateCoverage(covA, covB, memberA, memberB) {
+  const covItems = document.getElementById('cov-items');
+  const memberWrap = document.getElementById('member-wrap');
+  const covConf = document.getElementById('cov-conf');
+
+  const allItems = [
+    ...covA.items.map(i => ({...i, dir:'A'})),
+    ...covB.items.map(i => ({...i, dir:'B'}))
+  ];
+
+  // Deduplicate by state precedence (absent > defaulted > observed)
+  const deduped = {};
+  allItems.forEach(item => {
+    const key = item.name;
+    if (!deduped[key]) deduped[key] = item;
+    else if (item.state === 'absent' || (item.state === 'defaulted' && deduped[key].state === 'observed')) {
+      deduped[key] = item;
+    }
+  });
+
+  covItems.innerHTML = Object.values(deduped).map(item => {
+    const cls = item.state === 'observed' ? 'cov-obs' : item.state === 'defaulted' ? 'cov-def' : 'cov-abs';
+    const icon = item.state === 'observed' ? '✓' : item.state === 'defaulted' ? '~' : '∅';
+    return `<span class="cov-item ${cls}">${icon} ${item.name}</span>`;
+  }).join('');
+
+  const confMin = Math.min(covA.conf, covB.conf);
+  const confColor = confMin > .85 ? 'var(--emerald)' : confMin > .70 ? 'var(--amber)' : '#fca5a5';
+  covConf.innerHTML = `<span style="color:var(--muted);font-size:.58rem">conf: </span><span style="color:${confColor}">${(confMin*100).toFixed(0)}%</span>`;
+
+  // Member display
+  const dominantMember = [memberA, memberB].includes('diagnostic') ? 'diagnostic'
+    : [memberA, memberB].includes('myopic') ? 'myopic'
+    : [memberA, memberB].includes('public') ? 'public' : 'full';
+  memberWrap.innerHTML = `<span style="font-size:.58rem;color:var(--muted);margin-right:3px">Active member:</span>${memberBadge(dominantMember)}`;
+}
+
+// ═══════════════════════════════════════════
+//  MAIN SYNC / UPDATE
+// ═══════════════════════════════════════════
+
+function sync() {
+  nA = document.getElementById('g_nA').value || 'A';
+  nB = document.getElementById('g_nB').value || 'B';
+  document.getElementById('ttlA').textContent = `${nA} → ${nB}  (A→B)`;
+  document.getElementById('ttlB').textContent = `${nB} → ${nA}  (B→A)`;
+  document.getElementById('cost-hA').textContent = nA;
+  document.getElementById('cost-hB').textContent = nB;
+  highlightCurrentTierRow();
+
+  // Sync belief row visibility
+  ['A','B'].forEach(p => {
+    const vis = document.getElementById(`${p}_bst`).value === 'observed';
+    ['brow1','brow2'].forEach(r => {
+      const el = document.getElementById(`${p}_${r}`);
+      if (el) el.style.opacity = vis ? '1' : '0.3';
+    });
+  });
+
+  const sh = readShared();
+  const actA = readActor('A');
+  const actB = readActor('B');
+  const bars = readBarriers();
+  const params = readParams();
+
+  const dirA = runDirection(actA, sh, bars, params);
+  const dirB = runDirection(actB, sh, bars, params);
+  const rec = reconcile(dirA, dirB, sh.k);
+
+  const covA = getCoverage(actA);
+  const covB = getCoverage(actB);
+
+  // Render
+  document.getElementById('res-A').innerHTML = renderDirCard(`${nA}→${nB}`, dirA, sh, actA);
+  document.getElementById('res-B').innerHTML = renderDirCard(`${nB}→${nA}`, dirB, sh, actB);
+  document.getElementById('res-R').innerHTML = renderReconciled(rec.pUp, rec.pDn, rec.pZr, sh.k, dirA.pi, dirB.pi);
+
+  updateCoverage(covA, covB, dirA.member, dirB.member);
+  genPrompt(actA, actB, sh, dirA, dirB, rec);
+}
+
+// ═══════════════════════════════════════════
+//  SLIDER ↔ NUMBER SYNC
+// ═══════════════════════════════════════════
+
+function wireSliders() {
+  document.querySelectorAll('input[type=range]').forEach(sl => {
+    const nm = document.getElementById(sl.id.replace(/_s$/, ''));
+    if (!nm) return;
+    sl.addEventListener('input', () => { nm.value = parseFloat(sl.value).toFixed(sl.step && sl.step.includes('.01') ? 2 : sl.step && sl.step.includes('.1') ? 1 : 2); sync(); });
+    nm.addEventListener('input', () => { sl.value = nm.value; sync(); });
+  });
+  document.querySelectorAll('input[type=checkbox], select').forEach(el => {
+    el.addEventListener('change', sync);
+  });
+  document.querySelectorAll('.ni:not(input[type=range])').forEach(el => {
+    if (!el.id.endsWith('_s')) el.addEventListener('input', sync);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  LLM PROMPT (v25.0 Hardened)
+// ═══════════════════════════════════════════
+
+function getMoStr() {
+  const n = parseInt(document.getElementById('g_mo').value);
+  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][n-1];
+}
+
+function genPrompt(actA, actB, sh, dirA, dirB, rec) {
+  const yr = document.getElementById('g_yr').value;
+  const mo = getMoStr();
+  const k = sh.k;
+  const tier = TIERS[k];
+
+  const snap = JSON.stringify({
+    meta: {version:'UIW-v25.0', year:parseInt(yr), month:mo, A:nA, B:nB, currentTier:k, tierLabel:tier.id, tierName:tier.name},
+    [nA+'_to_'+nB]: {
+      fma: actA.fmaAbs ? 'ABSENT' : actA.fma,
+      wdot: actA.wdotAbs ? 'ABSENT' : actA.wdot,
+      sqb: actA.sqbAbs ? 'ABSENT' : actA.sqb,
+      hasNuke: actA.hasNuke,
+      belief: actA.belief,
+      modifiers: actA.mods,
+      occupancyCosts: Object.fromEntries(TIERS.map((t,i) => [t.id, actA.costs[i].absent ? 'ABSENT' : actA.costs[i].value]))
+    },
+    [nB+'_to_'+nA]: {
+      fma: actB.fmaAbs ? 'ABSENT' : actB.fma,
+      wdot: actB.wdotAbs ? 'ABSENT' : actB.wdot,
+      sqb: actB.sqbAbs ? 'ABSENT' : actB.sqb,
+      hasNuke: actB.hasNuke,
+      belief: actB.belief,
+      modifiers: actB.mods,
+      occupancyCosts: Object.fromEntries(TIERS.map((t,i) => [t.id, actB.costs[i].absent ? 'ABSENT' : actB.costs[i].value]))
+    },
+    shared: sh
+  }, null, 2);
+
+  document.getElementById('prompt-out').value =
+`ROLE: Quantitative IR analyst with web search access (UIW v25.0 coder).
+TASK: Review the parameter snapshot and return a corrected JSON for v25.0. Search first.
+
+━━━ DYAD ━━━
+${nA} vs ${nB}, ${mo} ${yr} | Current tier: ${tier.id} — ${tier.name}
+
+━━━ STEP 1 — MANDATORY SEARCH ━━━
+Search "${nA} ${nB} relations ${mo} ${yr}" and related queries.
+Document: active conflict instruments, durations, negotiations, nuclear posture,
+AND any of the following time-dynamics: resource depletion, mobilization races,
+shifting relative power, deadlines, or "now vs later" framing by either side.
+
+━━━ STEP 2 — TIER ASSIGNMENT (8-tier T0–T6, ordered adjacency) ━━━
+T0 Peace → T1 Diplomatic Crisis → T2 Economic Coercion → T3 Proxy/Indirect →
+T3H Gray-Zone Campaign (sustained deniable) → T4 Limited Direct → T5 Strategic War → T6 Nuclear
+
+Rules: assign highest tier fully supported. T2 triggers on any deployed economic instrument.
+T3 requires sustained+selective+targeted+corroborated. T3H requires sustainment (latched state).
+Is current tier (${tier.id}) correct? State corrected tier and evidence if not.
+
+━━━ STEP 3 — COST FIELD REVIEW (occupancy costs C_i(j) ∈ [0,1.5]) ━━━
+Enter per-tier, per-actor. These are costs of OCCUPYING each tier, not of moving to it.
+Mark 'ABSENT' if unobservable (degrades to diagnostic-fallback for that transition).
+
+THE GRADIENT IS THE PHYSICS. The model escalates actor i from tier k only when
+C_i(k) − C_i(k+1) is large relative to the barrier. So:
+  • If your narrative says an actor finds its CURRENT tier intolerable (e.g. a blockade
+    or embargo that worsens over time), C_i(k) must be HIGH.
+  • If your narrative says war looked preferable to the status quo, the war tiers must be
+    LOWER than C_i(k). Do not code a monotonically rising cost ladder for an actor you are
+    describing as cornered — that encodes the opposite of your own argument.
+  • Actors are usually asymmetric. A side already mobilized/at war elsewhere has lower
+    marginal war-tier costs than an unmobilized side. Do not copy one actor's ladder to the other.
+
+━━━ STEP 3.5 — DIRECTIONAL DYNAMICS (the most common coding failure) ━━━
+These two variables switch the model's preventive-war engine on or off. If your Step 1
+research surfaced ANY time-pressure or first-strike logic, you MUST encode it here, or the
+model silently goes myopic and under-predicts escalation.
+
+  • Closing Window  −Ẇ_{i→j} ∈ [0,1], directional.
+    Set HIGH (0.7–0.9) whenever a side believes waiting makes its position worse:
+    resource strangulation, an adversary's accelerating rearmament, a draining stockpile,
+    a deadline. −Ẇ = 0 means "no time pressure, indifferent to timing." Setting −Ẇ = 0 for
+    an actor you described as cornered or running out of time is a coding error.
+  • First-Mover Advantage  FMA_{i→j} ∈ [0,1], directional.
+    Set HIGH (0.6–0.8) when a side plans or benefits from striking first (surprise attack,
+    pre-emption, knocking out the adversary's key assets before they're ready).
+
+Consistency rule: if your narrative uses the words "strangled," "cornered," "running out,"
+"deadline," "pre-empt," "surprise," or "window closing" for an actor, that actor's −Ẇ and/or
+FMA cannot be near zero.
+
+━━━ STEP 4 — BELIEF TERM (state: observed | absent) ━━━
+Belief state = absent → δ=0, public/belief-blind member (safe default for open-source coding).
+Belief state = observed → enter delta-adj ∈ [−0.30, +0.30] and confidence ∈ [0,1].
+Positive delta-adj = actor thinks counterpart will RESIST (deterring belief).
+Negative delta-adj = actor thinks counterpart will FOLD (emboldening — escalation looks cheaper).
+Warning: confidently-wrong belief (high conf, wrong sign) is the most dangerous configuration.
+
+━━━ STEP 5 — MODIFIER VECTOR (state: observed | defaulted | absent) ━━━
+Attribution [0,1]: deniability; absent = no barrier suppression (conservative default).
+Integration depth [0,1]: patron entanglement; absent = no T3H→T4 barrier suppression.
+Stakes [0,1]: carried by Ω×Ξ. NOTE: if Ξ (contiguity) = 0, the stakes interaction is zeroed
+  even when stakes are existential. For a shared/contested theater without land border
+  (e.g. a naval theater), code Ξ = 0.5 rather than 0 so stakes can register.
+Intent/selectivity [0,1]: T3 entry gate; absent → classification fallback, possibly fail-loud.
+
+━━━ STEP 6 — NARRATIVE (4–6 sentences) ━━━
+Evidence for tier · dominant dynamic · negotiations · nuclear dimension · de-escalation capacity.
+
+━━━ SELF-CONSISTENCY CHECK (do this before emitting) ━━━
+Re-read your narrative. For each claim about an actor's incentives, confirm the numbers agree:
+  1. "Cornered / strangled / status quo intolerable" → that actor's C(k) is high AND war tiers
+     are lower than C(k). Verify the sign of C(k) − C(k+1).
+  2. "Running out of time / declining relative power / deadline" → that actor's −Ẇ ≥ 0.7.
+  3. "Plans to strike first / surprise attack" → that actor's FMA ≥ 0.6.
+  4. "No nuclear weapons in this era" → hasNuke = 0 for both AND Nuc ≤ 0.05.
+If any narrative claim has no matching number, fix the number, not the narrative.
+
+━━━ OUTPUT ━━━
+Return ONLY the corrected JSON — no preamble, no markdown fences.
+Preserve exact key structure. Change only what the steps clearly support.
+Set input_state per variable: observed | defaulted | absent.
+
+${snap}`;
+}
+
+function copyPrompt(btn) {
+  const ta = document.getElementById('prompt-out');
+  ta.select(); ta.setSelectionRange(0, 999999);
+  document.execCommand('copy');
+  const t = btn.textContent; btn.textContent = 'Copied ✓'; btn.style.background = '#047857';
+  setTimeout(() => { btn.textContent = t; btn.style.background = ''; }, 1600);
+}
+
+// ═══════════════════════════════════════════
+//  IMPORT / EXPORT
+// ═══════════════════════════════════════════
+
+function setV(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = val;
+  const sl = document.getElementById(id + '_s');
+  if (sl) sl.value = val;
+}
+
+function importRun() {
+  try {
+    let raw = document.getElementById('imp').value;
+    const m = raw.match(/\{[\s\S]*\}/);
+    if (!m) throw new Error('No JSON found');
+    const d = JSON.parse(m[0]);
+    const meta = d.meta || {};
+    if (meta.year) setV('g_yr', meta.year);
+    if (meta.A) document.getElementById('g_nA').value = meta.A;
+    if (meta.B) document.getElementById('g_nB').value = meta.B;
+    if (meta.currentTier !== undefined) document.getElementById('S_tier').value = meta.currentTier;
+
+    const keys = Object.keys(d).filter(k => k !== 'meta' && k !== 'shared');
+    const objA = d[keys[0]] || {};
+    const objB = d[keys[1]] || {};
+    const sh = d.shared || {};
+
+    const importActor = (obj, p) => {
+      if (obj.fma === 'ABSENT') { document.getElementById(`${p}_fma_abs`).checked = true; }
+      else if (obj.fma !== undefined) setV(`${p}_fma`, obj.fma);
+      if (obj.wdot === 'ABSENT') { document.getElementById(`${p}_wdot_abs`).checked = true; }
+      else if (obj.wdot !== undefined) setV(`${p}_wdot`, obj.wdot);
+      if (obj.sqb === 'ABSENT') { document.getElementById(`${p}_sqb_abs`).checked = true; }
+      else if (obj.sqb !== undefined) setV(`${p}_sqb`, obj.sqb);
+      if (obj.hasNuke !== undefined) document.getElementById(`${p}_nuke`).value = obj.hasNuke;
+      if (obj.belief) {
+        if (obj.belief.state) document.getElementById(`${p}_bst`).value = obj.belief.state;
+        if (obj.belief.delta !== undefined) setV(`${p}_bdelta`, obj.belief.delta);
+        if (obj.belief.conf !== undefined) setV(`${p}_bconf`, obj.belief.conf);
+      }
+      if (obj.modifiers) {
+        const ms = obj.modifiers;
+        ['attr','intg','stk','int'].forEach(k => {
+          const mod = ms[k === 'intg' ? 'intg' : k === 'stk' ? 'stk' : k === 'int' ? 'intent' : 'attr'] || ms[k];
+          if (mod) {
+            if (mod.v !== undefined) setV(`${p}_${k}`, mod.v);
+            if (mod.st) document.getElementById(`${p}_${k}_st`).value = mod.st;
+          }
+        });
+      }
+      if (obj.occupancyCosts) {
+        TIERS.forEach((t, i) => {
+          const v = obj.occupancyCosts[t.id];
+          if (v === 'ABSENT') {
+            document.getElementById(`${p}_cost_${i}_abs`).checked = true;
+            document.getElementById(`${p}_cost_${i}`).classList.add('dim');
+          } else if (v !== undefined) {
+            setV(`${p}_cost_${i}`, v);
+          }
+        });
+      }
+    };
+
+    importActor(objA, 'A');
+    importActor(objB, 'B');
+
+    if (sh.k !== undefined) document.getElementById('S_tier').value = sh.k;
+    ['Omega','Xi','Dk','Wx','ORA','Stal','Dip','Shock','Nuc','Vcon'].forEach(k => {
+      if (sh[k] !== undefined) {
+        if (k === 'Xi') document.getElementById('S_Xi').value = sh[k];
+        else setV(`S_${k}`, sh[k]);
+      }
+    });
+
+    sync();
+    const btn = document.querySelector('.btn-e');
+    btn.textContent = 'Executed ✓'; btn.style.background = '#065f46';
+    setTimeout(() => { btn.textContent = 'Execute v25.0 Model'; btn.style.background = ''; }, 2000);
+  } catch(e) { alert('Import error: ' + e.message); }
+}
+
+function exportJSON() {
+  const sh = readShared();
+  const actA = readActor('A');
+  const actB = readActor('B');
+  const bars = readBarriers();
+  const params = readParams();
+  const dirA = runDirection(actA, sh, bars, params);
+  const dirB = runDirection(actB, sh, bars, params);
+  const rec = reconcile(dirA, dirB, sh.k);
+  const out = {
+    meta: {model:'UIW-v25.0', saved: new Date().toISOString(), A:nA, B:nB, year:document.getElementById('g_yr').value, month:getMoStr()},
+    [nA+'_to_'+nB]: {fma:actA.fmaAbs?'ABSENT':actA.fma, wdot:actA.wdotAbs?'ABSENT':actA.wdot, sqb:actA.sqbAbs?'ABSENT':actA.sqb, hasNuke:actA.hasNuke, belief:actA.belief, modifiers:actA.mods, occupancyCosts:Object.fromEntries(TIERS.map((t,i)=>[t.id,actA.costs[i].absent?'ABSENT':actA.costs[i].value]))},
+    [nB+'_to_'+nA]: {fma:actB.fmaAbs?'ABSENT':actB.fma, wdot:actB.wdotAbs?'ABSENT':actB.wdot, sqb:actB.sqbAbs?'ABSENT':actB.sqb, hasNuke:actB.hasNuke, belief:actB.belief, modifiers:actB.mods, occupancyCosts:Object.fromEntries(TIERS.map((t,i)=>[t.id,actB.costs[i].absent?'ABSENT':actB.costs[i].value]))},
+    shared: sh,
+    results: {
+      [nA+'_to_'+nB]: {pUp:dirA.pUp, pZr:dirA.pZr, pDn:dirA.pDn, U_up:dirA.U_up, U_0:dirA.U_0, U_dn:dirA.U_dn, pi:dirA.pi, member:dirA.member},
+      [nB+'_to_'+nA]: {pUp:dirB.pUp, pZr:dirB.pZr, pDn:dirB.pDn, U_up:dirB.U_up, U_0:dirB.U_0, U_dn:dirB.U_dn, pi:dirB.pi, member:dirB.member},
+      reconciled: {pUp:rec.pUp, pZr:rec.pZr, pDn:rec.pDn}
+    }
+  };
+  const blob = new Blob([JSON.stringify(out, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = `UIW_v25_${nA}_${nB}_${getMoStr()}_${document.getElementById('g_yr').value}.json`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+function exportHTML() {
+  const sh = readShared();
+  const bars = readBarriers();
+  const params = readParams();
+  const actA = readActor('A'), actB = readActor('B');
+  const dirA = runDirection(actA, sh, bars, params);
+  const dirB = runDirection(actB, sh, bars, params);
+  const rec = reconcile(dirA, dirB, sh.k);
+  const k = sh.k;
+  const pct = p => (p*100).toFixed(1)+'%';
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>UIW v25.0 — ${nA} vs ${nB}</title>
+  <style>body{font-family:system-ui,sans-serif;background:#f8fafc;color:#0f172a;padding:24px;max-width:960px;margin:auto}h1{font-size:1.1rem;font-weight:800;margin-bottom:4px}table{width:100%;border-collapse:collapse;margin-bottom:12px}td,th{border:1px solid #cbd5e1;padding:5px 8px;font-size:.75rem}th{background:#f1f5f9;font-weight:700}.mono{font-family:monospace}.note{font-size:.65rem;color:#64748b}</style>
+  </head><body>
+  <h1>UIW v25.0 — ${nA} vs ${nB} · ${getMoStr()} ${document.getElementById('g_yr').value}</h1>
+  <p class="note">X_t = ${TIERS[k].id} (${TIERS[k].name}) · Generated ${new Date().toLocaleString()}</p>
+  <table><tr><th>Direction</th><th>P↑ Escalate</th><th>P0 Persist</th><th>P↓ De-escalate</th><th>Member</th></tr>
+  <tr><td>${nA}→${nB}</td><td class="mono" style="color:#ef4444">${k===7?'N/A':pct(dirA.pUp)}</td><td class="mono">${pct(dirA.pZr)}</td><td class="mono" style="color:#10b981">${k===0?'N/A':pct(dirA.pDn)}</td><td>${dirA.member}</td></tr>
+  <tr><td>${nB}→${nA}</td><td class="mono" style="color:#ef4444">${k===7?'N/A':pct(dirB.pUp)}</td><td class="mono">${pct(dirB.pZr)}</td><td class="mono" style="color:#10b981">${k===0?'N/A':pct(dirB.pDn)}</td><td>${dirB.member}</td></tr>
+  <tr><td><strong>Reconciled</strong></td><td class="mono" style="color:#ef4444;font-weight:700">${k===7?'N/A':pct(rec.pUp)}</td><td class="mono">${pct(rec.pZr)}</td><td class="mono" style="color:#10b981;font-weight:700">${k===0?'N/A':pct(rec.pDn)}</td><td>§3.6 max/min</td></tr>
+  </table>
+  <table><tr><th>Tier</th>${TIERS.map(t=>`<th style="color:${t.color}">${t.label}</th>`).join('')}</tr>
+  <tr><td>${nA}→${nB} π</td>${dirA.pi.map((p,i)=>`<td class="mono">${pct(p)}</td>`).join('')}</tr>
+  <tr><td>${nB}→${nA} π</td>${dirB.pi.map((p,i)=>`<td class="mono">${pct(p)}</td>`).join('')}</tr>
+  </table>
+  <p class="note">UIW v25.0 Specification Phase · Uncalibrated · §3.4 π_kj = P↓·ω⁻ | P0 | P↑·ω⁺</p>
+  </body></html>`;
+  const blob = new Blob([html], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url;
+  a.download = `UIW_v25_Report_${nA}_${nB}_${getMoStr()}.html`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+
+buildBarrierInputs();
+buildCostTable();
+wireSliders();
+sync();
+</script>
+</body>
+</html>

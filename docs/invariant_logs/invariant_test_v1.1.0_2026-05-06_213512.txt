@@ -1,0 +1,524 @@
+====================================================
+  Invariant Test Report
+  Model Version : v1.1.0
+  Run Date      : 2026-05-06
+  Run Time      : 213512
+  Total Tests   : 50
+  Seed          : 42
+  All primitives ∈ [0,1]?      Yes (v11 constraint)
+  β ∈ [0,1]?                   Yes (v11 calibration)
+  Costs allowed ∉ [0,1]?       Yes (C_i* are costs)
+====================================================
+
+
+--- SUCCESS (Test 0) ---
+  P_direct     = 0.001395
+  P_init       = 0.002182
+  P_join_sup   = 0.230183
+  P_join_opp   = 0.165649
+  T_sup        = 0.191937
+  T_opp        = 0.047254
+  P_dyad       = 0.305800
+  P_co         = 0.407381
+
+--- SUCCESS (Test 1) ---
+  P_direct     = 0.097075
+  P_init       = 0.101415
+  P_join_sup   = 0.166917
+  P_join_opp   = 0.591591
+  T_sup        = 0.158423
+  T_opp        = 0.587774
+  P_dyad       = 0.864014
+  P_co         = 0.305973
+
+--- SUCCESS (Test 2) ---
+  P_direct     = 0.013297
+  P_init       = 0.020917
+  P_join_sup   = 0.264737
+  P_join_opp   = 0.890939
+  T_sup        = 0.025121
+  T_opp        = 0.870106
+  P_dyad       = 0.988420
+  P_co         = 0.459388
+
+--- SUCCESS (Test 3) ---
+  P_direct     = 0.063040
+  P_init       = 0.071933
+  P_join_sup   = 0.029554
+  P_join_opp   = 0.455262
+  T_sup        = 0.022144
+  T_opp        = 0.449690
+  P_dyad       = 0.739494
+  P_co         = 0.058234
+
+--- SUCCESS (Test 4) ---
+  P_direct     = 0.207993
+  P_init       = 0.208803
+  P_join_sup   = 0.477058
+  P_join_opp   = 0.011496
+  T_sup        = 0.475990
+  T_opp        = 0.009167
+  P_dyad       = 0.387065
+  P_co         = 0.726531
+
+--- SUCCESS (Test 5) ---
+  P_direct     = 0.058561
+  P_init       = 0.076801
+  P_join_sup   = 0.044431
+  P_join_opp   = 0.721515
+  T_sup        = 0.030287
+  T_opp        = 0.715744
+  P_dyad       = 0.931264
+  P_co         = 0.086888
+
+--- SUCCESS (Test 6) ---
+  P_direct     = 0.011038
+  P_init       = 0.026086
+  P_join_sup   = 0.084219
+  P_join_opp   = 0.592408
+  T_sup        = 0.023722
+  T_opp        = 0.573537
+  P_dyad       = 0.837516
+  P_co         = 0.161345
+
+--- SUCCESS (Test 7) ---
+  P_direct     = 0.004395
+  P_init       = 0.020513
+  P_join_sup   = 0.361597
+  P_join_opp   = 0.392691
+  T_sup        = 0.223765
+  T_opp        = 0.111635
+  P_dyad       = 0.634410
+  P_co         = 0.592442
+
+--- SUCCESS (Test 8) ---
+  P_direct     = 0.022297
+  P_init       = 0.089259
+  P_join_sup   = 0.575257
+  P_join_opp   = 0.400502
+  T_sup        = 0.240722
+  T_opp        = 0.255278
+  P_dyad       = 0.656451
+  P_co         = 0.819593
+
+--- SUCCESS (Test 9) ---
+  P_direct     = 0.058613
+  P_init       = 0.105464
+  P_join_sup   = 0.326903
+  P_join_opp   = 0.401074
+  T_sup        = 0.153853
+  T_opp        = 0.164825
+  P_dyad       = 0.682106
+  P_co         = 0.546941
+
+--- SUCCESS (Test 10) ---
+  P_direct     = 0.038283
+  P_init       = 0.091319
+  P_join_sup   = 0.191260
+  P_join_opp   = 0.078015
+  T_sup        = 0.150110
+  T_opp        = 0.031183
+  P_dyad       = 0.213785
+  P_co         = 0.345939
+
+--- SUCCESS (Test 11) ---
+  P_direct     = 0.166218
+  P_init       = 0.199363
+  P_join_sup   = 0.495588
+  P_join_opp   = 0.131692
+  T_sup        = 0.466219
+  T_opp        = 0.002469
+  P_dyad       = 0.475854
+  P_co         = 0.745569
+
+--- SUCCESS (Test 12) ---
+  P_direct     = 0.025520
+  P_init       = 0.060249
+  P_join_sup   = 0.563220
+  P_join_opp   = 0.104540
+  T_sup        = 0.521711
+  T_opp        = 0.013282
+  P_dyad       = 0.238556
+  P_co         = 0.809223
+
+--- SUCCESS (Test 13) ---
+  P_direct     = 0.005603
+  P_init       = 0.022454
+  P_join_sup   = 0.681158
+  P_join_opp   = 0.785463
+  T_sup        = 0.208274
+  T_opp        = 0.203149
+  P_dyad       = 0.954488
+  P_co         = 0.898340
+
+--- SUCCESS (Test 14) ---
+  P_direct     = 0.045175
+  P_init       = 0.203094
+  P_join_sup   = 0.218845
+  P_join_opp   = 0.934066
+  T_sup        = 0.019065
+  T_opp        = 0.238004
+  P_dyad       = 0.996037
+  P_co         = 0.389797
+
+--- SUCCESS (Test 15) ---
+  P_direct     = 0.016009
+  P_init       = 0.021973
+  P_join_sup   = 0.613380
+  P_join_opp   = 0.711860
+  T_sup        = 0.514699
+  T_opp        = 0.649023
+  P_dyad       = 0.919613
+  P_co         = 0.850525
+
+--- SUCCESS (Test 16) ---
+  P_direct     = 0.014156
+  P_init       = 0.035178
+  P_join_sup   = 0.283296
+  P_join_opp   = 0.603818
+  T_sup        = 0.002993
+  T_opp        = 0.426596
+  P_dyad       = 0.847452
+  P_co         = 0.486335
+
+--- SUCCESS (Test 17) ---
+  P_direct     = 0.033249
+  P_init       = 0.052532
+  P_join_sup   = 0.063185
+  P_join_opp   = 0.416856
+  T_sup        = 0.018799
+  T_opp        = 0.233611
+  P_dyad       = 0.682181
+  P_co         = 0.122378
+
+--- SUCCESS (Test 18) ---
+  P_direct     = 0.011253
+  P_init       = 0.063979
+  P_join_sup   = 0.698988
+  P_join_opp   = 0.837053
+  T_sup        = 0.019051
+  T_opp        = 0.374490
+  P_dyad       = 0.974043
+  P_co         = 0.909392
+
+--- SUCCESS (Test 19) ---
+  P_direct     = 0.013439
+  P_init       = 0.017549
+  P_join_sup   = 0.297024
+  P_join_opp   = 0.256414
+  T_sup        = 0.213262
+  T_opp        = 0.177947
+  P_dyad       = 0.461842
+  P_co         = 0.505824
+
+--- SUCCESS (Test 20) ---
+  P_direct     = 0.000105
+  P_init       = 0.000275
+  P_join_sup   = 0.127011
+  P_join_opp   = 0.592677
+  T_sup        = 0.059280
+  T_opp        = 0.453457
+  P_dyad       = 0.834122
+  P_co         = 0.237890
+
+--- SUCCESS (Test 21) ---
+  P_direct     = 0.000664
+  P_init       = 0.024484
+  P_join_sup   = 0.918933
+  P_join_opp   = 0.866925
+  T_sup        = 0.487889
+  T_opp        = 0.010635
+  P_dyad       = 0.982314
+  P_co         = 0.993428
+
+--- SUCCESS (Test 22) ---
+  P_direct     = 0.000368
+  P_init       = 0.018078
+  P_join_sup   = 0.382252
+  P_join_opp   = 0.500158
+  T_sup        = 0.113549
+  T_opp        = 0.095566
+  P_dyad       = 0.750342
+  P_co         = 0.618388
+
+--- SUCCESS (Test 23) ---
+  P_direct     = 0.015218
+  P_init       = 0.149339
+  P_join_sup   = 0.611753
+  P_join_opp   = 0.796262
+  T_sup        = 0.019494
+  T_opp        = 0.412020
+  P_dyad       = 0.959744
+  P_co         = 0.849265
+
+--- SUCCESS (Test 24) ---
+  P_direct     = 0.025636
+  P_init       = 0.047635
+  P_join_sup   = 0.157700
+  P_join_opp   = 0.827345
+  T_sup        = 0.000052
+  T_opp        = 0.808216
+  P_dyad       = 0.971699
+  P_co         = 0.290530
+
+--- SUCCESS (Test 25) ---
+  P_direct     = 0.006720
+  P_init       = 0.078494
+  P_join_sup   = 0.395531
+  P_join_opp   = 0.575919
+  T_sup        = 0.042475
+  T_opp        = 0.016808
+  P_dyad       = 0.822564
+  P_co         = 0.634617
+
+--- SUCCESS (Test 26) ---
+  P_direct     = 0.010680
+  P_init       = 0.019930
+  P_join_sup   = 0.482789
+  P_join_opp   = 0.641197
+  T_sup        = 0.268394
+  T_opp        = 0.136988
+  P_dyad       = 0.873996
+  P_co         = 0.732492
+
+--- SUCCESS (Test 27) ---
+  P_direct     = 0.021449
+  P_init       = 0.045696
+  P_join_sup   = 0.371183
+  P_join_opp   = 0.852458
+  T_sup        = 0.082071
+  T_opp        = 0.724366
+  P_dyad       = 0.979155
+  P_co         = 0.604590
+
+--- SUCCESS (Test 28) ---
+  P_direct     = 0.015423
+  P_init       = 0.015578
+  P_join_sup   = 0.152479
+  P_join_opp   = 0.103006
+  T_sup        = 0.150203
+  T_opp        = 0.100121
+  P_dyad       = 0.220029
+  P_co         = 0.281707
+
+--- SUCCESS (Test 29) ---
+  P_direct     = 0.090971
+  P_init       = 0.137588
+  P_join_sup   = 0.474137
+  P_join_opp   = 0.377499
+  T_sup        = 0.357580
+  T_opp        = 0.251407
+  P_dyad       = 0.679790
+  P_co         = 0.723468
+
+--- SUCCESS (Test 30) ---
+  P_direct     = 0.021935
+  P_init       = 0.240186
+  P_join_sup   = 0.208544
+  P_join_opp   = 0.626192
+  T_sup        = 0.030524
+  T_opp        = 0.368195
+  P_dyad       = 0.866331
+  P_co         = 0.373598
+
+--- SUCCESS (Test 31) ---
+  P_direct     = 0.030528
+  P_init       = 0.105921
+  P_join_sup   = 0.439921
+  P_join_opp   = 0.734386
+  T_sup        = 0.051632
+  T_opp        = 0.361651
+  P_dyad       = 0.933691
+  P_co         = 0.686311
+
+--- SUCCESS (Test 32) ---
+  P_direct     = 0.007449
+  P_init       = 0.061342
+  P_join_sup   = 0.399863
+  P_join_opp   = 0.384287
+  T_sup        = 0.202656
+  T_opp        = 0.071713
+  P_dyad       = 0.626524
+  P_co         = 0.639836
+
+--- SUCCESS (Test 33) ---
+  P_direct     = 0.070207
+  P_init       = 0.079842
+  P_join_sup   = 0.435930
+  P_join_opp   = 0.061375
+  T_sup        = 0.401930
+  T_opp        = 0.019702
+  P_dyad       = 0.238347
+  P_co         = 0.681824
+
+--- SUCCESS (Test 34) ---
+  P_direct     = 0.012959
+  P_init       = 0.016709
+  P_join_sup   = 0.223772
+  P_join_opp   = 0.957038
+  T_sup        = 0.137783
+  T_opp        = 0.949097
+  P_dyad       = 0.998202
+  P_co         = 0.397470
+
+--- SUCCESS (Test 35) ---
+  P_direct     = 0.051577
+  P_init       = 0.152342
+  P_join_sup   = 0.544731
+  P_join_opp   = 0.588125
+  T_sup        = 0.156459
+  T_opp        = 0.239143
+  P_dyad       = 0.847407
+  P_co         = 0.792730
+
+--- SUCCESS (Test 36) ---
+  P_direct     = 0.002593
+  P_init       = 0.056386
+  P_join_sup   = 0.264920
+  P_join_opp   = 0.357818
+  T_sup        = 0.026689
+  T_opp        = 0.176543
+  P_dyad       = 0.589739
+  P_co         = 0.459657
+
+--- SUCCESS (Test 37) ---
+  P_direct     = 0.009680
+  P_init       = 0.028012
+  P_join_sup   = 0.289888
+  P_join_opp   = 0.701219
+  T_sup        = 0.087466
+  T_opp        = 0.656212
+  P_dyad       = 0.912450
+  P_co         = 0.495741
+
+--- SUCCESS (Test 38) ---
+  P_direct     = 0.037455
+  P_init       = 0.130872
+  P_join_sup   = 0.474677
+  P_join_opp   = 0.427210
+  T_sup        = 0.095110
+  T_opp        = 0.254251
+  P_dyad       = 0.696028
+  P_co         = 0.724035
+
+--- SUCCESS (Test 39) ---
+  P_direct     = 0.257413
+  P_init       = 0.484905
+  P_join_sup   = 0.627755
+  P_join_opp   = 0.677827
+  T_sup        = 0.085583
+  T_opp        = 0.611252
+  P_dyad       = 0.942763
+  P_co         = 0.861434
+
+--- SUCCESS (Test 40) ---
+  P_direct     = 0.126152
+  P_init       = 0.187631
+  P_join_sup   = 0.086284
+  P_join_opp   = 0.221769
+  T_sup        = 0.022845
+  T_opp        = 0.207239
+  P_dyad       = 0.537525
+  P_co         = 0.165123
+
+--- SUCCESS (Test 41) ---
+  P_direct     = 0.238610
+  P_init       = 0.355876
+  P_join_sup   = 0.228980
+  P_join_opp   = 0.112874
+  T_sup        = 0.185190
+  T_opp        = 0.086042
+  P_dyad       = 0.543769
+  P_co         = 0.405528
+
+--- SUCCESS (Test 42) ---
+  P_direct     = 0.054803
+  P_init       = 0.064624
+  P_join_sup   = 0.741717
+  P_join_opp   = 0.570113
+  T_sup        = 0.731221
+  T_opp        = 0.568686
+  P_dyad       = 0.834898
+  P_co         = 0.933290
+
+--- SUCCESS (Test 43) ---
+  P_direct     = 0.002182
+  P_init       = 0.003301
+  P_join_sup   = 0.868840
+  P_join_opp   = 0.377298
+  T_sup        = 0.815825
+  T_opp        = 0.001863
+  P_dyad       = 0.613932
+  P_co         = 0.982797
+
+--- SUCCESS (Test 44) ---
+  P_direct     = 0.073849
+  P_init       = 0.154178
+  P_join_sup   = 0.623087
+  P_join_opp   = 0.390773
+  T_sup        = 0.467732
+  T_opp        = 0.015406
+  P_dyad       = 0.681637
+  P_co         = 0.857936
+
+--- SUCCESS (Test 45) ---
+  P_direct     = 0.006840
+  P_init       = 0.015147
+  P_join_sup   = 0.465556
+  P_join_opp   = 0.744931
+  T_sup        = 0.052748
+  T_opp        = 0.595421
+  P_dyad       = 0.935827
+  P_co         = 0.714369
+
+--- SUCCESS (Test 46) ---
+  P_direct     = 0.218754
+  P_init       = 0.291561
+  P_join_sup   = 0.567762
+  P_join_opp   = 0.516200
+  T_sup        = 0.374893
+  T_opp        = 0.323414
+  P_dyad       = 0.857141
+  P_co         = 0.813170
+
+--- SUCCESS (Test 47) ---
+  P_direct     = 0.003745
+  P_init       = 0.014003
+  P_join_sup   = 0.325285
+  P_join_opp   = 0.549338
+  T_sup        = 0.008676
+  T_opp        = 0.415660
+  P_dyad       = 0.798422
+  P_co         = 0.544760
+
+--- SUCCESS (Test 48) ---
+  P_direct     = 0.012165
+  P_init       = 0.018049
+  P_join_sup   = 0.001136
+  P_join_opp   = 0.838457
+  T_sup        = 0.000037
+  T_opp        = 0.838268
+  P_dyad       = 0.974535
+  P_co         = 0.002270
+
+--- SUCCESS (Test 49) ---
+  P_direct     = 0.006251
+  P_init       = 0.035578
+  P_join_sup   = 0.585023
+  P_join_opp   = 0.089933
+  T_sup        = 0.549963
+  T_opp        = 0.002440
+  P_dyad       = 0.182100
+  P_co         = 0.827794
+
+
+====================================================
+  SUMMARY
+====================================================
+  Model Version : v1.1.0
+  Total Tests   : 50
+  Passed        : 50
+  Failed        : 0
+  Success Rate  : 100.00%
+  Log file      : invariant_logs/invariant_test_v1.1.0_2026-05-06_213512.txt
+====================================================

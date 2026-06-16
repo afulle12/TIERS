@@ -1,0 +1,64 @@
+# ─── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
+
+# ─── IDE / editor ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ─── Secrets & local config ──────────────────────────────
+.env
+.env.local
+*.pem
+*.key
+secrets/
+
+# ─── Generated processed data (regenerable) ─────────────
+# Keep raw inputs versioned; ignore generated processed files.
+data/processed/conflict_dyads_full.csv
+data/processed/dyads_with_features.csv
+# Parquet equivalents are smaller and versioned for reproducibility.
+data/processed/conflict_dyads_midb_only.csv
+data/processed/*.tmp
+
+# ─── Output (regenerable) ───────────────────────────────
+output/
+!output/.gitkeep
+
+# ─── LibreOffice / spreadsheet lock files ────────────────
+*.~lock.*
+.~lock.*
+
+# ─── OS / temporary ─────────────────────────────────────
+tmp/
+!tmp/.gitkeep
+*.bak
+*.orig
+*.rej
+Thumbs.db
+
+# ─── Logs ───────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Build / distribution ───────────────────────────────
+build/
+dist/
+*.egg

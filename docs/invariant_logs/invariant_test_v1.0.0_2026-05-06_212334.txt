@@ -1,0 +1,2250 @@
+====================================================
+  Invariant Test Report
+  Model Version : 1.0.0
+  Run Date      : 2026-05-06
+  Run Time      : 212334
+  Total Tests   : 50
+  Seed          : 42
+====================================================
+
+
+--- SUCCESS (Test 0) ---
+  P_direct     = 0.234892
+  P_init       = 0.367348
+  P_join_sup   = 0.075003
+  P_join_opp   = 0.563553
+  T_sup        = 0.021281
+  T_opp        = 0.539020
+  P_dyad       = 0.888491
+  P_co         = 0.144381
+
+--- FAILURE #1 (Test 1) ---
+Inputs:
+{
+    A_div = 0.797920,
+    B = 2.327909,
+    C_T = 0.603726,
+    C_d_opp = 0.045824,
+    C_d_sup = 0.704572,
+    C_i_A = 0.577352,
+    C_p = 0.536228,
+    E_n_opp = 0.829405,
+    E_n_sup = 0.552041,
+    I_a = 0.729732,
+    I_i = 0.973116,
+    I_s = 2.779736,
+    N_pub = 0.957213,
+    P_v = 0.092746,
+    R_d = 2.893880,
+    R_h = 1.010014,
+    S_p_opp = 0.861707,
+    S_p_sup = 0.618520,
+    V_p = 0.096716,
+    V_t = 0.847494,
+    W_sev = 0.378534,
+    W_v = 0.807128,
+    beta = 0.336595,
+    delta_P = 2.278983
+}
+Directed results:
+{
+    M = 1.99026072,
+    O = 0.74881070,
+    S = 2.03921973,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 1.02294694,
+    P_direct = 0.97917819,
+    C_i_sup_star = 0.57735215,
+    C_i_opp_star = 1.52735215,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.59827334,
+    T_opp = 0.00089934,
+    P_join_sup = 0.60585360,
+    P_join_opp = 0.02807718
+}
+Overall: P_dyad = 0.99959046, P_co = 0.84464862
+Violations:
+  - Probability P_init = 1.0229469442938324 outside [0,1]
+
+--- SUCCESS (Test 2) ---
+  P_direct     = 0.378024
+  P_init       = 0.594673
+  P_join_sup   = 0.257292
+  P_join_opp   = 0.257455
+  T_sup        = 0.210030
+  T_opp        = 0.183919
+  P_dyad       = 0.786699
+  P_co         = 0.448386
+
+--- FAILURE #2 (Test 3) ---
+Inputs:
+{
+    A_div = 7.920794,
+    B = 4.221600,
+    C_T = 0.458852,
+    C_d_opp = 0.047116,
+    C_d_sup = 0.090909,
+    C_i_A = 0.509526,
+    C_p = 0.561368,
+    E_n_opp = 0.399401,
+    E_n_sup = 0.897823,
+    I_a = 0.246628,
+    I_i = 0.262742,
+    I_s = 3.816193,
+    N_pub = 0.876368,
+    P_v = 0.655439,
+    R_d = 6.274460,
+    R_h = 0.635277,
+    S_p_opp = 0.997538,
+    S_p_sup = 0.219321,
+    V_p = 0.395632,
+    V_t = 0.914548,
+    W_sev = 0.584586,
+    W_v = 0.264880,
+    beta = 0.314678,
+    delta_P = 1.096491
+}
+Directed results:
+{
+    M = 5.09724845,
+    O = 0.60606054,
+    S = 2.89102320,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 2.81040949,
+    P_direct = 2.46295190,
+    C_i_sup_star = 0.50952629,
+    C_i_opp_star = 0.50952629,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.03085140,
+    T_opp = 0.00847838,
+    P_join_sup = 0.10810378,
+    P_join_opp = 0.10652086
+}
+Overall: P_dyad = -0.70855486, P_co = 0.20452114
+Violations:
+  - Probability P_direct = 2.4629518959368952 outside [0,1]
+  - Probability P_init = 2.8104094920189375 outside [0,1]
+  - Probability P_dyad = -0.7085548585107662 outside [0,1]
+
+--- FAILURE #3 (Test 4) ---
+Inputs:
+{
+    A_div = 2.984448,
+    B = 6.389495,
+    C_T = 0.720722,
+    C_d_opp = 0.178652,
+    C_d_sup = 0.500586,
+    C_i_A = 0.263389,
+    C_p = 0.266825,
+    E_n_opp = 0.453724,
+    E_n_sup = 0.434765,
+    I_a = 0.536970,
+    I_i = 0.640962,
+    I_s = 1.528393,
+    N_pub = 0.996121,
+    P_v = 0.971078,
+    R_d = 8.705186,
+    R_h = 6.089702,
+    S_p_opp = 0.875853,
+    S_p_sup = 0.953816,
+    V_p = 0.860780,
+    V_t = 0.011481,
+    W_sev = 0.111552,
+    W_v = 0.681710,
+    beta = 0.529114,
+    delta_P = 9.126278
+}
+Directed results:
+{
+    M = 6.93863734,
+    O = 0.66331832,
+    S = 4.66919658,
+    F = 0.87811310,
+    C_p_star = 0.26682519,
+    P_init = 9.98477615,
+    P_direct = 9.94604900,
+    C_i_sup_star = 0.26338905,
+    C_i_opp_star = 1.21338905,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.78317997,
+    T_opp = 0.02121784,
+    P_join_sup = 0.78331021,
+    P_join_opp = 0.02178082
+}
+Overall: P_dyad = -75.58344340, P_co = 0.95304554
+Violations:
+  - Probability P_direct = 9.946048995039801 outside [0,1]
+  - Probability P_init = 9.984776145094374 outside [0,1]
+  - Probability P_dyad = -75.58344340397898 outside [0,1]
+
+--- FAILURE #4 (Test 5) ---
+Inputs:
+{
+    A_div = 4.752824,
+    B = 5.498036,
+    C_T = 0.324156,
+    C_d_opp = 0.760602,
+    C_d_sup = 0.069213,
+    C_i_A = 0.485990,
+    C_p = 0.878722,
+    E_n_opp = 0.878010,
+    E_n_sup = 0.057925,
+    I_a = 0.929099,
+    I_i = 0.831666,
+    I_s = 8.724330,
+    N_pub = 0.762511,
+    P_v = 0.778626,
+    R_d = 1.283915,
+    R_h = 2.650566,
+    S_p_opp = 0.085653,
+    S_p_sup = 0.946949,
+    V_p = 0.530354,
+    V_t = 0.000572,
+    W_sev = 0.307514,
+    W_v = 0.019477,
+    beta = 0.539379,
+    delta_P = 7.658344
+}
+Directed results:
+{
+    M = 4.56502757,
+    O = 0.36178471,
+    S = 5.62431088,
+    F = 0.99855253,
+    C_p_star = 0.87872188,
+    P_init = 5.00297003,
+    P_direct = 3.81481868,
+    C_i_sup_star = 1.43599046,
+    C_i_opp_star = 0.48599046,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.00231771,
+    T_opp = 0.71009447,
+    P_join_sup = 0.07524302,
+    P_join_opp = 0.73038102
+}
+Overall: P_dyad = 0.42402748, P_co = 0.14482453
+Violations:
+  - Probability P_direct = 3.814818680146054 outside [0,1]
+  - Probability P_init = 5.002970029762299 outside [0,1]
+
+--- FAILURE #5 (Test 6) ---
+Inputs:
+{
+    A_div = 8.596354,
+    B = 0.708573,
+    C_T = 0.311716,
+    C_d_opp = 0.631103,
+    C_d_sup = 0.070993,
+    C_i_A = 0.220217,
+    C_p = 0.438100,
+    E_n_opp = 0.338086,
+    E_n_sup = 0.224697,
+    I_a = 0.649878,
+    I_i = 0.517576,
+    I_s = 6.689778,
+    N_pub = 0.423138,
+    P_v = 0.539296,
+    R_d = 9.054200,
+    R_h = 2.380046,
+    S_p_opp = 0.230115,
+    S_p_sup = 0.588309,
+    V_p = 0.729931,
+    V_t = 0.201151,
+    W_sev = 0.121004,
+    W_v = 0.995149,
+    beta = 0.211798,
+    delta_P = 2.289418
+}
+Directed results:
+{
+    M = 6.64665732,
+    O = 0.72882740,
+    S = 3.25946588,
+    F = 0.90509101,
+    C_p_star = 0.43810008,
+    P_init = 3.02683637,
+    P_direct = 1.28076931,
+    C_i_sup_star = 1.52686206,
+    C_i_opp_star = 0.57686206,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.00215722,
+    T_opp = 0.54481235,
+    P_join_sup = 0.05814214,
+    P_join_opp = 0.56269343
+}
+Overall: P_dyad = 0.98492452, P_co = 0.11290377
+Violations:
+  - Probability P_direct = 1.2807693076243387 outside [0,1]
+  - Probability P_init = 3.0268363716481836 outside [0,1]
+
+--- SUCCESS (Test 7) ---
+  P_direct     = 0.133260
+  P_init       = 0.622023
+  P_join_sup   = 0.480988
+  P_join_opp   = 0.570771
+  T_sup        = 0.207951
+  T_opp        = 0.157158
+  P_dyad       = 0.861594
+  P_co         = 0.730626
+
+--- FAILURE #6 (Test 8) ---
+Inputs:
+{
+    A_div = 4.550084,
+    B = 4.230075,
+    C_T = 0.050588,
+    C_d_opp = 0.985309,
+    C_d_sup = 0.378973,
+    C_i_A = 0.058635,
+    C_p = 0.968996,
+    E_n_opp = 0.485641,
+    E_n_sup = 0.166311,
+    I_a = 0.836028,
+    I_i = 0.926367,
+    I_s = 9.954227,
+    N_pub = 0.249806,
+    P_v = 0.443131,
+    R_d = 7.840706,
+    R_h = 9.573176,
+    S_p_opp = 0.401040,
+    S_p_sup = 0.213747,
+    V_p = 0.861349,
+    V_t = 0.550325,
+    W_sev = 0.848696,
+    W_v = 0.999282,
+    beta = 0.923266,
+    delta_P = 2.652031
+}
+Directed results:
+{
+    M = 5.01427342,
+    O = 0.86131784,
+    S = 7.91915939,
+    F = 0.99962567,
+    C_p_star = 0.96899626,
+    P_init = 31.56563943,
+    P_direct = 7.88530026,
+    C_i_sup_star = 1.70019355,
+    C_i_opp_star = 0.75019355,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.04733271,
+    T_opp = 0.63303234,
+    P_join_sup = 0.26412892,
+    P_join_opp = 0.81122719
+}
+Overall: P_dyad = -0.68936951, P_co = 0.45849376
+Violations:
+  - Probability P_direct = 7.885300260524557 outside [0,1]
+  - Probability P_init = 31.565639427554448 outside [0,1]
+  - Probability P_dyad = -0.6893695078573601 outside [0,1]
+
+--- FAILURE #7 (Test 9) ---
+Inputs:
+{
+    A_div = 8.902873,
+    B = 2.462153,
+    C_T = 0.579180,
+    C_d_opp = 0.675213,
+    C_d_sup = 0.595035,
+    C_i_A = 0.185825,
+    C_p = 0.057165,
+    E_n_opp = 0.157433,
+    E_n_sup = 0.852720,
+    I_a = 0.747976,
+    I_i = 0.584178,
+    I_s = 6.193815,
+    N_pub = 0.555768,
+    P_v = 0.154797,
+    R_d = 1.198866,
+    R_h = 5.945192,
+    S_p_opp = 0.080111,
+    S_p_sup = 0.960779,
+    V_p = 0.296708,
+    V_t = 0.968709,
+    W_sev = 0.502850,
+    W_v = 0.542195,
+    beta = 0.718408,
+    delta_P = 2.352039
+}
+Directed results:
+{
+    M = 4.15125941,
+    O = 0.71185461,
+    S = 4.86705337,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 10.33257601,
+    P_direct = 5.74251844,
+    C_i_sup_star = 1.39423168,
+    C_i_opp_star = 1.39423168,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.15407949,
+    T_opp = 0.18997964,
+    P_join_sup = 0.46218205,
+    P_join_opp = 0.23245206
+}
+Overall: P_dyad = -12.25040263, P_co = 0.71075186
+Violations:
+  - Probability P_direct = 5.74251844489959 outside [0,1]
+  - Probability P_init = 10.33257600884984 outside [0,1]
+  - Probability P_dyad = -12.250402632228626 outside [0,1]
+
+--- FAILURE #8 (Test 10) ---
+Inputs:
+{
+    A_div = 8.808642,
+    B = 8.792702,
+    C_T = 0.716192,
+    C_d_opp = 0.213154,
+    C_d_sup = 0.073261,
+    C_i_A = 0.996096,
+    C_p = 0.671690,
+    E_n_opp = 0.072543,
+    E_n_sup = 0.751864,
+    I_a = 0.395786,
+    I_i = 0.299997,
+    I_s = 1.577468,
+    N_pub = 0.419225,
+    P_v = 0.522783,
+    R_d = 9.332594,
+    R_h = 3.695271,
+    S_p_opp = 0.998454,
+    S_p_sup = 0.458286,
+    V_p = 0.934706,
+    V_t = 0.204259,
+    W_sev = 0.316177,
+    W_v = 0.238686,
+    beta = 0.583672,
+    delta_P = 2.652004
+}
+Directed results:
+{
+    M = 6.93107989,
+    O = 0.42506059,
+    S = 4.68848055,
+    F = 0.86114083,
+    C_p_star = 0.67169022,
+    P_init = 6.94267953,
+    P_direct = 2.91054424,
+    C_i_sup_star = 0.99609645,
+    C_i_opp_star = 0.99609645,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.00538018,
+    T_opp = 0.04378651,
+    P_join_sup = 0.21484578,
+    P_join_opp = 0.22950483
+}
+Overall: P_dyad = -1.16697568, P_co = 0.38353285
+Violations:
+  - Probability P_direct = 2.9105442361731386 outside [0,1]
+  - Probability P_init = 6.942679525240726 outside [0,1]
+  - Probability P_dyad = -1.166975679876896 outside [0,1]
+
+--- FAILURE #9 (Test 11) ---
+Inputs:
+{
+    A_div = 4.885319,
+    B = 9.053365,
+    C_T = 0.007823,
+    C_d_opp = 0.203597,
+    C_d_sup = 0.717612,
+    C_i_A = 0.604830,
+    C_p = 0.663389,
+    E_n_opp = 0.107036,
+    E_n_sup = 0.115429,
+    I_a = 0.299379,
+    I_i = 0.938930,
+    I_s = 0.922985,
+    N_pub = 0.833745,
+    P_v = 0.611678,
+    R_d = 2.639839,
+    R_h = 8.461037,
+    S_p_opp = 0.272348,
+    S_p_sup = 0.553224,
+    V_p = 0.987233,
+    V_t = 0.653976,
+    W_sev = 0.134291,
+    W_v = 0.817104,
+    beta = 0.703540,
+    delta_P = 6.342380
+}
+Directed results:
+{
+    M = 4.62251238,
+    O = 0.98582052,
+    S = 6.14579557,
+    F = 0.98559743,
+    C_p_star = 0.66338871,
+    P_init = 19.41969290,
+    P_direct = 16.19107097,
+    C_i_sup_star = 0.60482983,
+    C_i_opp_star = 1.55482983,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.58466760,
+    T_opp = 0.01685756,
+    P_join_sup = 0.59085476,
+    P_join_opp = 0.02517084
+}
+Overall: P_dyad = -218.29756597, P_co = 0.83260017
+Violations:
+  - Probability P_direct = 16.191070972554684 outside [0,1]
+  - Probability P_init = 19.419692895832302 outside [0,1]
+  - Probability P_dyad = -218.29756596630887 outside [0,1]
+
+--- FAILURE #10 (Test 12) ---
+Inputs:
+{
+    A_div = 7.961223,
+    B = 8.607026,
+    C_T = 0.261955,
+    C_d_opp = 0.127446,
+    C_d_sup = 0.148094,
+    C_i_A = 0.582510,
+    C_p = 0.427687,
+    E_n_opp = 0.903929,
+    E_n_sup = 0.883106,
+    I_a = 0.551680,
+    I_i = 0.009670,
+    I_s = 2.100765,
+    N_pub = 0.423576,
+    P_v = 0.003546,
+    R_d = 8.989815,
+    R_h = 8.989246,
+    S_p_opp = 0.834595,
+    S_p_sup = 0.545590,
+    V_p = 0.771119,
+    V_t = 0.637113,
+    W_sev = 0.075244,
+    W_v = 0.741231,
+    beta = 0.276680,
+    delta_P = 3.082583
+}
+Directed results:
+{
+    M = 6.67787381,
+    O = 0.71884819,
+    S = 6.56567919,
+    F = 0.74590188,
+    C_p_star = 0.42768692,
+    P_init = 6.50451433,
+    P_direct = 2.75515468,
+    C_i_sup_star = 0.58250957,
+    C_i_opp_star = 0.58250957,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.06071092,
+    T_opp = 0.04568110,
+    P_join_sup = 0.11806354,
+    P_join_opp = 0.11628613
+}
+Overall: P_dyad = -1.40577017, P_co = 0.22218809
+Violations:
+  - Probability P_direct = 2.755154681583388 outside [0,1]
+  - Probability P_init = 6.5045143278795035 outside [0,1]
+  - Probability P_dyad = -1.4057701694196831 outside [0,1]
+
+--- FAILURE #11 (Test 13) ---
+Inputs:
+{
+    A_div = 7.873745,
+    B = 1.080956,
+    C_T = 0.620662,
+    C_d_opp = 0.864064,
+    C_d_sup = 0.802235,
+    C_i_A = 0.930816,
+    C_p = 0.864606,
+    E_n_opp = 0.024786,
+    E_n_sup = 0.881416,
+    I_a = 0.929881,
+    I_i = 0.976206,
+    I_s = 8.585933,
+    N_pub = 0.249530,
+    P_v = 0.780116,
+    R_d = 2.668057,
+    R_h = 8.721668,
+    S_p_opp = 0.332185,
+    S_p_sup = 0.736564,
+    V_p = 0.884135,
+    V_t = 0.406377,
+    W_sev = 0.810772,
+    W_v = 0.154553,
+    beta = 0.102794,
+    delta_P = 8.107493
+}
+Directed results:
+{
+    M = 6.21643178,
+    O = 0.42019722,
+    S = 6.12951887,
+    F = 0.99977411,
+    C_p_star = 0.86460570,
+    P_init = 1.64546550,
+    P_direct = 0.41059258,
+    C_i_sup_star = 1.88081589,
+    C_i_opp_star = 1.88081589,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.15392815,
+    T_opp = 0.17427488,
+    P_join_sup = 0.78350720,
+    P_join_opp = 0.35110788
+}
+Overall: P_dyad = 0.85372295, P_co = 0.95313087
+Violations:
+  - Probability P_init = 1.6454655039505517 outside [0,1]
+
+--- FAILURE #12 (Test 14) ---
+Inputs:
+{
+    A_div = 9.625343,
+    B = 2.654664,
+    C_T = 0.227595,
+    C_d_opp = 0.115342,
+    C_d_sup = 0.939237,
+    C_i_A = 0.536216,
+    C_p = 0.328262,
+    E_n_opp = 0.641482,
+    E_n_sup = 0.279125,
+    I_a = 0.193130,
+    I_i = 0.864353,
+    I_s = 4.345638,
+    N_pub = 0.222434,
+    P_v = 0.460303,
+    R_d = 1.785678,
+    R_h = 1.084025,
+    S_p_opp = 0.981150,
+    S_p_sup = 0.399678,
+    V_p = 0.305191,
+    V_t = 0.795345,
+    W_sev = 0.966889,
+    W_v = 0.023664,
+    beta = 0.816587,
+    delta_P = 9.704006
+}
+Directed results:
+{
+    M = 7.03834248,
+    O = 0.61861212,
+    S = 2.69477556,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 9.58106245,
+    P_direct = 2.13115134,
+    C_i_sup_star = 0.77756628,
+    C_i_opp_star = 1.72756628,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.59334195,
+    T_opp = 0.00443784,
+    P_join_sup = 0.77523220,
+    P_join_opp = 0.86477780
+}
+Overall: P_dyad = 0.97660423, P_co = 0.94947944
+Violations:
+  - Probability P_direct = 2.1311513384665255 outside [0,1]
+  - Probability P_init = 9.58106244854273 outside [0,1]
+
+--- FAILURE #13 (Test 15) ---
+Inputs:
+{
+    A_div = 7.197543,
+    B = 3.003223,
+    C_T = 0.576588,
+    C_d_opp = 0.330200,
+    C_d_sup = 0.664238,
+    C_i_A = 0.069974,
+    C_p = 0.001691,
+    E_n_opp = 0.741950,
+    E_n_sup = 0.719430,
+    I_a = 0.708785,
+    I_i = 0.925575,
+    I_s = 4.083929,
+    N_pub = 0.728545,
+    P_v = 0.606209,
+    R_d = 8.480153,
+    R_h = 3.092847,
+    S_p_opp = 0.364221,
+    S_p_sup = 0.670629,
+    V_p = 0.511423,
+    V_t = 0.385195,
+    W_sev = 0.538452,
+    W_v = 0.254723,
+    beta = 0.313677,
+    delta_P = 3.139156
+}
+Directed results:
+{
+    M = 6.27228396,
+    O = 0.29165532,
+    S = 3.39333280,
+    F = 0.97836305,
+    C_p_star = 0.00169128,
+    P_init = 1.90504491,
+    P_direct = 1.38791106,
+    C_i_sup_star = 0.27145494,
+    C_i_opp_star = 1.22145494,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.85688899,
+    T_opp = 0.06810315,
+    P_join_sup = 0.88449094,
+    P_join_opp = 0.21339583
+}
+Overall: P_dyad = 0.90689418, P_co = 0.98665766
+Violations:
+  - Probability P_direct = 1.3879110608999343 outside [0,1]
+  - Probability P_init = 1.905044911918699 outside [0,1]
+
+--- FAILURE #14 (Test 16) ---
+Inputs:
+{
+    A_div = 7.960248,
+    B = 1.696914,
+    C_T = 0.677318,
+    C_d_opp = 0.213701,
+    C_d_sup = 0.442160,
+    C_i_A = 0.464988,
+    C_p = 0.300950,
+    E_n_opp = 0.429888,
+    E_n_sup = 0.286914,
+    I_a = 0.615515,
+    I_i = 0.547937,
+    I_s = 5.154520,
+    N_pub = 0.402400,
+    P_v = 0.127288,
+    R_d = 9.011808,
+    R_h = 0.847955,
+    S_p_opp = 0.654706,
+    S_p_sup = 0.579985,
+    V_p = 0.420446,
+    V_t = 0.940364,
+    W_sev = 0.000406,
+    W_v = 0.902806,
+    beta = 0.295655,
+    delta_P = 4.731862
+}
+Directed results:
+{
+    M = 7.23463924,
+    O = 0.87845807,
+    S = 2.56646314,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 4.82234720,
+    P_direct = 1.94051438,
+    C_i_sup_star = 0.59759961,
+    C_i_opp_star = 0.59759961,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.35377211,
+    T_opp = 0.11337889,
+    P_join_sup = 0.35390801,
+    P_join_opp = 0.11361215
+}
+Overall: P_dyad = 0.30501014, P_co = 0.58256513
+Violations:
+  - Probability P_direct = 1.9405143813594397 outside [0,1]
+  - Probability P_init = 4.822347203858607 outside [0,1]
+
+--- FAILURE #15 (Test 17) ---
+Inputs:
+{
+    A_div = 7.509645,
+    B = 7.700462,
+    C_T = 0.224641,
+    C_d_opp = 0.243984,
+    C_d_sup = 0.494377,
+    C_i_A = 0.696354,
+    C_p = 0.244843,
+    E_n_opp = 0.414441,
+    E_n_sup = 0.072828,
+    I_a = 0.024425,
+    I_i = 0.475136,
+    I_s = 4.251462,
+    N_pub = 0.632941,
+    P_v = 0.818423,
+    R_d = 0.055448,
+    R_h = 1.065873,
+    S_p_opp = 0.194435,
+    S_p_sup = 0.629765,
+    V_p = 0.751138,
+    V_t = 0.672796,
+    W_sev = 0.849738,
+    W_v = 0.199130,
+    beta = 0.335188,
+    delta_P = 6.560580
+}
+Directed results:
+{
+    M = 4.70855769,
+    O = 0.61600239,
+    S = 4.33926560,
+    F = 0.61332641,
+    C_p_star = 0.24484254,
+    P_init = 2.58742033,
+    P_direct = 1.63768404,
+    C_i_sup_star = 0.69635425,
+    C_i_opp_star = 0.69635425,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.33511963,
+    T_opp = 0.10933925,
+    P_join_sup = 0.47785604,
+    P_join_opp = 0.27150327
+}
+Overall: P_dyad = 0.78419261, P_co = 0.72736569
+Violations:
+  - Probability P_direct = 1.6376840402907824 outside [0,1]
+  - Probability P_init = 2.587420333783552 outside [0,1]
+
+--- FAILURE #16 (Test 18) ---
+Inputs:
+{
+    A_div = 4.746744,
+    B = 2.591915,
+    C_T = 0.848336,
+    C_d_opp = 0.547872,
+    C_d_sup = 0.830569,
+    C_i_A = 0.504778,
+    C_p = 0.667578,
+    E_n_opp = 0.891426,
+    E_n_sup = 0.950040,
+    I_a = 0.801417,
+    I_i = 0.987892,
+    I_s = 6.376614,
+    N_pub = 0.175887,
+    P_v = 0.517958,
+    R_d = 7.436554,
+    R_h = 2.472397,
+    S_p_opp = 0.719274,
+    S_p_sup = 0.612652,
+    V_p = 0.050218,
+    V_t = 0.249198,
+    W_sev = 0.595452,
+    W_v = 0.456462,
+    beta = 0.957966,
+    delta_P = 8.972081
+}
+Directed results:
+{
+    M = 7.05179327,
+    O = 0.13429216,
+    S = 3.81364241,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 3.45971487,
+    P_direct = 0.60851777,
+    C_i_sup_star = 1.77411332,
+    C_i_opp_star = 1.77411332,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.17977249,
+    T_opp = 0.08706348,
+    P_join_sup = 0.69379645,
+    P_join_opp = 0.66769375
+}
+Overall: P_dyad = 0.98307607, P_co = 0.90623939
+Violations:
+  - Probability P_init = 3.4597148710344725 outside [0,1]
+
+--- FAILURE #17 (Test 19) ---
+Inputs:
+{
+    A_div = 5.840794,
+    B = 6.955230,
+    C_T = 0.285728,
+    C_d_opp = 0.206834,
+    C_d_sup = 0.415774,
+    C_i_A = 0.542611,
+    C_p = 0.540152,
+    E_n_opp = 0.706419,
+    E_n_sup = 0.693950,
+    I_a = 0.319710,
+    I_i = 0.138374,
+    I_s = 7.655946,
+    N_pub = 0.765814,
+    P_v = 0.626748,
+    R_d = 9.048385,
+    R_h = 8.567320,
+    S_p_opp = 0.407599,
+    S_p_sup = 0.064229,
+    V_p = 0.274597,
+    V_t = 0.077483,
+    W_sev = 0.231261,
+    W_v = 0.271715,
+    beta = 0.521300,
+    delta_P = 4.201435
+}
+Directed results:
+{
+    M = 6.36353803,
+    O = 0.21745605,
+    S = 7.72616532,
+    F = 0.73045752,
+    C_p_star = 0.54015222,
+    P_init = 4.07114599,
+    P_direct = 3.11773931,
+    C_i_sup_star = 0.54261114,
+    C_i_opp_star = 0.54261114,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.36993375,
+    T_opp = 0.12686695,
+    P_join_sup = 0.39572293,
+    P_join_opp = 0.17880856
+}
+Overall: P_dyad = -2.02436233, P_co = 0.63484923
+Violations:
+  - Probability P_direct = 3.1177393104877527 outside [0,1]
+  - Probability P_init = 4.071145990749819 outside [0,1]
+  - Probability P_dyad = -2.0243623288181634 outside [0,1]
+
+--- SUCCESS (Test 20) ---
+  P_direct     = 0.011379
+  P_init       = 0.029916
+  P_join_sup   = 0.286657
+  P_join_opp   = 0.152789
+  T_sup        = 0.261678
+  T_opp        = 0.055765
+  P_dyad       = 0.298475
+  P_co         = 0.491141
+
+--- FAILURE #18 (Test 21) ---
+Inputs:
+{
+    A_div = 6.517547,
+    B = 7.542332,
+    C_T = 0.379104,
+    C_d_opp = 0.349960,
+    C_d_sup = 0.999908,
+    C_i_A = 0.539419,
+    C_p = 0.761230,
+    E_n_opp = 0.252272,
+    E_n_sup = 0.831924,
+    I_a = 0.326846,
+    I_i = 0.379126,
+    I_s = 1.993607,
+    N_pub = 0.027102,
+    P_v = 0.135699,
+    R_d = 7.812330,
+    R_h = 9.496117,
+    S_p_opp = 0.019383,
+    S_p_sup = 0.081906,
+    V_p = 0.461698,
+    V_t = 0.050285,
+    W_sev = 0.752010,
+    W_v = 0.211660,
+    beta = 0.642750,
+    delta_P = 6.501441
+}
+Directed results:
+{
+    M = 6.94377266,
+    O = 0.32371403,
+    S = 6.34401873,
+    F = 0.90020744,
+    C_p_star = 0.76122971,
+    P_init = 8.25098732,
+    P_direct = 0.22361864,
+    C_i_sup_star = 0.97289795,
+    C_i_opp_star = 1.92289795,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.51368853,
+    T_opp = 0.03206072,
+    P_join_sup = 0.82109128,
+    P_join_opp = 0.22190561
+}
+Overall: P_dyad = 0.63506563, P_co = 0.96799167
+Violations:
+  - Probability P_init = 8.250987315719694 outside [0,1]
+
+--- FAILURE #19 (Test 22) ---
+Inputs:
+{
+    A_div = 7.150147,
+    B = 0.759965,
+    C_T = 0.217965,
+    C_d_opp = 0.677347,
+    C_d_sup = 0.311957,
+    C_i_A = 0.025678,
+    C_p = 0.167789,
+    E_n_opp = 0.819301,
+    E_n_sup = 0.114533,
+    I_a = 0.766898,
+    I_i = 0.607247,
+    I_s = 6.272424,
+    N_pub = 0.020380,
+    P_v = 0.126221,
+    R_d = 3.966544,
+    R_h = 6.906144,
+    S_p_opp = 0.108099,
+    S_p_sup = 0.964721,
+    V_p = 0.669459,
+    V_t = 0.563970,
+    W_sev = 0.747926,
+    W_v = 0.699465,
+    beta = 0.152382,
+    delta_P = 9.581728
+}
+Directed results:
+{
+    M = 6.89947328,
+    O = 0.62560529,
+    S = 4.64617763,
+    F = 0.92380997,
+    C_p_star = 0.16778914,
+    P_init = 2.82312076,
+    P_direct = 0.05753525,
+    C_i_sup_star = 1.92961998,
+    C_i_opp_star = 0.97961998,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.02547073,
+    T_opp = 0.32345013,
+    P_join_sup = 0.73827632,
+    P_join_opp = 0.75099312
+}
+Overall: P_dyad = 0.94492520, P_co = 0.93150071
+Violations:
+  - Probability P_init = 2.8231207618683904 outside [0,1]
+
+--- FAILURE #20 (Test 23) ---
+Inputs:
+{
+    A_div = 7.337953,
+    B = 9.654737,
+    C_T = 0.983844,
+    C_d_opp = 0.828707,
+    C_d_sup = 0.635585,
+    C_i_A = 0.960788,
+    C_p = 0.428378,
+    E_n_opp = 0.849576,
+    E_n_sup = 0.341231,
+    I_a = 0.347204,
+    I_i = 0.370571,
+    I_s = 8.081992,
+    N_pub = 0.101901,
+    P_v = 0.850293,
+    R_d = 4.354871,
+    R_h = 2.700824,
+    S_p_opp = 0.105539,
+    S_p_sup = 0.822331,
+    V_p = 0.600412,
+    V_t = 0.121055,
+    W_sev = 0.505961,
+    W_v = 0.782635,
+    beta = 0.772481,
+    delta_P = 7.073086
+}
+Directed results:
+{
+    M = 6.25530364,
+    O = 0.47201180,
+    S = 6.81251782,
+    F = 0.76512684,
+    C_p_star = 0.42837801,
+    P_init = 11.88858253,
+    P_direct = 1.21146208,
+    C_i_sup_star = 1.91078757,
+    C_i_opp_star = 1.91078757,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.09962039,
+    T_opp = 0.15831655,
+    P_join_sup = 0.52350647,
+    P_join_opp = 0.50802996
+}
+Overall: P_dyad = 0.98917713, P_co = 0.77295392
+Violations:
+  - Probability P_direct = 1.2114620793543938 outside [0,1]
+  - Probability P_init = 11.88858252651784 outside [0,1]
+
+--- FAILURE #21 (Test 24) ---
+Inputs:
+{
+    A_div = 7.011838,
+    B = 2.762686,
+    C_T = 0.851713,
+    C_d_opp = 0.797832,
+    C_d_sup = 0.212120,
+    C_i_A = 0.181840,
+    C_p = 0.881631,
+    E_n_opp = 0.378989,
+    E_n_sup = 0.610332,
+    I_a = 0.086663,
+    I_i = 0.243863,
+    I_s = 9.480626,
+    N_pub = 0.538173,
+    P_v = 0.435574,
+    R_d = 8.803200,
+    R_h = 0.101511,
+    S_p_opp = 0.850953,
+    S_p_sup = 0.028700,
+    V_p = 0.731026,
+    V_t = 0.268396,
+    W_sev = 0.464708,
+    W_v = 0.830731,
+    beta = 0.483498,
+    delta_P = 3.403388
+}
+Directed results:
+{
+    M = 6.40614191,
+    O = 0.62563517,
+    S = 4.11494089,
+    F = 0.91825360,
+    C_p_star = 0.88163118,
+    P_init = 7.32214272,
+    P_direct = 3.94057883,
+    C_i_sup_star = 1.41182709,
+    C_i_opp_star = 0.46182709,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.02207522,
+    T_opp = 0.74902441,
+    P_join_sup = 0.15540447,
+    P_join_opp = 0.81154485
+}
+Overall: P_dyad = 0.69289870, P_co = 0.28665839
+Violations:
+  - Probability P_direct = 3.9405788298882776 outside [0,1]
+  - Probability P_init = 7.322142721555152 outside [0,1]
+
+--- FAILURE #22 (Test 25) ---
+Inputs:
+{
+    A_div = 2.514037,
+    B = 1.206559,
+    C_T = 0.645903,
+    C_d_opp = 0.330791,
+    C_d_sup = 0.745935,
+    C_i_A = 0.425504,
+    C_p = 0.093053,
+    E_n_opp = 0.581556,
+    E_n_sup = 0.306206,
+    I_a = 0.792933,
+    I_i = 0.221596,
+    I_s = 1.195547,
+    N_pub = 0.085613,
+    P_v = 0.488578,
+    R_d = 2.709164,
+    R_h = 1.925843,
+    S_p_opp = 0.530922,
+    S_p_sup = 0.473260,
+    V_p = 0.758165,
+    V_t = 0.690609,
+    W_sev = 0.691787,
+    W_v = 0.490821,
+    beta = 0.720075,
+    delta_P = 7.028549
+}
+Directed results:
+{
+    M = 4.08391682,
+    O = 0.50881948,
+    S = 1.44264973,
+    F = 0.85381671,
+    C_p_star = 0.09305335,
+    P_init = 1.84307792,
+    P_direct = 0.15779136,
+    C_i_sup_star = 0.91438704,
+    C_i_opp_star = 1.86438704,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.39957656,
+    T_opp = 0.03051934,
+    P_join_sup = 0.66080568,
+    P_join_opp = 0.59297770
+}
+Overall: P_dyad = 0.88248974, P_co = 0.88494721
+Violations:
+  - Probability P_init = 1.8430779165364313 outside [0,1]
+
+--- FAILURE #23 (Test 26) ---
+Inputs:
+{
+    A_div = 8.684612,
+    B = 4.908787,
+    C_T = 0.724585,
+    C_d_opp = 0.553359,
+    C_d_sup = 0.974295,
+    C_i_A = 0.274311,
+    C_p = 0.282999,
+    E_n_opp = 0.179442,
+    E_n_sup = 0.227483,
+    I_a = 0.524637,
+    I_i = 0.100526,
+    I_s = 5.740642,
+    N_pub = 0.535864,
+    P_v = 0.185150,
+    R_d = 1.262795,
+    R_h = 8.727197,
+    S_p_opp = 0.534135,
+    S_p_sup = 0.014148,
+    V_p = 0.216385,
+    V_t = 0.484199,
+    W_sev = 0.194118,
+    W_v = 0.976607,
+    beta = 0.762190,
+    delta_P = 6.974174
+}
+Directed results:
+{
+    M = 5.64052694,
+    O = 0.47599132,
+    S = 6.45887550,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 13.21717536,
+    P_direct = 7.08260800,
+    C_i_sup_star = 1.41413603,
+    C_i_opp_star = 1.41413603,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.32188556,
+    T_opp = 0.13278746,
+    P_join_sup = 0.33663058,
+    P_join_opp = 0.18786679
+}
+Overall: P_dyad = -23.40249332, P_co = 0.55994101
+Violations:
+  - Probability P_direct = 7.082607999882974 outside [0,1]
+  - Probability P_init = 13.217175360561678 outside [0,1]
+  - Probability P_dyad = -23.402493320010983 outside [0,1]
+
+--- FAILURE #24 (Test 27) ---
+Inputs:
+{
+    A_div = 5.225725,
+    B = 4.505145,
+    C_T = 0.477729,
+    C_d_opp = 0.606318,
+    C_d_sup = 0.764443,
+    C_i_A = 0.118452,
+    C_p = 0.074082,
+    E_n_opp = 0.562840,
+    E_n_sup = 0.149198,
+    I_a = 0.400707,
+    I_i = 0.629446,
+    I_s = 8.601667,
+    N_pub = 0.469397,
+    P_v = 0.184364,
+    R_d = 2.256871,
+    R_h = 4.427210,
+    S_p_opp = 0.993918,
+    S_p_sup = 0.303836,
+    V_p = 0.051377,
+    V_t = 0.941064,
+    W_sev = 0.053609,
+    W_v = 0.822116,
+    beta = 0.440469,
+    delta_P = 7.907408
+}
+Directed results:
+{
+    M = 5.13000167,
+    O = 0.86109150,
+    S = 5.84467378,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 11.37214092,
+    P_direct = 5.33804821,
+    C_i_sup_star = 1.48060306,
+    C_i_opp_star = 1.48060306,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.21046689,
+    T_opp = 0.14361284,
+    P_join_sup = 0.22061232,
+    P_join_opp = 0.18114791
+}
+Overall: P_dyad = -11.61826582, P_co = 0.39255485
+Violations:
+  - Probability P_direct = 5.3380482067522745 outside [0,1]
+  - Probability P_init = 11.372140923376744 outside [0,1]
+  - Probability P_dyad = -11.61826581919382 outside [0,1]
+
+--- FAILURE #25 (Test 28) ---
+Inputs:
+{
+    A_div = 6.873849,
+    B = 9.239110,
+    C_T = 0.947590,
+    C_d_opp = 0.706956,
+    C_d_sup = 0.231476,
+    C_i_A = 0.291259,
+    C_p = 0.660428,
+    E_n_opp = 0.002676,
+    E_n_sup = 0.075065,
+    I_a = 0.211025,
+    I_i = 0.157057,
+    I_s = 6.250580,
+    N_pub = 0.990031,
+    P_v = 0.621027,
+    R_d = 4.540313,
+    R_h = 7.878280,
+    S_p_opp = 0.593811,
+    S_p_sup = 0.450504,
+    V_p = 0.609631,
+    V_t = 0.740089,
+    W_sev = 0.173814,
+    W_v = 0.207788,
+    beta = 0.305380,
+    delta_P = 7.029876
+}
+Directed results:
+{
+    M = 6.14801268,
+    O = 0.18450988,
+    S = 7.78932359,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 2.69832996,
+    P_direct = 2.67143101,
+    C_i_sup_star = 1.24125929,
+    C_i_opp_star = 0.29125929,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.03360788,
+    T_opp = 0.85489345,
+    P_join_sup = 0.03448783,
+    P_join_opp = 0.85504343
+}
+Overall: P_dyad = 0.94129802, P_co = 0.06778626
+Violations:
+  - Probability P_direct = 2.6714310148354334 outside [0,1]
+  - Probability P_init = 2.6983299634153557 outside [0,1]
+
+--- FAILURE #26 (Test 29) ---
+Inputs:
+{
+    A_div = 0.398608,
+    B = 4.320287,
+    C_T = 0.908411,
+    C_d_opp = 0.500472,
+    C_d_sup = 0.942676,
+    C_i_A = 0.699734,
+    C_p = 0.165923,
+    E_n_opp = 0.288611,
+    E_n_sup = 0.569207,
+    I_a = 0.071410,
+    I_i = 0.307612,
+    I_s = 2.503679,
+    N_pub = 0.661183,
+    P_v = 0.425139,
+    R_d = 0.804419,
+    R_h = 3.223216,
+    S_p_opp = 0.688678,
+    S_p_sup = 0.124354,
+    V_p = 0.544562,
+    V_t = 0.647635,
+    W_sev = 0.748958,
+    W_v = 0.826631,
+    beta = 0.933668,
+    delta_P = 4.937952
+}
+Directed results:
+{
+    M = 2.04699285,
+    O = 0.54563858,
+    S = 3.34906050,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 3.49250530,
+    P_direct = 2.30918528,
+    C_i_sup_star = 1.64973368,
+    C_i_opp_star = 1.64973368,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.24614254,
+    T_opp = 0.08427473,
+    P_join_sup = 0.37538362,
+    P_join_opp = 0.29965095
+}
+Overall: P_dyad = 0.15931884, P_co = 0.60985438
+Violations:
+  - Probability P_direct = 2.3091852797235983 outside [0,1]
+  - Probability P_init = 3.4925052974108293 outside [0,1]
+
+--- FAILURE #27 (Test 30) ---
+Inputs:
+{
+    A_div = 6.701335,
+    B = 8.577331,
+    C_T = 0.999572,
+    C_d_opp = 0.091242,
+    C_d_sup = 0.491726,
+    C_i_A = 0.634785,
+    C_p = 0.040232,
+    E_n_opp = 0.916073,
+    E_n_sup = 0.651509,
+    I_a = 0.269511,
+    I_i = 0.756269,
+    I_s = 6.936737,
+    N_pub = 0.091327,
+    P_v = 0.835959,
+    R_d = 3.333084,
+    R_h = 3.298037,
+    S_p_opp = 0.585330,
+    S_p_sup = 0.181489,
+    V_p = 0.575199,
+    V_t = 0.950786,
+    W_sev = 0.470501,
+    W_v = 0.672282,
+    beta = 0.961911,
+    delta_P = 3.479611
+}
+Directed results:
+{
+    M = 4.50467653,
+    O = 0.63932934,
+    S = 6.27070144,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 17.37157936,
+    P_direct = 1.58649226,
+    C_i_sup_star = 0.90867311,
+    C_i_opp_star = 0.90867311,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.22650918,
+    T_opp = 0.00998208,
+    P_join_sup = 0.48525770,
+    P_join_opp = 0.54844055
+}
+Overall: P_dyad = 0.92986183, P_co = 0.73504037
+Violations:
+  - Probability P_direct = 1.5864922584232486 outside [0,1]
+  - Probability P_init = 17.371579355744583 outside [0,1]
+
+--- FAILURE #28 (Test 31) ---
+Inputs:
+{
+    A_div = 5.492196,
+    B = 9.276728,
+    C_T = 0.314517,
+    C_d_opp = 0.625409,
+    C_d_sup = 0.756443,
+    C_i_A = 0.361779,
+    C_p = 0.404175,
+    E_n_opp = 0.542594,
+    E_n_sup = 0.657660,
+    I_a = 0.970185,
+    I_i = 0.514596,
+    I_s = 6.982500,
+    N_pub = 0.288218,
+    P_v = 0.813566,
+    R_d = 2.035582,
+    R_h = 4.381161,
+    S_p_opp = 0.187583,
+    S_p_sup = 0.413248,
+    V_p = 0.550097,
+    V_t = 0.454826,
+    W_sev = 0.988119,
+    W_v = 0.323274,
+    beta = 0.945194,
+    delta_P = 7.599905
+}
+Directed results:
+{
+    M = 5.04256138,
+    O = 0.43301294,
+    S = 6.88012962,
+    F = 0.99137696,
+    C_p_star = 0.40417506,
+    P_init = 14.07693990,
+    P_direct = 4.05722458,
+    C_i_sup_star = 1.66178220,
+    C_i_opp_star = 1.66178220,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.17164164,
+    T_opp = 0.12406557,
+    P_join_sup = 0.68419514,
+    P_join_opp = 0.52980180
+}
+Overall: P_dyad = -1.06641059, P_co = 0.90026729
+Violations:
+  - Probability P_direct = 4.0572245820856745 outside [0,1]
+  - Probability P_init = 14.076939895392245 outside [0,1]
+  - Probability P_dyad = -1.066410585339868 outside [0,1]
+
+--- FAILURE #29 (Test 32) ---
+Inputs:
+{
+    A_div = 5.512651,
+    B = 3.835860,
+    C_T = 0.550839,
+    C_d_opp = 0.834724,
+    C_d_sup = 0.273425,
+    C_i_A = 0.508872,
+    C_p = 0.992257,
+    E_n_opp = 0.832143,
+    E_n_sup = 0.117466,
+    I_a = 0.093209,
+    I_i = 0.912930,
+    I_s = 5.082409,
+    N_pub = 0.121426,
+    P_v = 0.608872,
+    R_d = 2.437309,
+    R_h = 9.218681,
+    S_p_opp = 0.716603,
+    S_p_sup = 0.498376,
+    V_p = 0.239297,
+    V_t = 0.158378,
+    W_sev = 0.461448,
+    W_v = 0.552251,
+    beta = 0.973147,
+    delta_P = 9.802446
+}
+Directed results:
+{
+    M = 5.91746872,
+    O = 0.18027776,
+    S = 6.04565018,
+    F = 0.99938867,
+    C_p_star = 0.99225714,
+    P_init = 6.27240261,
+    P_direct = 0.76163328,
+    C_i_sup_star = 1.82857392,
+    C_i_opp_star = 0.87857392,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.02186994,
+    T_opp = 0.47442286,
+    P_join_sup = 0.25667004,
+    P_join_opp = 0.75291296
+}
+Overall: P_dyad = 0.99653110, P_co = 0.44746057
+Violations:
+  - Probability P_init = 6.272402608912682 outside [0,1]
+
+--- FAILURE #30 (Test 33) ---
+Inputs:
+{
+    A_div = 1.886524,
+    B = 6.974984,
+    C_T = 0.934248,
+    C_d_opp = 0.543430,
+    C_d_sup = 0.551917,
+    C_i_A = 0.345124,
+    C_p = 0.282839,
+    E_n_opp = 0.489640,
+    E_n_sup = 0.998902,
+    I_a = 0.820549,
+    I_i = 0.298556,
+    I_s = 2.335624,
+    N_pub = 0.879326,
+    P_v = 0.276247,
+    R_d = 3.217774,
+    R_h = 5.717976,
+    S_p_opp = 0.538581,
+    S_p_sup = 0.148595,
+    V_p = 0.790006,
+    V_t = 0.414942,
+    W_sev = 0.586938,
+    W_v = 0.507738,
+    beta = 0.864027,
+    delta_P = 4.553446
+}
+Directed results:
+{
+    M = 3.21924780,
+    O = 0.42668606,
+    S = 5.00952839,
+    F = 0.90972770,
+    C_p_star = 0.28283898,
+    P_init = 5.40876867,
+    P_direct = 4.75607230,
+    C_i_sup_star = 1.29512394,
+    C_i_opp_star = 1.29512394,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.15369281,
+    T_opp = 0.14970441,
+    P_join_sup = 0.22184620,
+    P_join_opp = 0.21050383
+}
+Overall: P_dyad = -7.79362490, P_co = 0.39447666
+Violations:
+  - Probability P_direct = 4.756072296273612 outside [0,1]
+  - Probability P_init = 5.4087686662800225 outside [0,1]
+  - Probability P_dyad = -7.793624898081413 outside [0,1]
+
+--- SUCCESS (Test 34) ---
+  P_direct     = 0.756074
+  P_init       = 0.974894
+  P_join_sup   = 0.592630
+  P_join_opp   = 0.108433
+  T_sup        = 0.587945
+  T_opp        = 0.097483
+  P_dyad       = 0.952704
+  P_co         = 0.834050
+
+--- FAILURE #31 (Test 35) ---
+Inputs:
+{
+    A_div = 8.725792,
+    B = 4.436786,
+    C_T = 0.859342,
+    C_d_opp = 0.433971,
+    C_d_sup = 0.746766,
+    C_i_A = 0.997426,
+    C_p = 0.718717,
+    E_n_opp = 0.068421,
+    E_n_sup = 0.035899,
+    I_a = 0.316661,
+    I_i = 0.759402,
+    I_s = 9.034241,
+    N_pub = 0.338561,
+    P_v = 0.649837,
+    R_d = 6.337478,
+    R_h = 6.940012,
+    S_p_opp = 0.920929,
+    S_p_sup = 0.631161,
+    V_p = 0.851765,
+    V_t = 0.852341,
+    W_sev = 0.872383,
+    W_v = 0.380009,
+    beta = 0.692705,
+    delta_P = 0.984431
+}
+Directed results:
+{
+    M = 5.34923396,
+    O = 0.39822744,
+    S = 6.80367926,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 10.03956002,
+    P_direct = 3.39900583,
+    C_i_sup_star = 0.99742592,
+    C_i_opp_star = 1.94742592,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.35919702,
+    T_opp = 0.04730991,
+    P_join_sup = 0.60101559,
+    P_join_opp = 0.57119648
+}
+Overall: P_dyad = -0.05822811, P_co = 0.84081144
+Violations:
+  - Probability P_direct = 3.39900583042115 outside [0,1]
+  - Probability P_init = 10.039560022116408 outside [0,1]
+  - Probability P_dyad = -0.05822810565455905 outside [0,1]
+
+--- FAILURE #32 (Test 36) ---
+Inputs:
+{
+    A_div = 9.012094,
+    B = 6.776109,
+    C_T = 0.531166,
+    C_d_opp = 0.255327,
+    C_d_sup = 0.253977,
+    C_i_A = 0.461150,
+    C_p = 0.169984,
+    E_n_opp = 0.240830,
+    E_n_sup = 0.619710,
+    I_a = 0.792519,
+    I_i = 0.078968,
+    I_s = 4.417298,
+    N_pub = 0.045991,
+    P_v = 0.293368,
+    R_d = 8.046331,
+    R_h = 1.579756,
+    S_p_opp = 0.143118,
+    S_p_sup = 0.912829,
+    V_p = 0.374841,
+    V_t = 0.145570,
+    W_sev = 0.870840,
+    W_v = 0.565928,
+    beta = 0.796143,
+    delta_P = 0.093974
+}
+Directed results:
+{
+    M = 5.71746644,
+    O = 0.28841608,
+    S = 4.25772097,
+    F = 0.84138709,
+    C_p_star = 0.16998365,
+    P_init = 4.70313527,
+    P_direct = 0.21630175,
+    C_i_sup_star = 0.95400903,
+    C_i_opp_star = 0.95400903,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.06618304,
+    T_opp = 0.06684103,
+    P_join_sup = 0.89053045,
+    P_join_opp = 0.34230007
+}
+Overall: P_dyad = 0.73432337, P_co = 0.98801642
+Violations:
+  - Probability P_init = 4.703135266528266 outside [0,1]
+
+--- FAILURE #33 (Test 37) ---
+Inputs:
+{
+    A_div = 0.490443,
+    B = 6.064065,
+    C_T = 0.845304,
+    C_d_opp = 0.565929,
+    C_d_sup = 0.274480,
+    C_i_A = 0.658230,
+    C_p = 0.483208,
+    E_n_opp = 0.992692,
+    E_n_sup = 0.574812,
+    I_a = 0.384693,
+    I_i = 0.237206,
+    I_s = 9.041553,
+    N_pub = 0.345566,
+    P_v = 0.638939,
+    R_d = 7.446688,
+    R_h = 4.967273,
+    S_p_opp = 0.977944,
+    S_p_sup = 0.295231,
+    V_p = 0.424309,
+    V_t = 0.250098,
+    W_sev = 0.571923,
+    W_v = 0.199217,
+    beta = 0.587572,
+    delta_P = 6.857995
+}
+Directed results:
+{
+    M = 4.93170862,
+    O = 0.13709209,
+    S = 6.69096357,
+    F = 0.75744242,
+    C_p_star = 0.48320806,
+    P_init = 2.01330222,
+    P_direct = 0.69572804,
+    C_i_sup_star = 1.60822982,
+    C_i_opp_star = 0.65822982,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.02830457,
+    T_opp = 0.42502686,
+    P_join_sup = 0.32163136,
+    P_join_opp = 0.77092061
+}
+Overall: P_dyad = 0.99514157, P_co = 0.53981599
+Violations:
+  - Probability P_init = 2.013302216917589 outside [0,1]
+
+--- FAILURE #34 (Test 38) ---
+Inputs:
+{
+    A_div = 1.756401,
+    B = 1.321598,
+    C_T = 0.620891,
+    C_d_opp = 0.090133,
+    C_d_sup = 0.732360,
+    C_i_A = 0.579574,
+    C_p = 0.659182,
+    E_n_opp = 0.646341,
+    E_n_sup = 0.903404,
+    I_a = 0.720928,
+    I_i = 0.838337,
+    I_s = 9.714896,
+    N_pub = 0.286194,
+    P_v = 0.607065,
+    R_d = 7.474809,
+    R_h = 5.394078,
+    S_p_opp = 0.440823,
+    S_p_sup = 0.308933,
+    V_p = 0.352321,
+    V_t = 0.636618,
+    W_sev = 0.628248,
+    W_v = 0.677764,
+    beta = 0.798860,
+    delta_P = 2.951105
+}
+Directed results:
+{
+    M = 4.06077129,
+    O = 0.50924770,
+    S = 5.47685713,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 9.04773268,
+    P_direct = 2.58940818,
+    C_i_sup_star = 0.71380585,
+    C_i_opp_star = 1.66380585,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.51282762,
+    T_opp = 0.00292613,
+    P_join_sup = 0.75034478,
+    P_join_opp = 0.43190355
+}
+Overall: P_dyad = 0.18470450, P_co = 0.93767227
+Violations:
+  - Probability P_direct = 2.5894081758830914 outside [0,1]
+  - Probability P_init = 9.047732676159487 outside [0,1]
+
+--- FAILURE #35 (Test 39) ---
+Inputs:
+{
+    A_div = 0.139187,
+    B = 5.365723,
+    C_T = 0.481848,
+    C_d_opp = 0.804588,
+    C_d_sup = 0.967270,
+    C_i_A = 0.979942,
+    C_p = 0.338715,
+    E_n_opp = 0.966500,
+    E_n_sup = 0.140757,
+    I_a = 0.746559,
+    I_i = 0.115170,
+    I_s = 6.728284,
+    N_pub = 0.530852,
+    P_v = 0.830473,
+    R_d = 7.906820,
+    R_h = 4.547860,
+    S_p_opp = 0.724217,
+    S_p_sup = 0.860141,
+    V_p = 0.256970,
+    V_t = 0.824690,
+    W_sev = 0.962893,
+    W_v = 0.806488,
+    beta = 0.913487,
+    delta_P = 3.657750
+}
+Directed results:
+{
+    M = 3.90125224,
+    O = 0.74779318,
+    S = 5.54728906,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 14.78320796,
+    P_direct = 7.84770104,
+    C_i_sup_star = 1.92994224,
+    C_i_opp_star = 1.92994224,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.20076244,
+    T_opp = 0.14806853,
+    P_join_sup = 0.54238685,
+    P_join_opp = 0.67705344
+}
+Overall: P_dyad = -3.89047347, P_co = 0.79059021
+Violations:
+  - Probability P_direct = 7.847701038442898 outside [0,1]
+  - Probability P_init = 14.783207963645065 outside [0,1]
+  - Probability P_dyad = -3.890473465259163 outside [0,1]
+
+--- FAILURE #36 (Test 40) ---
+Inputs:
+{
+    A_div = 0.971920,
+    B = 8.872593,
+    C_T = 0.233822,
+    C_d_opp = 0.946262,
+    C_d_sup = 0.139777,
+    C_i_A = 0.408296,
+    C_p = 0.561407,
+    E_n_opp = 0.823855,
+    E_n_sup = 0.063217,
+    I_a = 0.884235,
+    I_i = 0.915256,
+    I_s = 4.536438,
+    N_pub = 0.672341,
+    P_v = 0.822417,
+    R_d = 4.926246,
+    R_h = 1.356640,
+    S_p_opp = 0.302190,
+    S_p_sup = 0.909388,
+    V_p = 0.940292,
+    V_t = 0.108346,
+    W_sev = 0.221367,
+    W_v = 0.025025,
+    beta = 0.584560,
+    delta_P = 3.043646
+}
+Directed results:
+{
+    M = 2.98060401,
+    O = 0.72593299,
+    S = 4.92189038,
+    F = 0.99569723,
+    C_p_star = 0.56140738,
+    P_init = 6.19853721,
+    P_direct = 4.16752945,
+    C_i_sup_star = 1.35829586,
+    C_i_opp_star = 0.40829586,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.01047871,
+    T_opp = 0.84304403,
+    P_join_sup = 0.07998614,
+    P_join_opp = 0.85565790
+}
+Overall: P_dyad = 0.79096099, P_co = 0.15357449
+Violations:
+  - Probability P_direct = 4.167529449811994 outside [0,1]
+  - Probability P_init = 6.198537209450679 outside [0,1]
+
+--- FAILURE #37 (Test 41) ---
+Inputs:
+{
+    A_div = 3.586738,
+    B = 3.981396,
+    C_T = 0.154523,
+    C_d_opp = 0.685680,
+    C_d_sup = 0.099355,
+    C_i_A = 0.855450,
+    C_p = 0.489347,
+    E_n_opp = 0.370530,
+    E_n_sup = 0.032716,
+    I_a = 0.099022,
+    I_i = 0.408116,
+    I_s = 1.221597,
+    N_pub = 0.670486,
+    P_v = 0.945974,
+    R_d = 9.778425,
+    R_h = 1.898086,
+    S_p_opp = 0.950555,
+    S_p_sup = 0.443383,
+    V_p = 0.419127,
+    V_t = 0.742269,
+    W_sev = 0.951522,
+    W_v = 0.414885,
+    beta = 0.743140,
+    delta_P = 5.444659
+}
+Directed results:
+{
+    M = 6.26994077,
+    O = 0.67515770,
+    S = 2.36702641,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 7.44633335,
+    P_direct = 4.99266389,
+    C_i_sup_star = 1.80545019,
+    C_i_opp_star = 0.85545019,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.00301920,
+    T_opp = 0.39116142,
+    P_join_sup = 0.15042272,
+    P_join_opp = 0.62226905
+}
+Overall: P_dyad = -1.27452468, P_co = 0.27821845
+Violations:
+  - Probability P_direct = 4.992663892896732 outside [0,1]
+  - Probability P_init = 7.446333351129484 outside [0,1]
+  - Probability P_dyad = -1.2745246766232143 outside [0,1]
+
+--- FAILURE #38 (Test 42) ---
+Inputs:
+{
+    A_div = 1.446880,
+    B = 1.299921,
+    C_T = 0.021357,
+    C_d_opp = 0.900531,
+    C_d_sup = 0.147554,
+    C_i_A = 0.328560,
+    C_p = 0.125924,
+    E_n_opp = 0.207157,
+    E_n_sup = 0.765157,
+    I_a = 0.243569,
+    I_i = 0.564578,
+    I_s = 1.744971,
+    N_pub = 0.848033,
+    P_v = 0.662769,
+    R_d = 8.584061,
+    R_h = 2.506542,
+    S_p_opp = 0.869695,
+    S_p_sup = 0.215951,
+    V_p = 0.641704,
+    V_t = 0.597146,
+    W_sev = 0.068610,
+    W_v = 0.786795,
+    beta = 0.454717,
+    delta_P = 0.028356
+}
+Directed results:
+{
+    M = 3.35309886,
+    O = 0.63878245,
+    S = 1.85047816,
+    F = 0.71210838,
+    C_p_star = 0.12592389,
+    P_init = 1.28342631,
+    P_direct = 1.08838811,
+    C_i_sup_star = 1.27855955,
+    C_i_opp_star = 0.32855955,
+    delta_sup = 0.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.01314362,
+    T_opp = 0.88252204,
+    P_join_sup = 0.02322094,
+    P_join_opp = 0.88383876
+}
+Overall: P_dyad = 0.99989458, P_co = 0.04590267
+Violations:
+  - Probability P_direct = 1.0883881064213403 outside [0,1]
+  - Probability P_init = 1.2834263107002835 outside [0,1]
+
+--- SUCCESS (Test 43) ---
+  P_direct     = 0.311999
+  P_init       = 0.471970
+  P_join_sup   = 0.830671
+  P_join_opp   = 0.219471
+  T_sup        = 0.778809
+  T_opp        = 0.000889
+  P_dyad       = 0.711626
+  P_co         = 0.971328
+
+--- FAILURE #39 (Test 44) ---
+Inputs:
+{
+    A_div = 6.509167,
+    B = 7.689627,
+    C_T = 0.073491,
+    C_d_opp = 0.099178,
+    C_d_sup = 0.605427,
+    C_i_A = 0.453715,
+    C_p = 0.065682,
+    E_n_opp = 0.325185,
+    E_n_sup = 0.548356,
+    I_a = 0.608297,
+    I_i = 0.275016,
+    I_s = 2.150231,
+    N_pub = 0.478982,
+    P_v = 0.686097,
+    R_d = 8.527927,
+    R_h = 7.208399,
+    S_p_opp = 0.530557,
+    S_p_sup = 0.994628,
+    V_p = 0.490269,
+    V_t = 0.909701,
+    W_sev = 0.633077,
+    W_v = 0.080790,
+    beta = 0.401617,
+    delta_P = 7.017794
+}
+Directed results:
+{
+    M = 7.35162940,
+    O = 0.84824748,
+    S = 5.68275238,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 14.23237170,
+    P_direct = 6.81704859,
+    C_i_sup_star = 0.52101809,
+    C_i_opp_star = 1.47101809,
+    delta_sup = 1.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.57451531,
+    T_opp = 0.00452511,
+    P_join_sup = 0.76581557,
+    P_join_opp = 0.26682387
+}
+Overall: P_dyad = -17.18955278, P_co = 0.94515765
+Violations:
+  - Probability P_direct = 6.817048594734075 outside [0,1]
+  - Probability P_init = 14.232371699643098 outside [0,1]
+  - Probability P_dyad = -17.189552780420687 outside [0,1]
+
+--- FAILURE #40 (Test 45) ---
+Inputs:
+{
+    A_div = 3.296460,
+    B = 1.222313,
+    C_T = 0.095086,
+    C_d_opp = 0.556371,
+    C_d_sup = 0.811769,
+    C_i_A = 0.738796,
+    C_p = 0.374301,
+    E_n_opp = 0.831772,
+    E_n_sup = 0.067133,
+    I_a = 0.665108,
+    I_i = 0.152639,
+    I_s = 6.653405,
+    N_pub = 0.451555,
+    P_v = 0.338932,
+    R_d = 5.615864,
+    R_h = 3.535981,
+    S_p_opp = 0.096564,
+    S_p_sup = 0.093230,
+    V_p = 0.453499,
+    V_t = 0.415990,
+    W_sev = 0.922985,
+    W_v = 0.426764,
+    beta = 0.228494,
+    delta_P = 5.864651
+}
+Directed results:
+{
+    M = 4.92565826,
+    O = 0.42878021,
+    S = 3.80389962,
+    F = 0.82244255,
+    C_p_star = 0.37430102,
+    P_init = 1.50975896,
+    P_direct = 0.68173908,
+    C_i_sup_star = 1.68879600,
+    C_i_opp_star = 1.68879600,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.18768702,
+    T_opp = 0.09790939,
+    P_join_sup = 0.25232538,
+    P_join_opp = 0.50326243
+}
+Overall: P_dyad = 0.97500687, P_co = 0.44098266
+Violations:
+  - Probability P_init = 1.5097589634276147 outside [0,1]
+
+--- FAILURE #41 (Test 46) ---
+Inputs:
+{
+    A_div = 6.426992,
+    B = 0.262538,
+    C_T = 0.351646,
+    C_d_opp = 0.974547,
+    C_d_sup = 0.845155,
+    C_i_A = 0.807221,
+    C_p = 0.656736,
+    E_n_opp = 0.367561,
+    E_n_sup = 0.845373,
+    I_a = 0.212739,
+    I_i = 0.224245,
+    I_s = 8.294608,
+    N_pub = 0.750284,
+    P_v = 0.721061,
+    R_d = 6.135733,
+    R_h = 9.290843,
+    S_p_opp = 0.574100,
+    S_p_sup = 0.762606,
+    V_p = 0.968399,
+    V_t = 0.600410,
+    W_sev = 0.108218,
+    W_v = 0.577919,
+    beta = 0.868092,
+    delta_P = 8.184269
+}
+Directed results:
+{
+    M = 6.91566435,
+    O = 0.82466566,
+    S = 5.94932971,
+    F = 0.79036134,
+    C_p_star = 0.65673630,
+    P_init = 23.27937808,
+    P_direct = 17.46615073,
+    C_i_sup_star = 1.75722137,
+    C_i_opp_star = 1.75722137,
+    delta_sup = 1.00000000,
+    delta_opp = 1.00000000,
+    T_sup = 0.18786581,
+    T_opp = 0.23522603,
+    P_join_sup = 0.22277373,
+    P_join_opp = 0.25456960
+}
+Overall: P_dyad = -149.66014288, P_co = 0.39591933
+Violations:
+  - Probability P_direct = 17.466150727171332 outside [0,1]
+  - Probability P_init = 23.27937807746474 outside [0,1]
+  - Probability P_dyad = -149.6601428752458 outside [0,1]
+
+--- SUCCESS (Test 47) ---
+  P_direct     = 0.215420
+  P_init       = 0.805466
+  P_join_sup   = 0.153531
+  P_join_opp   = 0.732738
+  T_sup        = 0.046140
+  T_opp        = 0.492466
+  P_dyad       = 0.956031
+  P_co         = 0.283491
+
+--- SUCCESS (Test 48) ---
+  P_direct     = 0.385235
+  P_init       = 0.571592
+  P_join_sup   = 0.116757
+  P_join_opp   = 0.379146
+  T_sup        = 0.000164
+  T_opp        = 0.201877
+  P_dyad       = 0.854321
+  P_co         = 0.219883
+
+--- FAILURE #42 (Test 49) ---
+Inputs:
+{
+    A_div = 6.181253,
+    B = 8.320259,
+    C_T = 0.806200,
+    C_d_opp = 0.020857,
+    C_d_sup = 0.115173,
+    C_i_A = 0.417694,
+    C_p = 0.042302,
+    E_n_opp = 0.575759,
+    E_n_sup = 0.862110,
+    I_a = 0.861764,
+    I_i = 0.018742,
+    I_s = 0.881299,
+    N_pub = 0.175695,
+    P_v = 0.703671,
+    R_d = 8.013222,
+    R_h = 9.197698,
+    S_p_opp = 0.709499,
+    S_p_sup = 0.573400,
+    V_p = 0.500262,
+    V_t = 0.833354,
+    W_sev = 0.921162,
+    W_v = 0.072075,
+    beta = 0.380207,
+    delta_P = 3.247682
+}
+Directed results:
+{
+    M = 5.81405199,
+    O = 0.20992783,
+    S = 6.13308515,
+    F = 1.00000000,
+    C_p_star = 1.00000000,
+    P_init = 2.84608947,
+    P_direct = 0.50004312,
+    C_i_sup_star = 0.82430520,
+    C_i_opp_star = 0.82430520,
+    delta_sup = 0.00000000,
+    delta_opp = 0.00000000,
+    T_sup = 0.01914835,
+    T_opp = 0.00063978,
+    P_join_sup = 0.80872819,
+    P_join_opp = 0.74055975
+}
+Overall: P_dyad = 0.98317559, P_co = 0.96341509
+Violations:
+  - Probability P_init = 2.8460894654742557 outside [0,1]
+
+
+====================================================
+  SUMMARY
+====================================================
+  Model Version : 1.0.0
+  Total Tests   : 50
+  Passed        : 8
+  Failed        : 42
+  Success Rate  : 16.00%
+  Failure at test indices: [1, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 21, 22, 23]...
+  Log file      : invariant_logs/invariant_test_v1.0.0_2026-05-06_212334.txt
+====================================================

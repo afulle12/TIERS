@@ -1,0 +1,40 @@
+MIT License
+
+Copyright (c) 2024-2026 WarModel contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+NOTE ON THIRD-PARTY DATA
+
+This project integrates data from several third-party sources, each governed
+by its own license and attribution requirements:
+
+  - MIDB 5.0 (Correlates of War / Gibler & Miller) - research use, citation required
+  - UCDP Dyadic v26.1 (Uppsala Conflict Data Program) - CC-BY 4.0
+  - UCDP/PRIO Armed Conflict v26.1 - CC-BY 4.0
+  - EUSANCT Dataset (Hufbauer et al.) - research use, citation required
+  - CShapes 2.0 (Weidmann, Rød & Ketterer) - CC-BY 4.0
+  - V-Dem Core v16 (Varieties of Democracy Institute) - CC-BY 4.0
+  - NMC v7 (Correlates of War, Singer) - research use, citation required
+  - ATOP 3.0 (Leeds et al.) - research use, citation required
+
+Users are responsible for complying with the licensing terms of each source
+dataset. The license above covers only the source code in this repository.
