@@ -1,186 +1,247 @@
 # WarModel
 
 A directed-dyad stochastic-game model of interstate conflict escalation,
-persistence, and de-escalation. Combines conflict datasets (MIDB, UCDP, EUSANCT,
-CShapes, V-Dem, COW NMC, ATOP) into a unified directed-dyad-year table, then
-estimates tier-transition risk and validates a closed-form probability model
-against invariants and historical data.
+persistence, and de-escalation.
 
-**Current model: v27.0** (T6 collapsed, WMD reformed as Shock_k severity
-modulator, empirical priors from v26.1 transition matrix, EUSANCT threats
-added to T1, T4 dual-population characterised). See
-`docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md` for the
-full specification.
+WarModel merges seven major conflict and state-capability datasets into a
+unified directed-dyad-year table, then estimates the probability that any
+given pair of states will move up or down a six-tier conflict ladder over the
+next year. It is intended both as a research instrument and as an operational
+early-warning / scoring tool for current interstate dyads.
 
-## Goal: operational early-warning / scoring tool
+**Current model:** v27.0 — six-tier taxonomy, cost-field engine with
+status-quo-biased direction stage, Capability/Reach gate on strategic war, and
+WMD handled as a continuous severity modulator rather than a separate tier.
 
-This project is being developed as a **live early-warning and scoring system**
-for current interstate dyads, not just a historical backtest. The model is
-designed to emit a per-directed-dyad probability distribution over next-period
-tier transitions, plus a coverage vector indicating how much of the machinery
-was actually fed (the graceful-degradation architecture from §1.9 of the
-specification).
+---
 
-## Directory layout
+## At a glance
 
-```
-WarModel/
-├── README.md                         Project overview & quickstart
-├── LICENSE                           MIT license + third-party data notes
-├── pyproject.toml                    Package metadata, deps, tool config
-├── requirements.txt                  Pinned runtime dependencies
-├── CHANGELOG.md                      Version history (spec + code)
-├── CITATION.cff                      Citation metadata
-├── DATA_PROVENANCE.md                Source-by-source licensing & attribution
-├── data/
-│   ├── raw/                          Source datasets (read-only inputs)
-│   │   ├── CShapes-2.0.csv           GWN name registry, 1946-onward
-│   │   ├── Dyadic_v26_1.csv          UCDP Dyadic v26.1
-│   │   ├── UcdpPrioConflict_v26_1.csv UCDP/PRIO Armed Conflict dataset
-│   │   ├── EUSANCT_Dataset_Dyadic.xls EUSANCT sanctions dyads
-│   │   ├── V-Dem-CY-Core-v16.csv     Democracy indices
-│   │   ├── NMC-70-abridged.csv       COW National Material Capabilities v7
-│   │   ├── atop3_0ddyr.csv           ATOP 3.0 alliance data
-│   │   ├── T{1,3}_directed_v*        Intermediate T1/T3 files
-│   │   └── MID-5-Data-and-Supporting-Materials/  (MIDB, MIDA, MIDIP, MIDI)
-│   └── processed/                    Generated datasets (regenerable)
-│       ├── conflict_dyads.csv        T1/T2/T4/T5 directed dyad-years
-│       ├── conflict_dyads_eus.csv    T2 events extracted from EUSANCT
-│       ├── conflict_dyads_combined.csv  conflict_dyads + EUSANCT T2
-│       ├── conflict_dyads_full.csv   T0-T5 (with inferred T0 peace years)
-│       ├── conflict_dyads_full.parquet  same as above, parquet form
-│       ├── dyads_with_features.csv   Full grid + V-Dem/NMC/ATOP features
-│       ├── dyads_with_features.parquet  same as above, parquet form
-│       ├── countries_by_year.csv     year -> country list (CShapes derived)
-│       └── conflict_tiers.csv        tier reference table
-├── scripts/
-│   ├── build/                        Data-pipeline builders
-│   │   ├── build_t1_dyads.py         MIDB + MIDIP -> T1 dyad rows
-│   │   ├── build_t3_dyads.py         UCDP -> T3 directed dyads
-│   │   ├── build_combined_dyads.py   MIDB + T3 -> combined
-│   │   ├── integrate_eusanct.py      EUSANCT -> T2 rows + combined
-│   │   ├── build_t0_dyads.py         combined -> full (T0-T5)
-│   │   ├── build_features.py         Attach V-Dem/NMC/ATOP features
-│   │   ├── refresh_country_registry.py  Normalize country names
-│   │   └── country_names.py          Shared name-normalization utility
-│   ├── analysis/                     Analyses on the processed datasets
-│   │   ├── analyze_conflict_dyads.py
-│   │   ├── tier_transition_risk.py
-│   │   ├── tier_transition_risk_full.py
-│   │   ├── severity_over_time_fullycovered.py
-│   │   ├── t1_validation.py
-│   │   ├── v26_tiers_overview.py
-│   │   ├── v26_tier_following.py
-│   │   └── v26_tier_following_filtered.py
-│   ├── model/                        Theoretical dyadic war model
-│   │   ├── war_model.py              Self-contained implementation
-│   │   ├── war_model_lib.py          Importable library
-│   │   ├── backtest_war_model.py     Backtest (Path 1) on T0-T5 dataset
-│   │   ├── testModelv10.py           Invariants / sensitivity / MC tests
-│   │   └── warModelInvarientsTesting.py  Standalone invariant test
-│   └── data/                         Data utilities
-│       └── pythonTransformFiles.py   CShapes -> year->country list
-├── output/                           Generated outputs (not versioned)
-│   ├── analysis/                     CSVs, tables
-│   └── charts/                       PNG plots
-├── docs/
-│   ├── models/                       Current model specifications
-│   ├── model_drafts_archive/         Archived older model drafts
-│   ├── reports/                      Generated reports (markdown, HTML)
-│   │   ├── conflict_dyads_report.md
-│   │   └── calc.html                 UIW v25.0 calculator
-│   └── invariant_logs/               Test-run logs
-├── tests/                            (planned) pytest test suite
-└── tmp/                              Scratch / one-off scripts
-```
+- **Multi-source data pipeline** integrating MIDB, UCDP, EUSANCT, CShapes,
+  V-Dem, COW NMC, and ATOP into a single directed-dyad-year schema.
+- **Stochastic-game model** with two paths to war: direct initiation and
+  contagion / joining an existing war.
+- **Empirical backtest** on 2.3M dyad-years (1946–2014), with calibrated
+  parameters and ROC evaluation per escalation threshold.
+- **Graceful degradation** — the model remains valid when inputs are missing,
+  degrading to simpler nested members rather than failing.
+- **Full version history** of model specs archived in `docs/model_drafts_archive/`.
 
-## Data pipeline
+---
 
-```
-[data/raw/*] -- build_t1_dyads ----\                                    [conflict_dyads.csv]
-                                   +-- build_combined_dyads -----------/
-[data/raw/Dyadic_v26_1.csv] -- build_t3_dyads --------------------------/
+## Table of contents
 
-[conflict_dyads.csv] -- integrate_eusanct -- [conflict_dyads_eus.csv]
-                                              [conflict_dyads_combined.csv]
+- [Installation](#installation)
+- [Data](#data)
+- [Running the pipeline](#running-the-pipeline)
+- [Model overview](#model-overview)
+- [Validation](#validation)
+- [Limitations](#limitations)
+- [Citation](#citation)
+- [License](#license)
 
-[conflict_dyads_combined.csv] -- build_t0_dyads -- [conflict_dyads_full.csv/parquet]
-                                                  [output/analysis/t0_coverage.csv]
+---
 
-[conflict_dyads_full.csv] -- build_features -- [dyads_with_features.csv/parquet]
-                                                (V-Dem N_pub, NMC dP/C_T/CINC, ATOP alliance depth)
-
-[conflict_dyads.csv]        -- analyze_conflict_dyads --> [output/analysis/*, output/charts/*]
-[conflict_dyads.csv]        -- tier_transition_risk --->  [output/analysis/tier_*]
-[conflict_dyads_full.csv]   -- tier_transition_risk_full -> [output/analysis/tier_*_full]
-[dyads_with_features.csv]   -- backtest_war_model ---->  [output/analysis/model_backtest_*]
-                                                       [output/charts/model_backtest_*.png]
-```
-
-## Tier scheme
-
-| Tier | Label | Meaning |
-|---|---|---|
-| T0 | No Conflict/Peace | Inferred (no T1-T5 event in dyad-year) |
-| T1 | Diplomatic Crisis | MIDB threats + diplomatic originators + EUSANCT threat_dyad |
-| T2 | Economic Coercion | Active sanctions, trade restrictions; includes EUSANCT |
-| T3 | Proxy/Indirect Military | UCDP internationalized internal, supporter->host |
-| T4 | Limited Direct Military | Open, attributed exchange of fire between i and j |
-| T5 | Strategic War | Multi-front warfare; reach-gated by contiguity or Cap |
-
-## Quickstart
+## Installation
 
 ```bash
-# 1. Set up environment
+# Clone or download the repository
+git clone <repo-url>       # to be added once the public GitHub repo is set up
+cd WarModel
+
+# Create a virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
 
-# 2. Build the processed datasets (run after data/raw/* is in place)
+# Install dependencies
+pip install -r requirements.txt
+```
+
+Requires Python 3.10 or newer.
+
+---
+
+## Data
+
+The repository **does not include the raw source datasets** because several of
+them have licenses that restrict bulk redistribution (e.g., COW MIDB/NMC,
+EUSANCT, ATOP). Download them from their official providers and place them in
+`data/raw/` before running the pipeline.
+
+| Dataset | Version | Used for | Download / registration |
+|---|---|---|---|
+| COW MIDB + MIDA + MIDIP + MIDI | 5.0 | T1, T4, T5 events | [correlatesofwar.org/data-sets/MIDs](https://correlatesofwar.org/data-sets/MIDs/) |
+| UCDP Dyadic | v26.1 | T3 proxy/support events | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
+| UCDP/PRIO Armed Conflict | v26.1 | T3 conflict metadata | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
+| EUSANCT | 2022 | T1 threats + T2 sanctions | [piie.com/research/eusanct](https://www.piie.com/research/eusanct) |
+| CShapes | 2.0 | Country-year registry, GWN mapping | [cshapes.ethz.ch](https://cshapes.ethz.ch/) |
+| V-Dem | v16 (Core) | Democracy proxy for `N_pub` | [v-dem.net/data](https://v-dem.net/data/) |
+| COW NMC | v7.0 | Capability ratios, CINC | [correlatesofwar.org/data-sets/national-material-capabilities](https://correlatesofwar.org/data-sets/national-material-capabilities/) |
+| ATOP | 3.0 | Alliance depth / treaty triggers | [atopdata.org](https://www.atopdata.org/) |
+
+See `DATA_PROVENANCE.md` for source-by-source licensing and attribution notes.
+
+---
+
+## Running the pipeline
+
+```bash
+# 1. Build the directed-dyad event table (T1-T5)
 python scripts/build/build_t1_dyads.py
 python scripts/build/build_t3_dyads.py
 python scripts/build/build_combined_dyads.py
+
+# 2. Integrate EUSANCT sanctions and threats
 python scripts/build/integrate_eusanct.py
+
+# 3. Infer peace years and create the full T0-T5 grid
 python scripts/build/build_t0_dyads.py
+
+# 4. Attach empirical features (V-Dem, NMC, ATOP)
 python scripts/build/build_features.py
 
-# 3. Analyse
+# 5. Run analyses
 python scripts/analysis/analyze_conflict_dyads.py
 python scripts/analysis/tier_transition_risk.py
 python scripts/analysis/tier_transition_risk_full.py
 
-# 4. Backtest the model against historical data
+# 6. Backtest the model
 python scripts/model/backtest_war_model.py
 
-# 5. Model tests
+# 7. Run model invariants / sensitivity tests
 python scripts/model/testModelv10.py
 python scripts/model/warModelInvarientsTesting.py
 ```
 
-## Dependencies
+Generated outputs go to `output/analysis/` and `output/charts/`; intermediate
+large CSVs/Parquet files go to `data/processed/`.
 
-- Python 3.10+
-- `pandas`, `numpy`, `scipy`, `scikit-learn` — core data + numerics
-- `matplotlib`, `networkx` — visualisation + graph analytics
-- `pyarrow` — Parquet I/O for processed datasets
+---
 
-Dev / test extras: `pytest`, `pytest-cov`, `ruff`.
+## Model overview
 
-## Model specifications
+### Tier taxonomy
 
-- **Current:** v27.0 — `docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md`
-- **Archive:** `docs/model_drafts_archive/` — v1 through v20 retained for reference
+| Tier | Label | Definition |
+|---|---|---|
+| T0 | Peace | Inferred: no T1–T5 event in the dyad-year |
+| T1 | Diplomatic Crisis | Protests, recalls, ultimatums, coercive threats |
+| T2 | Economic Coercion | Active sanctions, trade restrictions, financial exclusion |
+| T3 | Proxy/Indirect Military | Sustained, selective support to j's adversaries |
+| T4 | Limited Direct Military | Open, attributed exchange of fire |
+| T5 | Strategic War | Nationwide / multi-front warfare; gated by reach/contiguity |
 
-## Notes
+### Core equation (Path 1 — direct initiation)
 
-- `data/processed/conflict_dyads_full.csv` and `dyads_with_features.csv` are
-  large (~390 MB / ~450 MB). Use the `.parquet` form for repeated reads.
-- Large processed CSVs are gitignored; rebuild via the pipeline above.
-- All scripts use `os.path.dirname(os.path.dirname(os.path.abspath(__file__)))`
-  to resolve the project root from any subdirectory.
+For actor *A* considering escalation against *B*:
+
+```
+P_direct(A → B) = (1 − N_pub_A) · β · M · O · S · F
+
+where
+  M = max(avg(dP, R_d, A_div), P_v)                 # Motive
+  O = max(V_p, V_t) · (1 − C_T_B · (1 − W_v_A))     # Opportunity
+  S = avg(B, R_h, I_s)                              # Spark
+  F = 1 − (1 − I_a) · (1 − C_p*) · (1 − I_i)        # Friction
+```
+
+**Path 2 — joining an existing war** is driven by treaty triggers, ethnic
+kinship, strategic prestige, and the severity of an ongoing war.
+
+### Architecture highlights
+
+- **Cost-field engine**: each actor evaluates the cost of occupying each tier,
+  plus a forward-looking strategic term and a belief-coupling term.
+- **Status-quo-biased direction stage**: at neutral inputs the model predicts
+  persistence; escalation and de-escalation must be *earned* through shocks or
+  enablers.
+- **Capability/Reach gate**: T5 is reachable only if the dyad is contiguous or
+  one side can inflict considerable, sustainable damage on the other.
+- **Nested-model family**: missing inputs degrade the model to simpler, still-
+  valid members, each with a documented null value.
+
+The full specification is in
+`docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md`.
+
+---
+
+## Validation
+
+Two independent test suites run against the model:
+
+- `scripts/model/testModelv10.py` — 4-level systematic validation: invariants,
+  local sensitivity tornado, Monte Carlo global sensitivity, and rank-order
+  validity against an expert-ordered set of dyads.
+- `scripts/model/warModelInvarientsTesting.py` — 5,000 random parameter sets
+  checked for probability bounds, monotonicity, and edge cases.
+
+Historical backtest on 1946–2014 (train 1946–1989 / test 1990–2014):
+
+| Threshold | Test AUC | Brier | Events |
+|---|---|---|---|
+| T0 → T1+ | 0.30 | 0.0053 | 1,061 |
+| T0 → T4+ | 0.55 | 0.0008 | 151 |
+| T0 → T5 | **0.64** | 0.0003 | 53 |
+| Any escalation | 0.31 | 0.0060 | 1,198 |
+
+The model discriminates high-severity escalation (T0→T5) meaningfully above
+chance, but low-severity onset (T0→T1+) remains weak. See
+`output/analysis/model_calibration_summary.md` for full results.
+
+---
+
+## Limitations
+
+- **Spec-code drift.** `war_model_lib.py` and `backtest_war_model.py` still
+  implement the v21-level product-form model. The v27.0 cost-field engine with
+  status-quo-biased barriers and the Capability/Reach gate is fully specified
+  in `docs/models/` but not yet implemented in code.
+- **Path 2 not backtested.** The historical backtest currently scores only
+  direct initiation (Path 1). Contagion/joining behavior (Path 2) is tested for
+  invariants but not evaluated against historical data.
+- **Defaults for structural inputs.** Several parameters — rivalry history
+  (`R_h`), diversionary incentives (`A_div`), contiguity/proximity, ethnic
+  kinship (`E_n`), prestige (`S_p`) — are set to neutral defaults because the
+  corresponding empirical datasets are not yet attached.
+- **C_d_opp is a placeholder.** Opposing alliance depth is currently computed
+  as `1 − C_d_sup` rather than a real third-party lookup.
+- **Calibration is partial.** Only the global `β` is calibrated to the observed
+  T0→T1+ rate. Full maximum-likelihood or Bayesian calibration over all model
+  parameters is pending.
+
+---
+
+## Citation
+
+If you use WarModel in academic work, please cite the current model
+specification document and the upstream data sources listed in
+`DATA_PROVENANCE.md`.
+
+```bibtex
+@article{warmodel2026,
+  title={Unified Equation of Interstate War (Directed-Dyad Variant) v27.0},
+  author={Fuller, Andrew},
+  year={2026},
+  month={June}
+}
+```
+
+See `CITATION.cff` for machine-readable citation metadata.
+
+---
 
 ## License
 
-Code: MIT (see `LICENSE`).
-Data: each source dataset has its own license — see `DATA_PROVENANCE.md` and
-comply with attribution requirements when redistributing derived outputs.
+Code: **MIT** (see `LICENSE`).
+
+Data: each source dataset is governed by its own license. The raw source files
+are not redistributed in this repository; users must download them directly
+from the providers and comply with the respective terms. See
+`DATA_PROVENANCE.md` for details.
+
+---
+
+## Contact
+
+Author: Andrew Fuller  
+Repository URL: to be added once the public GitHub repo is set up.

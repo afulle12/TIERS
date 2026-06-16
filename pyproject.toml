@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-    { name = "WarModel contributors" },
+    { name = "Andrew Fuller" },
 ]
 keywords = [
     "conflict",
@@ -52,16 +52,16 @@ dev = [
     "ruff>=0.1.0,<1.0",
 ]
 
-[project.urls]
-Repository = "https://github.com/anomalyco/WarModel"
-Documentation = "https://github.com/anomalyco/WarModel/tree/main/docs"
+# [project.urls]
+# Repository = "<repo-url>"  # TODO: add once public GitHub repo is created
+# Documentation = "<repo-url>/tree/main/docs"
 
-[project.scripts]
-warmodel-score = "scripts.cli.score:main"
-warmodel-build = "scripts.cli.build:main"
+# [project.scripts]
+# warmodel-score = "scripts.cli.score:main"
+# warmodel-build = "scripts.cli.build:main"
 
 [tool.setuptools]
-packages = ["scripts", "scripts.build", "scripts.analysis", "scripts.model", "scripts.data", "scripts.cli"]
+packages = ["scripts", "scripts.build", "scripts.analysis", "scripts.model", "scripts.data"]
 include-package-data = true
 
 [tool.setuptools.package-data]

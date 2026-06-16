@@ -18,6 +18,22 @@ project version.
 - `CHANGELOG.md`, `CITATION.cff`, `DATA_PROVENANCE.md`.
 - `output/.gitkeep` and `tmp/.gitkeep` to preserve empty dirs in version control.
 
+### Updated — Public-facing docs and attribution
+- Rewrote `README.md` for a broad audience: clear executive summary,
+  installation steps, data download links, tier taxonomy, core equation,
+  validation results, limitations, and citation info.
+- Set author attribution to **Andrew Fuller** across `README.md`,
+  `CITATION.cff`, `pyproject.toml`, and `LICENSE`.
+- Removed placeholder GitHub URLs from `pyproject.toml` and `CITATION.cff`
+  until the public repo is created.
+
+### Changed — Raw data handling
+- `data/raw/` is now excluded from version control.
+- Upstream datasets (COW MIDB/NMC, UCDP, EUSANCT, CShapes, V-Dem, ATOP)
+  must be downloaded directly from their providers before running the
+  pipeline. Download links and licensing notes are in `README.md` and
+  `DATA_PROVENANCE.md`.
+
 ### Model — v27.0 specification (code still implementing v21-level, tracked in next release)
 - T6 (Strategic WMD Employment) **removed** as a separate tier; the ordered
   ladder collapses to T0–T5.

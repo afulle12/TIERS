@@ -30,11 +30,15 @@ ENV/
 *.key
 secrets/
 
+# ─── Raw source datasets (not versioned; download separately) ─────
+# Several upstream datasets have licenses that restrict bulk redistribution.
+# See README.md and DATA_PROVENANCE.md for download links.
+data/raw/
+
 # ─── Generated processed data (regenerable) ─────────────
-# Keep raw inputs versioned; ignore generated processed files.
+# Ignore large generated CSVs; rebuild via the pipeline.
 data/processed/conflict_dyads_full.csv
 data/processed/dyads_with_features.csv
-# Parquet equivalents are smaller and versioned for reproducibility.
 data/processed/conflict_dyads_midb_only.csv
 data/processed/*.tmp
 

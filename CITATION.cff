@@ -7,7 +7,6 @@ title: "WarModel — A directed-dyad stochastic-game model of interstate conflic
 version: 27.0.0
 date-released: 2026-06-16
 license: MIT
-repository-code: "https://github.com/anomalyco/WarModel"
 keywords:
   - international-relations
   - interstate-conflict
@@ -17,9 +16,12 @@ keywords:
   - escalation
   - dyadic
   - early-warning
+authors:
+  - name: "Andrew Fuller"
 preferred-citation:
   type: article
   title: "Unified Equation of Interstate War (Directed-Dyad Variant) v27.0"
+  authors:
+    - name: "Andrew Fuller"
   year: 2026
   month: 6
-  url: "https://github.com/anomalyco/WarModel/tree/main/docs/models"
