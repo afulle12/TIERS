@@ -13,6 +13,21 @@ networkx>=3.0,<4.0
 # Optional but used: Parquet I/O for processed datasets
 pyarrow>=12.0,<20.0
 
+# Wikipedia pipeline: columnar query of the structured-wikipedia Parquet snapshot
+duckdb>=0.10,<2.0
+
+# Wikipedia pipeline: free-text date normalization for infobox date fields
+dateparser>=1.2,<2.0
+
+# Wikipedia pipeline: OpenAI-compatible client for LM Studio
+openai>=1.0,<2.0
+
+# Wikipedia pipeline: download the structured-wikipedia snapshot from HuggingFace
+huggingface_hub>=0.20,<1.0
+
+# Progress bars (used in wiki_xml_to_parquet.py)
+tqdm>=4.60,<5.0
+
 # Testing
 pytest>=7.0,<9.0
 pytest-cov>=4.0,<7.0

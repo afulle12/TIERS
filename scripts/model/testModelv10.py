@@ -10,7 +10,7 @@ LEVEL 4 — Rank-order validity (Spearman vs. expert ordering)
 import copy
 import random
 import math
-from war_model_lib import State, p_init, p_direct, p_join, dyadic, PARAM_NAMES
+from eirene_lib import State, p_init, p_direct, p_join, dyadic, PARAM_NAMES
 
 random.seed(42)
 
@@ -149,7 +149,7 @@ def test_treaty_betrayal_penalty():
     """Allying with B's enemies (C_d_opp > 0.5) should suppress T_sup via C_b."""
     A_clean = State("A", N_pub=0.9, C_i=0.5, C_d_sup=0.8, C_d_opp=0.0)
     A_traitor = copy.deepcopy(A_clean); A_traitor.C_d_opp = 0.6  # also allied to enemies
-    from war_model_lib import treaty_triggers
+    from eirene_lib import treaty_triggers
     T_sup_clean, _ = treaty_triggers(A_clean)
     T_sup_traitor, _ = treaty_triggers(A_traitor)
     assert T_sup_traitor < T_sup_clean, "betrayal penalty did not suppress T_sup"

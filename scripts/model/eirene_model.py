@@ -1,5 +1,5 @@
 """
-Unified Equation of Interstate War — Dyadic Variant v2.1
+Eirene — Unified Equation of Interstate War, Dyadic Variant v2.1.
 Implementation and scenario testing.
 """
 

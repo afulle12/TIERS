@@ -39,8 +39,12 @@ data/raw/
 # Ignore large generated CSVs; rebuild via the pipeline.
 data/processed/conflict_dyads_full.csv
 data/processed/dyads_with_features.csv
+data/processed/dyads_with_features_v27.csv
+data/processed/dyads_with_features_v27.parquet
 data/processed/conflict_dyads_midb_only.csv
 data/processed/*.tmp
+data/processed/wiki_*.csv
+data/processed/wiki_*.parquet
 
 # ─── Output (regenerable) ───────────────────────────────
 output/
@@ -53,6 +57,13 @@ output/
 # ─── OS / temporary ─────────────────────────────────────
 tmp/
 !tmp/.gitkeep
+
+# ─── Wikipedia pipeline intermediates ─────────────────────
+data/raw/structured-wikipedia/
+tmp/wiki_*.parquet
+tmp/wiki_*.jsonl
+tmp/wiki_*.json
+tmp/lmstudio_*.json
 *.bak
 *.orig
 *.rej

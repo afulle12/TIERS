@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: |
-  If you use WarModel in academic work, please cite the current model
+  If you use TIERS in academic work, please cite the current model
   specification document and the upstream data sources. See
   DATA_PROVENANCE.md for source-by-source attribution.
-title: "WarModel — A directed-dyad stochastic-game model of interstate conflict"
+title: "TIERS (Tiered Interstate Escalation Risk System) — A directed-dyad stochastic-game model of interstate conflict"
 version: 27.0.0
-date-released: 2026-06-16
+date-released: 2026-07-04
 license: MIT
 keywords:
   - international-relations
@@ -24,4 +24,4 @@ preferred-citation:
   authors:
     - name: "Andrew Fuller"
   year: 2026
-  month: 6
+  month: 7

@@ -1,9 +1,10 @@
-# WarModel
+# TIERS
 
-A directed-dyad stochastic-game model of interstate conflict escalation,
+**T**iered **I**nterstate **E**scalation **R**isk **S**ystem — a
+directed-dyad stochastic-game model of interstate conflict escalation,
 persistence, and de-escalation.
 
-WarModel merges seven major conflict and state-capability datasets into a
+TIERS merges seven major conflict and state-capability datasets into a
 unified directed-dyad-year table, then estimates the probability that any
 given pair of states will move up or down a six-tier conflict ladder over the
 next year. It is intended both as a research instrument and as an operational
@@ -45,20 +46,83 @@ WMD handled as a continuous severity modulator rather than a separate tier.
 
 ## Installation
 
+The recommended setup uses [`uv`](https://github.com/astral-sh/uv) (handles
+PEP 668 on Debian 13 / Ubuntu 24.04+ cleanly), but plain `pip` in a
+virtual environment works too.
+
 ```bash
 # Clone or download the repository
 git clone <repo-url>       # to be added once the public GitHub repo is set up
-cd WarModel
+cd tiers
 
-# Create a virtual environment
+# Option A: with uv
+uv venv
+uv pip install -r requirements.txt
+
+# Option B: with plain pip in a venv
 python3 -m venv .venv
 source .venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
+After setup, activate the environment before running anything:
+
+```bash
+source .venv/bin/activate            # bash / zsh
+# or
+.venv\Scripts\activate               # PowerShell on Windows
+```
+
 Requires Python 3.10 or newer.
+
+### Running the Wikipedia tier-extraction pipeline
+
+The Wikipedia pipeline (`scripts/build/wiki_pipeline.py` and
+`scripts/build/_run_v2_pipeline.py`) is an orchestrator that runs
+seven stages end-to-end and produces
+`data/processed/conflict_dyads_wikipedia.csv`. The output is aligned
+to the **v27.0 spec scheme** (T1=1, T2=2, T3=3, T4=4, T5=5) and the
+**v27.0 labels** (`T2-Economic Coercion`, `T3-Proxy/Indirect Military`),
+which differs from the legacy MIDB-based ground-truth labeling
+(T2 and T3 both at hostlev=3). See
+[`docs/wiki_pipeline.md`](docs/wiki_pipeline.md) for the full stage
+table, configuration knobs, and validation report format. Quick start:
+
+```bash
+# Run all 7 stages end-to-end (uses OLLAMA_* env vars)
+.venv/bin/python scripts/build/_run_v2_pipeline.py
+
+# Or invoke individual stages via the orchestrator
+.venv/bin/python scripts/build/wiki_pipeline.py run --stages 1,2,3,4,5,6,7
+```
+
+The v2 pipeline (7 stages, 3 LLM passes) replaces the legacy 9-stage
+design that mixed structured infobox parsing with a tier classifier
+and a separate event extractor. In the v2 design:
+
+- **Stage 2** filters the 35 GB enwiki snapshot down to ~50–60k
+  bilateral articles (DuckDB country scan + Python bilateral gate).
+- **Stage 3** runs a batched LLM 0/1 filter that drops ~75% of
+  articles as non-conflict.
+- **Stage 4** is a single LLM call per article that emits the tier,
+  start/end year, explanation, and the list of directed
+  (initiator, target, confidence, implied) pairs.
+- **Stage 5** is pure-Python aggregation that expands the duration
+  range into one row per year, resolves country names to GWN codes,
+  and writes a directed-dyad-year table covering 1900–2025.
+- **Stage 6** resolves any unmapped country names via a final LLM
+  pass, preserving the raw name in parentheses.
+- **Stage 7** compares against `conflict_dyads_full.csv` (compound
+  sources split on `_`) and produces a validation report and
+  diagnostics.
+
+The output is a directed-dyad-year table covering 1900–2025 with
+per-year precision/recall/F1, per-dyad mismatch table, and a
+cross-dataset comparison (agreement / disagreement / new) against
+all ground-truth datasets (MIDB, UCDP, EUSANCT, ATOP).
+
+Files in `scripts/build/legacy/` are from the old 9-stage design
+and are no longer used by the active pipeline.
 
 ---
 
@@ -74,11 +138,11 @@ EUSANCT, ATOP). Download them from their official providers and place them in
 | COW MIDB + MIDA + MIDIP + MIDI | 5.0 | T1, T4, T5 events | [correlatesofwar.org/data-sets/MIDs](https://correlatesofwar.org/data-sets/MIDs/) |
 | UCDP Dyadic | v26.1 | T3 proxy/support events | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | UCDP/PRIO Armed Conflict | v26.1 | T3 conflict metadata | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
-| EUSANCT | 2022 | T1 threats + T2 sanctions | [piie.com/research/eusanct](https://www.piie.com/research/eusanct) |
-| CShapes | 2.0 | Country-year registry, GWN mapping | [cshapes.ethz.ch](https://cshapes.ethz.ch/) |
+| EUSANCT | 2022 | T1 threats + T2 sanctions | [sanctionsplatform.ohchr.org/record/20861](https://sanctionsplatform.ohchr.org/record/20861?ln=en) |
+| CShapes | 2.0 | Country-year registry, GWN mapping | [icr.ethz.ch/data/cshapes](https://icr.ethz.ch/data/cshapes/) |
 | V-Dem | v16 (Core) | Democracy proxy for `N_pub` | [v-dem.net/data](https://v-dem.net/data/) |
 | COW NMC | v7.0 | Capability ratios, CINC | [correlatesofwar.org/data-sets/national-material-capabilities](https://correlatesofwar.org/data-sets/national-material-capabilities/) |
-| ATOP | 3.0 | Alliance depth / treaty triggers | [atopdata.org](https://www.atopdata.org/) |
+| ATOP | 3.0 | Alliance depth / treaty triggers | [dataverse.harvard.edu/dataset/doi:10.7910/DVN/IUUPWR](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IUUPWR) |
 
 See `DATA_PROVENANCE.md` for source-by-source licensing and attribution notes.
 
@@ -106,12 +170,22 @@ python scripts/analysis/analyze_conflict_dyads.py
 python scripts/analysis/tier_transition_risk.py
 python scripts/analysis/tier_transition_risk_full.py
 
-# 6. Backtest the model
-python scripts/model/backtest_war_model.py
+# 6. Build the v27 structural inputs and features grid
+python scripts/build/build_contiguity.py       # CShapes contiguity, distance, FMA
+python scripts/build/build_rivalry.py          # MIDB recency-decayed rivalry (Omega)
+python scripts/build/build_features_v27.py     # v27 features grid (parquet)
 
-# 7. Run model invariants / sensitivity tests
+# 7. Backtest the models
+python scripts/model/backtest_eirene.py        # legacy v21 product-form
+python scripts/model/backtest_eirene_v27.py    # v27 cost-field engine
+
+# 8. Forward-score live dyads (latest available year)
+python scripts/model/eirene_score_v27.py
+
+# 9. Run model invariants / sensitivity tests
 python scripts/model/testModelv10.py
-python scripts/model/warModelInvarientsTesting.py
+python scripts/model/eirene_invariants_testing.py
+python scripts/model/eirene_v27_invariants_testing.py
 ```
 
 Generated outputs go to `output/analysis/` and `output/charts/`; intermediate
@@ -168,35 +242,48 @@ The full specification is in
 
 ## Validation
 
-Two independent test suites run against the model:
+Three independent test suites run against the model:
 
 - `scripts/model/testModelv10.py` — 4-level systematic validation: invariants,
   local sensitivity tornado, Monte Carlo global sensitivity, and rank-order
   validity against an expert-ordered set of dyads.
-- `scripts/model/warModelInvarientsTesting.py` — 5,000 random parameter sets
+- `scripts/model/eirene_invariants_testing.py` — 5,000 random parameter sets
   checked for probability bounds, monotonicity, and edge cases.
+- `scripts/model/eirene_v27_invariants_testing.py` — invariant and
+  edge-case suite for the v27.0 cost-field engine.
 
-Historical backtest on 1946–2014 (train 1946–1989 / test 1990–2014):
+Historical backtest of the v27.0 cost-field engine on 1946–2014
+(train 1946–1989 / test 1990–2014):
 
-| Threshold | Test AUC | Brier | Events |
+| Threshold | Test AUC | Brier | Positives (test) |
 |---|---|---|---|
-| T0 → T1+ | 0.30 | 0.0053 | 1,061 |
-| T0 → T4+ | 0.55 | 0.0008 | 151 |
-| T0 → T5 | **0.64** | 0.0003 | 53 |
-| Any escalation | 0.31 | 0.0060 | 1,198 |
+| T0 → T1+ | 0.63 | 0.0228 | 622 |
+| T0 → T4+ | 0.86 | 0.0013 | 98 |
+| T0 → T5 | **0.94** | 0.0002 | 62 |
+| Any escalation | 0.66 | 0.0227 | 673 |
 
-The model discriminates high-severity escalation (T0→T5) meaningfully above
-chance, but low-severity onset (T0→T1+) remains weak. See
-`output/analysis/model_calibration_summary.md` for full results.
+The engine discriminates high-severity escalation (T0→T4+ and T0→T5)
+strongly, even though the cost-field occupancy inputs (B^econ, B^blood,
+V_i) are not yet attached and every row therefore runs in the
+diagnostic-fallback member. Low-severity onset (T0→T1+) remains the
+weakest threshold. These results have not yet been compared against a
+regression baseline, and confidence intervals are pending. For full
+results see `output/analysis/model_calibration_summary_v27.md`; the
+legacy v21 product-form results are in
+`output/analysis/model_calibration_summary.md` for comparison
+(v21 test AUC was 0.30–0.64, so v27 is a large improvement).
 
 ---
 
 ## Limitations
 
-- **Spec-code drift.** `war_model_lib.py` and `backtest_war_model.py` still
-  implement the v21-level product-form model. The v27.0 cost-field engine with
-  status-quo-biased barriers and the Capability/Reach gate is fully specified
-  in `docs/models/` but not yet implemented in code.
+- **Cost field runs in diagnostic fallback.** The v27.0 cost-field engine
+  (`scripts/model/eirene_lib_v27.py`) is implemented and backtested, but the
+  cost-field occupancy inputs (B^econ, B^blood, V_i) have no attached data
+  source, so every row currently resolves to the diagnostic-fallback member.
+  See `docs/COVERAGE_MATRIX.md` for per-variable coverage. The legacy v21
+  product-form implementation (`eirene_lib.py`, `backtest_eirene.py`) is
+  retained for comparison.
 - **Path 2 not backtested.** The historical backtest currently scores only
   direct initiation (Path 1). Contagion/joining behavior (Path 2) is tested for
   invariants but not evaluated against historical data.
@@ -214,16 +301,16 @@ chance, but low-severity onset (T0→T1+) remains weak. See
 
 ## Citation
 
-If you use WarModel in academic work, please cite the current model
+If you use TIERS in academic work, please cite the current model
 specification document and the upstream data sources listed in
 `DATA_PROVENANCE.md`.
 
 ```bibtex
-@article{warmodel2026,
+@article{tiers2026,
   title={Unified Equation of Interstate War (Directed-Dyad Variant) v27.0},
   author={Fuller, Andrew},
   year={2026},
-  month={June}
+  month={July}
 }
 ```
 
