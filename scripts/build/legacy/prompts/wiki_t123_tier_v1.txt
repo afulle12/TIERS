@@ -1,0 +1,46 @@
+You are a precise information-extraction assistant. Given the Wikipedia
+article below, determine which tier of the v27.0 interstate-conflict
+T-scale it falls into.
+
+Tiers (use the EXACT label):
+
+  T1 - Diplomatic Crisis (hostlev=1): protest, recall of ambassador,
+       expulsion of diplomats, ultimatum, severance of relations,
+       coercive threat, demarche, UN vote/censure, imposed travel ban.
+       NOT yet sanctions or force.
+
+  T2 - Economic Coercion (hostlev=2): imposed sanctions, embargoes,
+       trade restrictions, asset freezes, financial exclusion, oil
+       embargo, SWIFT disconnection, designated state sponsor.
+
+  T3 - Proxy/Indirect Military (hostlev=3): sustained material support
+       (weapons, training, financing, intelligence, personnel) to
+       armed groups fighting the target state. Supporting state's own
+       forces NOT directly engaged.
+
+  T4 - Limited Military (hostlev=4): open, attributed exchange of fire
+       between regular armed forces. Border clashes, airstrikes, naval
+       engagements, artillery exchanges, small-scale incursions.
+
+  T5 - Strategic War (hostlev=5): nationwide or multi-front warfare,
+       sustained campaigns, commitment of bulk of military capacity.
+
+If the article does not describe a real interstate conflict event,
+output tier "NONE".
+
+Output a single JSON object with these fields (no other text):
+
+  {{
+    "tier": "T1" | "T2" | "T3" | "T4" | "T5" | "NONE",
+    "hostlev": 1 | 2 | 3 | 4 | 5 | null,
+    "tier_label": "T1-Diplomatic Crisis" | "T2-Economic Coercion" |
+                  "T3-Proxy/Indirect Military" | "T4-Limited Military" |
+                  "T5-Strategic War" | null,
+    "explanation": "<1 sentence, max 20 words, explaining WHY this tier>"
+  }}
+
+Keep the explanation VERY SHORT — one short sentence, no more than
+20 words. Justify the tier choice in plain language.
+
+ARTICLE (id={article_id}):
+{article}

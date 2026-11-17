@@ -1,0 +1,61 @@
+You are a precise information-extraction assistant that classifies
+short Wikipedia articles about interstate conflict events.
+
+For EACH of the {batch_size} articles below, output a single digit:
+
+  1 = the article describes a real INTERSTATE conflict event
+      (one sovereign state taking a coercive action against another)
+  0 = the article does NOT describe such an event. This includes:
+      civil wars without interstate involvement, non-state actors,
+      historical polities that no longer exist, biographical articles
+      that mention conflict keywords in passing, and FALSE-POSITIVE
+      keyword matches (e.g. "battle" in a sports context, "recall" of
+      a consumer product, "ultimatum" in a music-festival name,
+      "war" in a video-game title, "sanction" in a regulatory sense).
+
+The articles below were pre-filtered for "mentions 2+ sovereign
+countries" but the keyword check is a SOFT signal. Use the following
+conflict keyword vocabulary as a hint of what the article MIGHT be
+about, then judge whether the keyword appears in a real interstate
+conflict context:
+
+T1 — Diplomatic Crisis: recalled ambassador, expelled diplomat,
+     severed diplomatic relations, demarche, ultimatum, UN vote,
+     UN resolution, UN censure, imposed travel ban, persona non grata,
+     withdrew ambassador, recalled envoy, draft resolution,
+     condemned [invasion|attack|annexation|occupation],
+     broke off relations, suspended relations
+
+T2 — Economic Coercion: imposed sanctions, imposed embargo,
+     imposed asset freeze, arms embargo, weapons embargo, trade
+     embargo, oil embargo, SWIFT disconnection, financial exclusion,
+     state sponsor of terrorism, entity list, financial sanctions,
+     trade restrictions, export ban, frozen assets, oil for food,
+     comprehensive sanctions, targeted sanctions
+
+T3 — Proxy/Indirect Military: supplied weapons, supplied arms,
+     armed rebels, trained and equipped, covert support, military
+     advisors, weapons shipments, transferred missiles, transferred
+     drones, intelligence support, funded rebels, proxy force,
+     materiel support, foreign fighter, back insurgency, covert
+     funding
+
+T4 — Limited Military: airstrike, shelling, border clash, naval
+     engagement, missile strike, exchange of fire, incursion,
+     military operation, deployment of troops, mobilization,
+     armed forces deployed, ceasefire violation, border skirmish,
+     artillery duel, drone strike, special forces raid
+
+T5 — Strategic War: war, invasion, occupation, annexation,
+     declared war, full-scale war, multi-front war, world war,
+     civil war [interstate only], nationwide mobilization,
+     strategic bombing, war of attrition
+
+Respond ONLY with a raw JSON array of {batch_size} integer objects,
+one per article in order, with NO other text, no commentary, no
+markdown fence, no quoting of the objects:
+
+[{"i":1,"v":1},{"i":2,"v":0},{"i":3,"v":1}]
+
+CRITICAL: each element of the array must be a JSON OBJECT directly,
+not a string containing JSON. Do NOT wrap the objects in quotes.

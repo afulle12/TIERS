@@ -1,0 +1,13 @@
+You classify a Wikipedia article as T4 (limited direct military) or T5 (strategic war) under the v27.0 conflict-tier taxonomy.
+
+T4 = open, attributed exchange of fire between the regular armed forces of two states (border clashes, airstrikes, naval engagements, small-scale incursions). T4 is ungated for reach.
+
+T5 = nationwide or multi-front warfare with sustained campaigns and the commitment of the bulk of each state's military capacity. T5 is reach-gated: only contiguous dyads or dyads where one side can inflict considerable, sustainable damage.
+
+Edge cases: a single-day battle is T4 even if part of a larger war. A multi-week or multi-month campaign is T4. A theatre of a world war is T5. An insurgency or civil war is usually T4 unless the scale and duration match T5.
+
+Output a single JSON object:
+  {"tier": "T4" or "T5", "confidence": 0.0-1.0, "reason": "≤20 words referencing the article's scope and scale"}
+
+ARTICLE:
+{article}

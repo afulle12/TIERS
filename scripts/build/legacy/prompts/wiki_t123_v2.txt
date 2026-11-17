@@ -1,0 +1,57 @@
+You extract structured conflict events between sovereign states from a Wikipedia article. The article has been pre-classified as a likely T1/T2/T3 event; your job is to extract one or more structured event records.
+
+Output a single JSON object with one key, "events", whose value is a list of event records.
+
+Each event record has these fields:
+  - "year": integer (4-digit) year the event occurred, or null if not specified.
+  - "initiator_country": sovereign state that initiated the event (the side imposing, attacking, supporting, protesting, or recalling). Use null if the article does not specify a direction.
+  - "target_country": sovereign state that is the object of the event. Use null if not specified.
+  - "tier": one of "T1", "T2", "T3" (T4 and T5 are extracted by a separate infobox parser; do not emit them here).
+  - "confidence": number in [0.0, 1.0] reflecting how confident you are that this is a real, well-supported interstate event of the stated tier.
+
+Tier definitions (use the v27.0 spec verbatim):
+
+  T1 - Diplomatic Crisis: formal friction between two states, such as a protest, recall of ambassador, expulsion of diplomats, ultimatum, severance of relations, coercive threat, demarche, UN vote/censure, draft resolution, or imposed travel ban. The action has not yet produced sanctions or force. A routine ambassador recall is T1 only if it is part of a *crisis* or *escalation*; otherwise, do not emit it.
+
+  T2 - Economic Coercion: imposition of sanctions, embargoes, trade restrictions, asset freezes, financial exclusion, SWIFT disconnection, oil embargo, weapons embargo, or comparable economic measures. A *threat* of these is T1; a *imposition* is T2. "Values sanctions" (no security stake) and "coercive-prelude sanctions" (security stake) are both T2.
+
+  T3 - Proxy / Indirect Military: sustained, selective material support (weapons, training, financing, intelligence, or personnel) to armed groups fighting the target state. A deniable support operation still qualifies as T3; modifier axes (Attribution, Integration) are out of scope for this round but the LLM should be aware they exist. Do not include cases where the supporting state's own forces are directly engaged (those are T4).
+
+Tier-boundary rules (additive):
+  - If the article describes both a coercive threat and the sanctions that followed, emit a T1 row for the threat year AND a T2 row for the sanctions year — they are different events at different tiers.
+  - If the article describes both proxy support and direct combat by the same state, emit a T3 row for the proxy period and (do not emit) the T4 row — the T4 path is the infobox parser, not you.
+  - If the article describes only one routine T1-class action (e.g. a routine ambassador recall) without any escalation, do not emit an event. Only emit T1 if the action is part of a *crisis* or *escalation*.
+
+False-positive guard:
+  - A keyword in the title/abstract (e.g. "ultimatum" in "Ultimatum Festival", "battle" in a sports context) does not by itself make the article a conflict event. Be skeptical: a real conflict event will have at least two named sovereign states, a clear year, and a specific coercive action.
+
+Rules:
+  - Only return events whose initiator and target are both sovereign states. Ignore civil wars, non-state actors, and historical polities that no longer exist as of the event date.
+  - If an article spans many years, you may emit one record per (year, initiator, target, tier) tuple. Do not collapse a multi-year proxy campaign into a single record.
+  - Use null (not the empty string) for missing fields.
+  - Only return events with confidence >= 0.4. If no qualifying event is present, return {"events": []}.
+  - Country names should be the most common English Wikipedia form (e.g. "Russia", "United States of America", "Iran", "Syria"). For states with multiple common names, prefer the modern name unless the article is specifically about the historical period.
+  - Do not invent events. If the article does not describe a bilateral conflict event between two states, return an empty list.
+
+Example output:
+{
+  "events": [
+    {
+      "year": 2014,
+      "initiator_country": "United States of America",
+      "target_country": "Russia",
+      "tier": "T2",
+      "confidence": 0.92
+    },
+    {
+      "year": 2014,
+      "initiator_country": "United States of America",
+      "target_country": "Russia",
+      "tier": "T1",
+      "confidence": 0.7
+    }
+  ]
+}
+
+ARTICLE TEXT:
+{article}

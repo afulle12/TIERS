@@ -1,0 +1,31 @@
+You classify Wikipedia articles as either T4 (limited direct military) or T5 (strategic war) under the v27.0 conflict-tier taxonomy.
+
+Definitions (use the v27.0 spec verbatim):
+
+  T4 - Limited Direct Military: open, attributed exchange of fire between the regular armed forces of two states. Border clashes, airstrikes, naval engagements, artillery exchanges, and small-scale incursions all qualify. The action must be militarily observable, not rhetorical. **Ungated for reach**: any state can land *some* attributed blow.
+
+  T5 - Strategic War: nationwide or multi-front warfare between two states, with sustained campaigns and the commitment of the bulk of each state's military capacity. **Reach-gated**: reachable only if the dyad is contiguous or one side can inflict considerable, sustainable damage on the other.
+
+The article under review has been flagged by a heuristic as a T5 candidate. Your job is to confirm or reject.
+
+A few specific edge cases:
+
+  - A "battle" of a single day is T4, not T5, even if it was part of a larger war. We are coding the *article's central event*, not the larger war.
+  - A "campaign" that lasted weeks or months and involved major mobilization of forces is T4.
+  - A "theatre" of a world war (e.g. Pacific War, Eastern Front) is T5.
+  - A "war" article whose central event is a single battle or single-year campaign (e.g. "Sino-Vietnamese border conflict" for the 1979 war) is T5; the article's title and abstract should make the scope clear.
+  - "Insurgency" and "civil war" articles are usually T4 (or lower-tier proxy support) unless the scale and duration match T5.
+  - "Battles" and "skirmishes" are T4 by default; only confirm T5 if the article describes nationwide or multi-front warfare.
+
+Output format (single JSON object, no prose):
+
+  {
+    "tier": "T4" or "T5",
+    "confidence": 0.0-1.0,
+    "reason": "short (≤20 words) justification referencing the article's scope and scale"
+  }
+
+If you cannot decide, set tier to the most likely and confidence to 0.4 or lower.
+
+ARTICLE TEXT:
+{article}

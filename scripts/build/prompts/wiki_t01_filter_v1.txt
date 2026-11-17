@@ -1,0 +1,83 @@
+You are a precise information-extraction assistant that classifies
+short Wikipedia articles about interstate conflict events.
+
+For EACH of the {batch_size} articles below, output a single digit:
+
+  1 = the article contains a conflict or dispute between nation states
+      (one sovereign state taking a coercive action against another,
+      including diplomatic friction, sanctions, proxy support, border
+      clashes, or full-scale war)
+  0 = the article does NOT contain such an interstate conflict or
+      dispute. This includes: civil wars without interstate involvement,
+      non-state actors, historical polities that no longer exist,
+      biographical articles that mention conflict keywords in passing,
+      and FALSE-POSITIVE keyword matches (e.g. "battle" in a sports
+      context, "recall" of a consumer product, "ultimatum" in a
+      music-festival name, "war" in a video-game title, "sanction" in
+      a regulatory sense).
+
+The articles below were pre-filtered for "mentions 2+ sovereign
+countries" but the keyword check is a SOFT signal. Use the following
+conflict keyword vocabulary as a hint of what the article MIGHT be
+about, then judge whether the keyword appears in a real interstate
+conflict context:
+
+T1 — Diplomatic Crisis: recalled ambassador, expelled diplomat,
+     severed diplomatic relations, demarche, ultimatum, UN vote,
+     UN resolution, UN censure, imposed travel ban, persona non grata,
+     withdrew ambassador, recalled envoy, draft resolution,
+     condemned [invasion|attack|annexation|occupation],
+     broke off relations, suspended relations
+
+T2 — Economic Coercion: imposed sanctions, imposed embargo,
+     imposed asset freeze, arms embargo, weapons embargo, trade
+     restrictions, oil embargo, SWIFT disconnection, designated
+     state sponsor of terrorism
+
+T3 — Proxy/Indirect Military: provided weapons to, supplied arms to,
+     trained militants of, funded insurgents fighting, sent
+     intelligence to, deployed advisors in support of [an armed group
+     fighting a state]
+
+T4 — Limited Military: border clash, airstrike, naval engagement,
+     artillery exchange, small-scale incursion, skirmish, exchange of
+     fire, shoot-down, capture of [soldier | vessel | aircraft]
+
+T5 — Strategic War: war, world war, invasion of, occupation of,
+     declaration of war, surrender, ceasefire, armistice, military
+     campaign, theatre of war, multi-front war, full-scale war
+
+Tier-2-or-higher signals (worth keeping as 1):
+  - ANY mention of war, invasion, occupation, blockade, embargo,
+    sanctions, arms deal, treaty of [mutual defense | alliance],
+    severance of relations, expulsion of diplomats
+  - ANY mention of combatants, belligerents, front lines, military
+    operations
+
+Tier-1 signals (keep as 1 if explicitly diplomatic, else judge by context):
+  - Recalled ambassador, expelled diplomat, demarche, persona non grata
+  - A routine ambassador recall is T1 only if part of a *crisis* or
+    *escalation*; otherwise return 0.
+
+False-positive keywords to watch for:
+  - "battle" in sports / "battle" in video games / "Battle of the
+    bands" / "battle of the bulge" (a dieting book) / "Battle of
+    Hastings" (the 1066 historical event without a state-vs-state
+    framing is a coin flip; if the article is about the *event* in
+    a state-vs-state context, return 1)
+  - "war" in video games / "war" as a metaphor ("war on drugs",
+    "war on poverty") / "Cold War" (return 0; this is a tense
+    geopolitical period, not a discrete event)
+  - "ultimatum" in non-conflict contexts (Ultimatum Festival, etc.)
+  - "sanction" in a regulatory sense (sanction a rule, etc.)
+  - "recall" of a consumer product
+  - "blockade" in a non-military sense (blockade of a bill, etc.)
+
+Output format: a single JSON object with one key, "results", whose
+value is a list of {batch_size} integers, one per article, in order.
+Each integer is 0 or 1.
+
+  {{"results": [1, 0, 1, ...]}}
+
+ARTICLES (id, title, abstract excerpt):
+{articles}

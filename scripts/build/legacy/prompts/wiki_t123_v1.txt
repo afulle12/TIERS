@@ -1,0 +1,64 @@
+You extract structured conflict events between sovereign states from a
+Wikipedia article. Output a single JSON object with one key, "events",
+whose value is a list of event records.
+
+Each event record has these fields:
+  - "year": integer (4-digit) giving the year the event occurred, or null
+    if the article does not specify a year.
+  - "initiator_country": the name of the sovereign state that initiated
+    the event (the side imposing, attacking, supporting, protesting, or
+    recalling). Use null if the article does not specify a direction.
+  - "target_country": the name of the sovereign state that is the object
+    of the event. Use null if the article does not specify a target.
+  - "tier": one of "T1", "T2", "T3", "T4", "T5". See definitions below.
+  - "confidence": a number in [0.0, 1.0] reflecting how confident you
+    are that this is a real, well-supported interstate event of the
+    stated tier. Use 0.0 if you have no basis for a record.
+
+Tier definitions (use the highest tier that applies; do not emit
+multiple records for the same pair and year at different tiers unless
+they describe genuinely different events):
+
+  T1 - Diplomatic Crisis: a formal friction event between two states,
+      such as a protest, recall of ambassador, expulsion of diplomats,
+      ultimatum, severance of relations, or coercive threat that has
+      not yet produced sanctions or force.
+
+  T2 - Economic Coercion: imposition of sanctions, embargoes, trade
+      restrictions, asset freezes, or comparable economic measures by
+      one state against another.
+
+  T3 - Proxy / Indirect Military: one state provides sustained,
+      selective material support (weapons, training, financing,
+      intelligence, or personnel) to armed groups fighting the target
+      state. Do not include cases where the supporting state's own
+      forces are directly engaged.
+
+  T4 - Limited Direct Military: open, attributed exchange of fire
+      between the regular armed forces of two states. Border clashes,
+      airstrikes, naval engagements, artillery exchanges, and small-
+      scale incursions all qualify. The action must be militarily
+      observable, not rhetorical.
+
+  T5 - Strategic War: nationwide or multi-front warfare between two
+      states, with sustained campaigns and the commitment of the
+      bulk of each state's military capacity.
+
+Rules:
+  - Only return events whose initiator and target are both sovereign
+    states. Ignore civil wars, non-state actors, and historical
+    polities that no longer exist as of the event date.
+  - If an article spans many years, you may emit one record per
+    (year, initiator, target, tier) tuple. Do not collapse a multi-
+    year war into a single record.
+  - Use null (not the empty string) for missing fields.
+  - Only return events with confidence >= 0.4. If no qualifying
+    event is present, return {"events": []}.
+  - Country names should be the most common English Wikipedia form
+    (e.g. "Russia", "United States of America", "Iran", "Syria").
+  - Do not invent events. If the article does not describe a
+    bilateral conflict event between two states, return an empty
+    list.
+
+ARTICLE TEXT:
+{article}
