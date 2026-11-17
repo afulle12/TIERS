@@ -39,9 +39,15 @@ data/raw/
 # Ignore large generated CSVs; rebuild via the pipeline.
 data/processed/conflict_dyads_full.csv
 data/processed/dyads_with_features.csv
+data/processed/dyads_with_features.parquet
 data/processed/dyads_with_features_v27.csv
 data/processed/dyads_with_features_v27.parquet
+data/processed/dyads_with_features_v28.csv
+data/processed/dyads_with_features_v28.parquet
 data/processed/conflict_dyads_midb_only.csv
+data/processed/country_code_crosswalk.csv
+data/processed/trade_interdependence.csv
+data/processed/trade_interdependence.parquet
 data/processed/*.tmp
 data/processed/wiki_*.csv
 data/processed/wiki_*.parquet
@@ -74,6 +80,6 @@ Thumbs.db
 logs/
 
 # ─── Build / distribution ───────────────────────────────
-build/
+/build/
 dist/
 *.egg
