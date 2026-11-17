@@ -14,16 +14,28 @@ External data used (place in data/raw/):
     ATOP 3.0 directed dyad-year data.
     Required columns: stateA, stateB, year, defense, offense, neutral, nonagg, consul
 
+Input grid:
+  data/processed/dyad_states.parquet (build_dyad_states.py): one row per
+  ordered pair of states that both exist in the year.
+
+Joins use the code system each source is keyed on. V-Dem `COWcode`, NMC and
+ATOP are Correlates of War codes, so they join on `initiator_ccode` /
+`target_ccode`, never on the Gleditsch-Ward numbers.
+
 Outputs:
-  data/processed/dyads_with_features.parquet (or .csv fallback)
-    Key: (initiator_gwno, target_gwno, year)
-    Schema: all columns from conflict_dyads_full.csv plus:
-      n_pub_a, n_pub_b        (polyarchy / 100, 0-1 scale)
+  data/processed/dyads_with_features.parquet
+    Key: (year, initiator_ccode, target_ccode)
+    Schema: all columns from dyad_states.parquet plus:
+      n_pub_a, n_pub_b        (V-Dem polyarchy, 0-1; 0.5 where unobserved)
+      n_pub_observed_a/_b     (False where the 0.5 default was used)
+      cinc_a, cinc_b          (COW CINC; empty where unobserved)
       dp_a, dp_b              (year-over-year cinc change for A/B)
-      r_d_ab                  (cinc ratio: abs diff)
-      c_t_ab, c_t_ba          (cinc share: B/(A+B) for A->B, A/(A+B) for B->A)
+      r_d_ab                  (absolute cinc difference)
+      c_t_ab, c_t_ba          (target's cinc share: B/(A+B) and A/(A+B);
+                               they sum to one, 0.5 each where unobserved)
+      cinc_observed           (False where either cinc is missing)
       c_d_sup_ab              (ATOP alliance depth supporting the partner)
-      c_d_opp_ab              (ATOP alliance depth opposing the partner)
+      c_d_opp_ab              (placeholder: 1 - c_d_sup_ab)
 """
 from __future__ import annotations
 
@@ -90,144 +102,76 @@ def load_cow_atop() -> pd.DataFrame:
 
 def build_features() -> int:
     print("Building features for model back-test...\n")
-
-    # -----------------------------------------------------------------
-    # 1. Load V-Dem → N_pub = polyarchy score as public peacefulness proxy
-    # -----------------------------------------------------------------
     vdem = load_vdem()
-
-    # -----------------------------------------------------------------
-    # 2. Load COW NMC → CINC for power, capability
-    # -----------------------------------------------------------------
     nmc = load_cow_nmc()
     if len(nmc):
+        nmc = nmc.sort_values(["ccode", "year"])
         nmc["dp"] = nmc.groupby("ccode")["cinc"].diff().fillna(0)
-
-    # -----------------------------------------------------------------
-    # 3. Load COW ATOP → alliance depth
-    # -----------------------------------------------------------------
     atop = load_cow_atop()
 
-    # -----------------------------------------------------------------
-    # 4. Load the dyad-year grid (T0-T5)
-    # -----------------------------------------------------------------
-    grid_path = os.path.join(DATA_PROCESSED, "conflict_dyads_full.csv")
-    print(f"\nLoading conflict dyad grid from {grid_path}...")
-    # Read in chunks to reduce memory; use only required columns
-    cols = ["year", "initiator_gwno", "target_gwno", "initiator", "target",
-            "uiw_tier", "hostlev", "tier_label", "source"]
-    dy = pd.read_csv(grid_path, usecols=cols, dtype={"year": int})
-    dy = dy[(dy.year >= YEAR_LO) & (dy.year <= YEAR_HI)]
+    grid_path = os.path.join(DATA_PROCESSED, "dyad_states.parquet")
+    print(f"\nLoading dyad-year states from {grid_path}...")
+    dy = pd.read_parquet(grid_path)
+    dy = dy[(dy.year >= YEAR_LO) & (dy.year <= YEAR_HI)].copy()
+    print(f"  Grid: {len(dy):,} directed dyad-years ({YEAR_LO}-{YEAR_HI}), "
+          f"{dy.initiator_ccode.nunique()} states")
 
-    # Drop rows without GWNO codes (can't join features)
-    dy = dy.dropna(subset=["initiator_gwno", "target_gwno"]).copy()
-    dy["initiator_gwno"] = dy["initiator_gwno"].astype(int)
-    dy["target_gwno"] = dy["target_gwno"].astype(int)
-    print(f"  Grid: {len(dy):,} directed dyad-years ({YEAR_LO}-{YEAR_HI})")
-    print(f"  Unique initiators: {dy.initiator_gwno.nunique()}, "
-          f"unique targets: {dy.target_gwno.nunique()}")
-
-    # -----------------------------------------------------------------
-    # 5. Attach V-Dem N_pub (polyarchy → 0-1 peacefulness proxy)
-    # -----------------------------------------------------------------
+    # V-Dem polyarchy -> N_pub. Unobserved values take the neutral 0.5 and are flagged.
     if len(vdem):
-        vdem_a = vdem.rename(columns={"ccode": "initiator_gwno", "n_pub": "n_pub_a"})
-        vdem_b = vdem.rename(columns={"ccode": "target_gwno", "n_pub": "n_pub_b"})
-        dy = dy.merge(vdem_a[["initiator_gwno", "year", "n_pub_a"]],
-                      on=["initiator_gwno", "year"], how="left")
-        dy = dy.merge(vdem_b[["target_gwno", "year", "n_pub_b"]],
-                      on=["target_gwno", "year"], how="left")
-        # Fill missing polyarchy with 0.5 (neutral)
-        dy["n_pub_a"] = dy["n_pub_a"].fillna(0.5)
-        dy["n_pub_b"] = dy["n_pub_b"].fillna(0.5)
-        init_cov = dy["n_pub_a"].notna().mean()
-        tgt_cov = dy["n_pub_b"].notna().mean()
-        print(f"  V-Dem attached: init N_pub coverage={init_cov:.0%}  "
-              f"target N_pub coverage={tgt_cov:.0%}")
+        for side, col in (("a", "initiator_ccode"), ("b", "target_ccode")):
+            dy = dy.merge(
+                vdem.rename(columns={"ccode": col, "n_pub": f"n_pub_{side}"})[[col, "year", f"n_pub_{side}"]],
+                on=[col, "year"], how="left",
+            )
+            dy[f"n_pub_observed_{side}"] = dy[f"n_pub_{side}"].notna()
+            print(f"  V-Dem N_pub_{side} observed on {dy[f'n_pub_observed_{side}'].mean():.1%} of rows")
+            dy[f"n_pub_{side}"] = dy[f"n_pub_{side}"].fillna(0.5)
 
-    # -----------------------------------------------------------------
-    # 6. Attach power-transition (dP) and capability (C_T) from NMC
-    # -----------------------------------------------------------------
+    # COW capabilities. Shares are computed once, from observed values only.
     if len(nmc):
-        # dP = year-over-year CINC change for initiator (power shift dissatisfaction)
-        nmc_a = nmc.rename(columns={"ccode": "initiator_gwno", "cinc": "cinc_a", "dp": "dp_a"})
-        nmc_b = nmc.rename(columns={"ccode": "target_gwno", "cinc": "cinc_b", "dp": "dp_b"})
-        dy = dy.merge(nmc_a[["initiator_gwno", "year", "cinc_a", "dp_a"]],
-                      on=["initiator_gwno", "year"], how="left")
-        dy = dy.merge(nmc_b[["target_gwno", "year", "cinc_b", "dp_b"]],
-                      on=["target_gwno", "year"], how="left")
+        for side, col in (("a", "initiator_ccode"), ("b", "target_ccode")):
+            dy = dy.merge(
+                nmc.rename(columns={"ccode": col, "cinc": f"cinc_{side}", "dp": f"dp_{side}"})[
+                    [col, "year", f"cinc_{side}", f"dp_{side}"]
+                ],
+                on=[col, "year"], how="left",
+            )
+        dy["cinc_observed"] = dy["cinc_a"].notna() & dy["cinc_b"].notna()
+        print(f"  NMC CINC observed for both states on {dy['cinc_observed'].mean():.1%} of rows")
+        total = dy["cinc_a"] + dy["cinc_b"]
+        share_b = (dy["cinc_b"] / total).where(dy["cinc_observed"] & (total > 0))
+        # C_T = target capability share. Unobserved pairs take an even split, flagged above.
+        dy["c_t_ab"] = share_b.fillna(0.5)
+        dy["c_t_ba"] = 1.0 - dy["c_t_ab"]
+        dy["r_d_ab"] = (dy["cinc_a"] - dy["cinc_b"]).abs().fillna(0.0)
+        dy["dp_a"] = dy["dp_a"].fillna(0.0)
+        dy["dp_b"] = dy["dp_b"].fillna(0.0)
 
-        # C_T = target capability share (used by attacker in opportunity calculation)
-        # For A->B: C_T = cinc_b / (cinc_a + cinc_b)
-        total_cinc = dy["cinc_a"].fillna(1) + dy["cinc_b"].fillna(1)
-        dy["c_t_ab"] = dy["cinc_b"].fillna(0.5) / total_cinc
-        dy["c_t_ba"] = dy["cinc_a"].fillna(0.5) / total_cinc
-
-        # R_d = revisionist demand proxy: absolute CINC difference
-        dy["r_d_ab"] = (dy["cinc_a"].fillna(0) - dy["cinc_b"].fillna(0)).abs()
-
-        # Fill missing
-        dy["cinc_a"] = dy["cinc_a"].fillna(0.01)
-        dy["cinc_b"] = dy["cinc_b"].fillna(0.01)
-        dy["dp_a"] = dy["dp_a"].fillna(0)
-        dy["dp_b"] = dy["dp_b"].fillna(0)
-        print(f"  NMC attached: CINC coverage {dy.cinc_a.notna().mean():.0%}")
-
-    # -----------------------------------------------------------------
-    # 7. Attach alliance depth (C_d_sup, C_d_opp) from ATOP
-    # -----------------------------------------------------------------
+    # ATOP alliance depth (ATOP state codes are COW codes).
     if len(atop):
-        # Alliance depth (0-1 scale for directed equations):
-        # defense = 1, offense = 1, consul = 0.5, neutral/nonagg = 0.2
         atop = atop.copy()
         atop["depth"] = (
-            atop["defense"] * 1.0
-            + atop["offense"] * 1.0
-            + atop["consul"] * 0.5
-            + atop["neutral"] * 0.2
-            + atop["nonagg"] * 0.2
+            atop["defense"] * 1.0 + atop["offense"] * 1.0 + atop["consul"] * 0.5
+            + atop["neutral"] * 0.2 + atop["nonagg"] * 0.2
         ).clip(0, 1)
-
-        # Directed: A -> B = stateA -> stateB
-        sup_ab = atop.rename(columns={
-            "stateA": "initiator_gwno", "stateB": "target_gwno",
-            "depth": "c_d_sup_ab"
-        })
-
-        # C_d_sup: A and B have an alliance -> A supports B
-        dy = dy.merge(
-            sup_ab.groupby(["initiator_gwno", "target_gwno", "year"])["c_d_sup_ab"].max().reset_index(),
-            on=["initiator_gwno", "target_gwno", "year"], how="left"
+        sup = (
+            atop.rename(columns={"stateA": "initiator_ccode", "stateB": "target_ccode", "depth": "c_d_sup_ab"})
+            .groupby(["initiator_ccode", "target_ccode", "year"])["c_d_sup_ab"].max().reset_index()
         )
-        # C_d_opp: A is allied to someone who opposes B -> A opposes B
-        # For simplicity: if A's allies exclude B, treat as opposition.
-        # We'll compute from the same alliance data: opp = sup on any third party
-        # For now, set opp = 1 - sup as a placeholder until proper third-party lookup.
-        dy["c_d_opp_ab"] = 1.0 - dy["c_d_sup_ab"].fillna(0)
+        dy = dy.merge(sup, on=["initiator_ccode", "target_ccode", "year"], how="left")
+        print(f"  ATOP alliance present on {dy['c_d_sup_ab'].notna().mean():.1%} of rows")
+        dy["c_d_sup_ab"] = dy["c_d_sup_ab"].fillna(0.0)
+        # Placeholder until a real third-party lookup exists.
+        dy["c_d_opp_ab"] = 1.0 - dy["c_d_sup_ab"]
 
-        # Fill
-        dy["c_d_sup_ab"] = dy["c_d_sup_ab"].fillna(0)
-        print(f"  ATOP attached: alliance coverage {dy.c_d_sup_ab.notna().mean():.0%}")
+    if dy.duplicated(["year", "initiator_ccode", "target_ccode"]).any():
+        raise ValueError("build_features: a join duplicated directed dyad-years")
+    if "c_t_ab" in dy.columns and not np.allclose(dy["c_t_ab"] + dy["c_t_ba"], 1.0):
+        raise ValueError("build_features: capability shares do not sum to one")
 
-    # -----------------------------------------------------------------
-    # 8. Write output
-    # -----------------------------------------------------------------
-    out_cols = ["year", "initiator_gwno", "target_gwno", "initiator", "target",
-                "uiw_tier", "hostlev", "tier_label", "source"]
-    for c in dy.columns:
-        if c not in out_cols:
-            out_cols.append(c)
-
-    out = dy[out_cols].copy()
-    out_path = os.path.join(DATA_PROCESSED, "dyads_with_features")
-    try:
-        import pyarrow  # noqa
-        out.to_parquet(f"{out_path}.parquet", index=False)
-        print(f"\nWrote {out_path}.parquet ({len(out):,} rows)")
-    except ImportError:
-        out.to_csv(f"{out_path}.csv", index=False)
-        print(f"\nWrote {out_path}.csv ({len(out):,} rows)")
-
+    out_path = os.path.join(DATA_PROCESSED, "dyads_with_features.parquet")
+    dy.to_parquet(out_path, index=False)
+    print(f"\nWrote {out_path} ({len(dy):,} rows)")
     return 0
 
 

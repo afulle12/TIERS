@@ -41,6 +41,8 @@ data/processed/conflict_dyads_full.csv
 data/processed/dyads_with_features.csv
 data/processed/dyads_with_features.parquet
 data/processed/dyads_with_features_v27.csv
+data/processed/dyad_states.parquet
+data/processed/legacy_pre_phase2/
 data/processed/dyads_with_features_v27.parquet
 data/processed/dyads_with_features_v28.csv
 data/processed/dyads_with_features_v28.parquet

@@ -210,7 +210,23 @@ def test_vectorized_v27_v28_parity():
             "import_leverage_a_over_b": 0.0, "export_leverage_a_over_b": 0.0, "trade_leverage_a_over_b": 0.0,
             "import_dep_a_on_b": 0.0, "import_dep_b_on_a": 0.0, "export_dep_a_on_b": 0.0, "export_dep_b_on_a": 0.0,
         },
+        {
+            # Tie case: in the v27 fallback both directions carry the same total
+            # upward mass but split it differently (closing windows differ), so the
+            # reconciled allocation must not depend on floating-point noise.
+            "uiw_tier": 0, "d_k_years": 0.0, "contiguity_xi": 1.0, "rivalry_omega": 0.2,
+            "fma": 0.6, "cap_a_to_b": 0.5, "cap_b_to_a": 0.5,
+            "closing_window_a": 0.9, "closing_window_b": 0.1,
+            "n_pub_a": 0.5, "n_pub_b": 0.5, "c_t_ab": 0.5, "c_t_ba": 0.5, "attribution": 0.0,
+            "trade_source": "NONE", "trade_surface_norm_ab": 0.0, "mutual_trade_dependence_ab": 0.0,
+            "dep_a_on_b": 0.0, "dep_b_on_a": 0.0,
+            "import_leverage_a_over_b": 0.0, "export_leverage_a_over_b": 0.0, "trade_leverage_a_over_b": 0.0,
+            "import_dep_a_on_b": 0.0, "import_dep_b_on_a": 0.0, "export_dep_a_on_b": 0.0, "export_dep_b_on_a": 0.0,
+        },
     ])
+    # Rivalry is directed: the target's rivalry toward the initiator differs
+    # from the initiator's on the first two rows.
+    df["rivalry_omega_b"] = [0.9, 0.1, 0.2]
     v27 = score_dataframe_v27(df, V27Priors())
     v28 = score_dataframe_v28(df, V28Priors())
 
@@ -243,7 +259,10 @@ def test_vectorized_v27_v28_parity():
         r27 = score_dyad_year_v27(a, b, sym, V27Priors())
         assert np.allclose(v27["pi_ab"][idx], r27["pi_ab"], atol=1e-13)
         assert np.allclose(v27["pi_ba"][idx], r27["pi_ba"], atol=1e-13)
+        assert np.allclose(v27["pi"][idx], r27["pi_reconciled"], atol=1e-13)
 
+        a.rivalry = row["rivalry_omega"]
+        b.rivalry = row["rivalry_omega_b"]
         a.trade_surface_norm = row["trade_surface_norm_ab"]
         a.dep_on_target = row["dep_a_on_b"]
         a.mutual_trade_dependence = row["mutual_trade_dependence_ab"]
@@ -259,3 +278,123 @@ def test_vectorized_v27_v28_parity():
         r28 = score_dyad_year_v28(a, b, sym, V28Priors())
         assert np.allclose(v28["pi_ab"][idx], r28["pi_ab"], atol=1e-13)
         assert np.allclose(v28["pi_ba"][idx], r28["pi_ba"], atol=1e-13)
+        assert np.allclose(v28["pi"][idx], r28["pi_reconciled"], atol=1e-13)
+
+    # The tie row really is a tie with different allocations, and the reconciled
+    # split is the average of the two directions' splits.
+    tie = 2
+    up_ab = v27["pi_ab"][tie, 1:].sum()
+    up_ba = v27["pi_ba"][tie, 1:].sum()
+    assert abs(up_ab - up_ba) < 1e-12
+    assert not np.allclose(v27["pi_ab"][tie], v27["pi_ba"][tie])
+    assert np.allclose(v27["pi"][tie], 0.5 * (v27["pi_ab"][tie] + v27["pi_ba"][tie]), atol=1e-12)
+
+
+def test_rivalry_is_read_per_actor():
+    base = {
+        "uiw_tier": 1, "d_k_years": 1.0, "contiguity_xi": 1.0, "rivalry_omega": 0.3, "rivalry_omega_b": 0.3,
+        "fma": 0.2, "cap_a_to_b": 0.4, "cap_b_to_a": 0.4, "closing_window_a": 0.5, "closing_window_b": 0.5,
+        "n_pub_a": 0.6, "n_pub_b": 0.6, "c_t_ab": 0.5, "c_t_ba": 0.5, "attribution": 0.0,
+        "trade_source": "BACI", "trade_surface_norm_ab": 0.5, "mutual_trade_dependence_ab": 0.1,
+        "dep_a_on_b": 0.1, "dep_b_on_a": 0.1,
+        "import_leverage_a_over_b": 0.0, "export_leverage_a_over_b": 0.0, "trade_leverage_a_over_b": 0.0,
+        "import_dep_a_on_b": 0.1, "import_dep_b_on_a": 0.1, "export_dep_a_on_b": 0.1, "export_dep_b_on_a": 0.1,
+    }
+    df = pd.DataFrame([base, {**base, "rivalry_omega_b": 0.9}])
+    res = score_dataframe_v28(df, V28Priors())
+    # Raising only the target's rivalry changes the target's run, not the initiator's.
+    assert np.allclose(res["pi_ab"][0], res["pi_ab"][1])
+    assert not np.allclose(res["pi_ba"][0], res["pi_ba"][1])
+    assert res["pi_ba"][1, 2:].sum() > res["pi_ba"][0, 2:].sum()
+    # A frame without the second column scores both directions with the one value.
+    legacy = score_dataframe_v28(df.drop(columns="rivalry_omega_b").iloc[[0]], V28Priors())
+    assert np.allclose(legacy["pi"][0], res["pi"][0])
+
+
+def test_label_decidable_with_sanctions_unobserved():
+    from evaluation import label_decidable
+
+    t2_hidden = 1 << 2
+    cur = np.array([0, 1, 2, 3, 4])
+    hidden = np.full(5, t2_hidden)
+
+    def dec(name):
+        return label_decidable(name, cur, hidden).tolist()
+
+    # A recorded T0 next year may be T2: any-onset cannot be labelled.
+    assert dec("Onset, any")[0] is False
+    # T0 and T2 are both below T4, so force and war onset are unaffected.
+    assert dec("Onset, force")[0] is True and dec("Onset, war")[0] is True
+    # Escalation is undecidable from T0 and T1, decidable from T2 upward.
+    assert dec("Escalation") == [False, False, True, True, True]
+    # De-escalation from T1 (to "T0", which may be T2) is undecidable; from T3 or T4 it is not.
+    assert dec("De-escalation")[1] is False and dec("De-escalation")[3:] == [True, True]
+    assert dec("T0->T1")[0] is False and dec("T1->T2")[1] is False
+    assert dec("T3->T4")[3] is True and dec("T4->T5")[4] is True
+    # With everything observed, every row is decidable.
+    assert label_decidable("Onset, any", cur, np.zeros(5, dtype=int)).all()
+
+
+def test_extract_target_drops_positives_and_negatives_together():
+    cur = np.array([0, 0, 0, 0])
+    nxt = np.array([0, 2, 4, 0])
+    hidden = np.array([4, 4, 4, 0])          # T2 unobserved next year for the first three rows
+    pis = np.tile(np.array([0.9, 0.02, 0.02, 0.02, 0.02, 0.02]), (4, 1))
+    mask, y, p = extract_target(cur, nxt, pis, "Onset, any", hidden)
+    assert mask.tolist() == [False, False, False, True] and y.tolist() == [0] and len(p) == 1
+    mask, y, p = extract_target(cur, nxt, pis, "Onset, force", hidden)
+    assert mask.all() and y.tolist() == [0, 0, 1, 0] and len(p) == 4
+
+
+def test_transition_rates_match_the_matrix_under_full_coverage():
+    from evaluation import ALL_TARGETS, fit_transition_rates, transition_rate_scores
+
+    rng = np.random.default_rng(0)
+    train = pd.DataFrame({"uiw_tier": rng.integers(0, 6, 400), "uiw_tier_next": rng.integers(0, 6, 400)})
+    test = pd.DataFrame({"uiw_tier": rng.integers(0, 6, 200), "uiw_tier_next": rng.integers(0, 6, 200)})
+    mat = fit_transition_matrix(train["uiw_tier"].to_numpy(), train["uiw_tier_next"].to_numpy())
+    pis = score_transition_matrix(mat, test["uiw_tier"].to_numpy())
+    scores = transition_rate_scores(test, fit_transition_rates(train, ALL_TARGETS), ALL_TARGETS)
+    for tname in ALL_TARGETS:
+        _, _, p_matrix = extract_target(test["uiw_tier"].to_numpy(), test["uiw_tier_next"].to_numpy(), pis, tname)
+        assert np.allclose(scores[tname], p_matrix), tname
+
+
+def test_collapse_keeps_one_row_per_dyad_year_and_averages_scores():
+    from evaluation import collapse_directions, collapse_target_scores
+
+    df = pd.DataFrame({
+        "year": [2000, 2000, 2000, 2000],
+        "initiator_ccode": [2, 200, 2, 365],
+        "target_ccode": [200, 2, 365, 2],
+        "uiw_tier": [0, 0, 1, 1],
+        "uiw_tier_next": [1, 1, 0, 0],
+    })
+    pis = np.array([[0.8, 0.2, 0, 0, 0, 0], [0.6, 0.4, 0, 0, 0, 0],
+                    [0.5, 0.5, 0, 0, 0, 0], [0.1, 0.9, 0, 0, 0, 0]], dtype=float)
+    pair, (pis_pair, none) = collapse_directions(df, pis, None)
+    assert none is None and len(pair) == 2
+    assert pair["initiator_ccode"].tolist() == [2, 2]
+    assert np.allclose(pis_pair[0], [0.7, 0.3, 0, 0, 0, 0])
+    assert np.allclose(pis_pair[1], [0.3, 0.7, 0, 0, 0, 0])
+    scores = collapse_target_scores(df, {"Onset, any": np.array([0.2, 0.4])}, ["Onset, any", "Onset, war"])
+    assert np.allclose(scores["Onset, any"], [0.3]) and "Onset, war" not in scores
+
+
+def test_dyad_year_is_counted_once_with_mean_forecast():
+    from evaluation import dyad_year_codes, mean_over_directions
+
+    df = pd.DataFrame({
+        "year": [2000, 2000, 2000, 2000, 2001],
+        "initiator_ccode": [2, 200, 2, 365, 200],
+        "target_ccode": [200, 2, 365, 2, 2],
+    })
+    codes, canon = dyad_year_codes(df)
+    assert codes[0] == codes[1] and codes[2] == codes[3]
+    assert len({codes[0], codes[2], codes[4]}) == 3
+    assert canon.tolist() == [True, False, True, False, False]
+
+    p = np.array([0.2, 0.4, 0.1, 0.1, 0.9])
+    assert np.allclose(mean_over_directions(codes, p), [0.3, 0.3, 0.1, 0.1, 0.9])
+    pis = np.array([[0.8, 0.2], [0.6, 0.4], [1.0, 0.0], [1.0, 0.0], [0.5, 0.5]])
+    assert np.allclose(mean_over_directions(codes, pis)[canon], [[0.7, 0.3], [1.0, 0.0]])

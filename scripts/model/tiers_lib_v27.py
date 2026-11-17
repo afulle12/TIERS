@@ -178,6 +178,10 @@ class ActorState:
     attribution: float = 0.0               # deniability [0,1]
     integration_depth: float = 0.0
     stakes: float = 0.5
+    # This actor's rivalry toward the other state: the decayed history of the
+    # other state's militarised actions against it (build_rivalry.py). Rivalry
+    # is directed, so it lives here. None falls back to DyadState.rivalry.
+    rivalry: Optional[float] = None
     # Input states (one per input) for the coverage vector
     state_n_pub: InputState = InputState.DEFAULTED
     state_status_quo_burden: InputState = InputState.DEFAULTED
@@ -202,7 +206,7 @@ class DyadState:
     current_tier: int = 0                  # X_t, shared; high-salience
     duration: float = 0.0                  # D_k, years at current tier
     contiguity: float = 0.0                # Xi, {0, 0.5, 1}, symmetric
-    rivalry: float = 0.0                   # Omega, [0,1], symmetric
+    rivalry: float = 0.0                   # Omega, [0,1]; used when ActorState.rivalry is None
     stalemate: float = 0.0                 # Stal_t, [0,1], symmetric
     ora: float = 0.0                       # Off-Ramp Absence, [0,1], symmetric
     wmd_a: float = 0.0                     # symmetric
@@ -611,21 +615,30 @@ def reconcile_with_current(
     p_up = max(up_ab, up_ba)
     p_0 = max(0.0, 1.0 - p_down - p_up)
 
+    tie_tol = 1e-12
     if p_down > 0.0:
-        down_source = pi_ab if down_ab <= down_ba else pi_ba
-        down_total = down_ab if down_ab <= down_ba else down_ba
-        if down_total > 0.0:
+        if abs(down_ab - down_ba) <= tie_tol and down_ab > 0.0 and down_ba > 0.0:
             for j in range(TIER_MIN, k):
-                pi_rel[j] = p_down * down_source[j] / down_total
+                pi_rel[j] = p_down * 0.5 * (pi_ab[j] / down_ab + pi_ba[j] / down_ba)
+        else:
+            down_source = pi_ab if down_ab < down_ba else pi_ba
+            down_total = down_ab if down_ab < down_ba else down_ba
+            if down_total > 0.0:
+                for j in range(TIER_MIN, k):
+                    pi_rel[j] = p_down * down_source[j] / down_total
 
     pi_rel[k] = p_0
 
     if p_up > 0.0:
-        up_source = pi_ab if up_ab >= up_ba else pi_ba
-        up_total = up_ab if up_ab >= up_ba else up_ba
-        if up_total > 0.0:
+        if abs(up_ab - up_ba) <= tie_tol and up_ab > 0.0 and up_ba > 0.0:
             for j in range(k + 1, TIER_MAX + 1):
-                pi_rel[j] = p_up * up_source[j] / up_total
+                pi_rel[j] = p_up * 0.5 * (pi_ab[j] / up_ab + pi_ba[j] / up_ba)
+        else:
+            up_source = pi_ab if up_ab > up_ba else pi_ba
+            up_total = up_ab if up_ab > up_ba else up_ba
+            if up_total > 0.0:
+                for j in range(k + 1, TIER_MAX + 1):
+                    pi_rel[j] = p_up * up_source[j] / up_total
 
     total = sum(pi_rel)
     if total > 0.0:
@@ -735,23 +748,36 @@ def reconcile_with_current_batch(
     p_up = np.maximum(up_ab, up_ba)
     p_0 = np.maximum(0.0, 1.0 - p_down - p_up)
 
-    choose_ab_down = (down_ab <= down_ba)[:, None]
+    tie_tol = 1e-12
+    safe_down_ab = np.where(down_ab > 0.0, down_ab, 1.0)[:, None]
+    safe_down_ba = np.where(down_ba > 0.0, down_ba, 1.0)[:, None]
+    down_tied = (np.abs(down_ab - down_ba) <= tie_tol) & (down_ab > 0.0) & (down_ba > 0.0)
+    down_avg = 0.5 * (pi_ab / safe_down_ab + pi_ba / safe_down_ba)
+
+    choose_ab_down = (down_ab < down_ba)[:, None]
     down_source = np.where(choose_ab_down, pi_ab, pi_ba)
-    down_total = np.where(down_ab <= down_ba, down_ab, down_ba)[:, None]
+    down_total = np.where(down_ab < down_ba, down_ab, down_ba)[:, None]
     safe_down_total = np.where(down_total > 0.0, down_total, 1.0)
+    down_alloc = np.where(down_tied[:, None], down_avg, down_source / safe_down_total)
     down_contrib = np.where(
         (p_down[:, None] > 0.0) & (down_total > 0.0) & down_mask,
-        p_down[:, None] * down_source / safe_down_total,
+        p_down[:, None] * down_alloc,
         0.0,
     )
 
-    choose_ab_up = (up_ab >= up_ba)[:, None]
+    safe_up_ab = np.where(up_ab > 0.0, up_ab, 1.0)[:, None]
+    safe_up_ba = np.where(up_ba > 0.0, up_ba, 1.0)[:, None]
+    up_tied = (np.abs(up_ab - up_ba) <= tie_tol) & (up_ab > 0.0) & (up_ba > 0.0)
+    up_avg = 0.5 * (pi_ab / safe_up_ab + pi_ba / safe_up_ba)
+
+    choose_ab_up = (up_ab > up_ba)[:, None]
     up_source = np.where(choose_ab_up, pi_ab, pi_ba)
-    up_total = np.where(up_ab >= up_ba, up_ab, up_ba)[:, None]
+    up_total = np.where(up_ab > up_ba, up_ab, up_ba)[:, None]
     safe_up_total = np.where(up_total > 0.0, up_total, 1.0)
+    up_alloc = np.where(up_tied[:, None], up_avg, up_source / safe_up_total)
     up_contrib = np.where(
         (p_up[:, None] > 0.0) & (up_total > 0.0) & up_mask,
-        p_up[:, None] * up_source / safe_up_total,
+        p_up[:, None] * up_alloc,
         0.0,
     )
 

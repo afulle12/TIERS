@@ -16,16 +16,16 @@ from evaluation import (  # noqa: E402
     MIN_POSITIVES,
     RANDOM_STATE,
     TRAIN_SPLIT,
-    compute_metrics,
-    evaluate_pis_on_split,
-    extract_target,
+    collapse_directions,
+    collapse_target_scores,
+    evaluate_target_scores,
     fit_and_score_logreg_targets,
-    fit_transition_matrix,
+    fit_transition_rates,
     format_ci,
     load_feature_grid,
-    score_transition_matrix,
     stamp_header_lines,
     training_base_rates,
+    transition_rate_scores,
     unordered_dyad_codes,
 )
 
@@ -43,50 +43,36 @@ def main() -> int:
     test = df[df["year"] > TRAIN_SPLIT].copy().reset_index(drop=True)
     train_rates = training_base_rates(train, HEADLINE_TARGETS)
 
-    t_mat = fit_transition_matrix(
-        train["uiw_tier"].to_numpy(dtype=int),
-        train["uiw_tier_next"].to_numpy(dtype=int),
+    # One row per dyad-year: both baselines are scored on the canonical row,
+    # the logistic one with the mean of its two directed predictions.
+    pair, _ = collapse_directions(test)
+    clusters = unordered_dyad_codes(pair)
+    common = dict(
+        train_rates=train_rates, target_names=HEADLINE_TARGETS, clusters=clusters,
+        n_boot=args.n_boot, seed=args.seed,
     )
-    pis_tm_test = score_transition_matrix(t_mat, test["uiw_tier"].to_numpy(dtype=int))
-    clusters_test = unordered_dyad_codes(test)
-
-    rows = evaluate_pis_on_split(
-        test, pis_tm_test, "test_1990_2014", "Transition matrix", train_rates,
-        target_names=HEADLINE_TARGETS, clusters=clusters_test, n_boot=args.n_boot, seed=args.seed,
-    )
+    tm_scores = transition_rate_scores(pair, fit_transition_rates(train, HEADLINE_TARGETS), HEADLINE_TARGETS)
+    rows = evaluate_target_scores(pair, tm_scores, "test_1990_2014", "Transition matrix", **common)
 
     lr_preds = fit_and_score_logreg_targets(
         train, {"test_1990_2014": test}, HEADLINE_TARGETS, seed=args.seed, min_positives=MIN_POSITIVES
     )
-    cur_t = test["uiw_tier"].to_numpy(dtype=int)
-    nxt_t = test["uiw_tier_next"].to_numpy(dtype=int)
-    for tname in HEADLINE_TARGETS:
-        tmask, y_t, _ = extract_target(cur_t, nxt_t, None, tname)
-        m = compute_metrics(
-            y_t, lr_preds["test_1990_2014"][tname],
-            ref_rate=train_rates.get(tname),
-            clusters=clusters_test[tmask],
-            n_boot=args.n_boot,
-            seed=args.seed,
-        )
-        m.update({
-            "split": "test_1990_2014",
-            "model": "LogReg(trade+struct)",
-            "subgroup_col": "ALL",
-            "subgroup": "ALL",
-            "target": tname,
-        })
-        rows.append(m)
+    lr_scores = collapse_target_scores(test, lr_preds["test_1990_2014"], HEADLINE_TARGETS)
+    rows += evaluate_target_scores(pair, lr_scores, "test_1990_2014", "LogReg(trade+struct)", **common)
 
     out = pd.DataFrame(rows)
     csv_path = os.path.join(OUT_ANALYSIS, f"baseline_comparison_{args.grid}.csv")
     out.to_csv(csv_path, index=False)
 
     lines = stamp_header_lines(
-        f"TIERS {args.grid} Phase 1 Baseline Comparison",
+        f"TIERS {args.grid} Baseline Comparison",
         stats=stats,
         parameters_desc="Empirical transition matrix + LogisticRegression(natural, trade+struct)",
         seed=args.seed,
+        extra=[
+            "- **Unit of evaluation:** one row per unordered dyad-year. Rows whose label depends on a tier "
+            "with no source that year are withheld.",
+        ],
     )
     lines.extend([
         "| Target | Model | n_pos | n_neg | ROC AUC (95% CI) | Avg Prec | Brier | Brier Skill | Log Loss |",

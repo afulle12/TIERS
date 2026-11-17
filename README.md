@@ -141,7 +141,10 @@ EUSANCT, ATOP). Download them from their official providers and place them in
 | COW MIDB + MIDA + MIDIP + MIDI | 5.0 | T1, T4, T5 events | [correlatesofwar.org/data-sets/MIDs](https://correlatesofwar.org/data-sets/MIDs/) |
 | UCDP Dyadic | v26.1 | T3 proxy/support events | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | UCDP/PRIO Armed Conflict | v26.1 | T3 conflict metadata | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
-| EUSANCT | 2022 | T1 threats + T2 sanctions | [sanctionsplatform.ohchr.org/record/20861](https://sanctionsplatform.ohchr.org/record/20861?ln=en) |
+| EUSANCT | 2022 | T1 threats + T2 sanctions | [dataverse.harvard.edu](https://dataverse.harvard.edu/) |
+| TIES | v4.0 | T1 non-imposed sanction threats | [sanctions.web.unc.edu](https://sanctions.web.unc.edu/) |
+| ICB | v16 | T1 international crises (below T3) | [sites.duke.edu/icbdata](https://sites.duke.edu/icbdata/) |
+| Pardee Diplometrics DRD | 1960–2025 | T1 recalls, withdrawals & expulsions | [pardee.du.edu](https://pardee.du.edu/) |
 | CShapes | 2.0 | Country-year registry, GWN mapping | [icr.ethz.ch/data/cshapes](https://icr.ethz.ch/data/cshapes/) |
 | V-Dem | v16 (Core) | Democracy proxy for `N_pub` | [v-dem.net/data](https://v-dem.net/data/) |
 | COW NMC | v7.0 | Capability ratios, CINC | [correlatesofwar.org/data-sets/national-material-capabilities](https://correlatesofwar.org/data-sets/national-material-capabilities/) |
@@ -156,42 +159,32 @@ See `DATA_PROVENANCE.md` for source-by-source licensing and attribution notes.
 ## Running the pipeline
 
 ```bash
-# 1. Build the directed-dyad event table (T1-T5)
-python scripts/build/build_t1_dyads.py
-python scripts/build/build_t3_dyads.py
-python scripts/build/build_combined_dyads.py
+# 1. Rebuild all data tables (state system, source coverage, MID5, EUSANCT,
+#    T1 union, dyad states, rivalry, trade interdependence, feature grids)
+#    and verify all data-contract tests:
+python scripts/build/build_pipeline.py
 
-# 2. Integrate EUSANCT sanctions and threats
-python scripts/build/integrate_eusanct.py
+# 2. Run the full test suite
+pytest tests/ -v
 
-# 3. Infer peace years and create the full T0-T5 grid
-python scripts/build/build_t0_dyads.py
+# 3. Backtest the models (writes summaries to output/analysis/)
+python scripts/model/backtest_tiers_v27.py          # v27 structural baseline
+python scripts/model/backtest_tiers_v28.py          # v28 transition-hazard engine
+python scripts/model/backtest_tiers_v28_by_tier.py  # v28 per-tier step breakdown
+python scripts/model/baseline_tiers_v27.py          # statistical baselines
+```
 
-# 4. Attach empirical features (V-Dem, NMC, ATOP)
-python scripts/build/build_features.py
+The individual stage scripts under `scripts/build/` (`state_system.py`,
+`source_coverage.py`, `build_mid_dyads.py`, `integrate_eusanct.py`,
+`build_t1_sources.py`, `build_dyad_states.py`, `build_rivalry.py`,
+`build_trade_interdependence.py`, `build_features.py`, `build_features_v27.py`,
+`build_features_v28.py`) can also be run individually when iterating.
 
-# 5. Run analyses
-python scripts/analysis/analyze_conflict_dyads.py
-python scripts/analysis/tier_transition_risk.py
-python scripts/analysis/tier_transition_risk_full.py
-
-# 6. Build the v28 structural + economic feature grid
-python scripts/build/build_contiguity.py       # CShapes contiguity, distance, FMA
-python scripts/build/build_rivalry.py          # MIDB recency-decayed rivalry (Omega)
-python scripts/build/trade_country_crosswalk.py
-python scripts/build/build_trade_interdependence.py
-python scripts/build/build_features_v27.py     # v27 structural base grid
-python scripts/build/build_features_v28.py     # v28 trade-enhanced grid
-
-# 7. Backtest the models
-python scripts/model/backtest_tiers.py         # legacy v21 product-form
-python scripts/model/backtest_tiers_v27.py     # retained v27 baseline
-python scripts/model/backtest_tiers_v28.py     # v28 transition-hazard engine
-
-# 8. Forward-score live dyads (latest available year)
+```bash
+# 4. Forward-score live dyads (latest available year)
 python scripts/model/tiers_score_v28.py
 
-# 9. Run model invariants / sensitivity tests
+# 5. Run model invariants / sensitivity tests
 python scripts/model/testModelv10.py
 python scripts/model/tiers_invariants_testing.py
 python scripts/model/tiers_v27_invariants_testing.py
@@ -268,63 +261,43 @@ Three independent test suites run against the model:
   structural features.
 
 Historical backtest of the v28.0 transition-hazard engine on 1946–2014
-(train 1946–1989 / test 1990–2014), plus the v28 trade-enhanced 1995–2014
+(train 1946–1989 / test 1990–2014, one row per unordered dyad-year, with
+`source_coverage.py` masks applied), plus the v28 trade-enhanced 1995–2014
 window:
 
-| Threshold | Test AUC | Brier | Positives (test) |
-|---|---|---|---|
-| T0 → T1+ | 0.5403 | 0.0189 | 622 |
-| T0 → T4+ | 0.7832 | 0.0015 | 98 |
-| T0 → T5 | **0.9316** | 0.0002 | 62 |
-| Any escalation | 0.5745 | 0.0187 | 673 |
-
-Per-step adjacent-tier AUCs are also reported by the same backtest. Run
-`python scripts/model/backtest_tiers_v28.py` to produce headline, adjacent
-exact, adjacent cumulative, and trade-window tables. "Exact" scores
-`P(next tier = k+1)`; "cumulative" scores `P(next tier ≥ k+1)`.
-
-| Transition | Exact AUC | Exact positives | Cumulative AUC | Cumulative positives |
-|---|---:|---:|---:|---:|
-| T0 → T1 | 0.6789 | 106 | 0.5477 | 622 |
-| T1 → T2 | 0.4901 | 19 | 0.4210 | 36 |
-| T2 → T3 | 0.4752 | 9 | 0.5833 | 12 |
-| T3 → T4 | NA | 2 | NA | 2 |
-| T4 → T5 | NA | 1 | NA | 1 |
-
-T3→T4 and T4→T5 remain too sparse for stable one-year ROC estimates in the
-200k test sample.
-
-Trade-enhanced window (1995–2014, 200k sample):
-
-| Threshold | AUC | Brier | Positives |
+| Target | Test AUC | Brier | Positives (test) |
 |---|---:|---:|---:|
-| T0 → T1+ | 0.5713 | 0.0198 | 639 |
-| T0 → T4+ | 0.8304 | 0.0013 | 76 |
-| T0 → T5 | 0.8802 | 0.0002 | 66 |
-| Any escalation | 0.6000 | 0.0196 | 686 |
+| Onset, any | 0.5637 | 0.0195 | 3,027 |
+| Onset, force | **0.8246** | 0.0008 | 258 |
+| Onset, war | NA (<20 pos) | NA | 14 |
+| Escalation | 0.5870 | 0.0205 | 3,533 |
+| De-escalation | 0.5577 | 0.1971 | 2,755 |
 
-The reconciliation patch had little effect on the headline T0→T5 result
-because strategic-war escalation is still unilateral and governed mainly by
-the Capability/Reach gate; T0→T5 remains 0.94 AUC after refresh. The largest
-movement was the T0→T4+ threshold, which changed from 0.8591 to 0.8550 AUC.
+Per-step cumulative adjacent-tier AUCs are also reported (`backtest_tiers_v28_by_tier.py`):
 
-Baseline comparison on the same v27 feature grid, temporal split, and 200k-row
-test sample shows that the diagnostic-fallback engine is not yet outperforming
-simple statistical baselines except on T0→T5:
+| Transition | Cumulative AUC | Positives |
+|---|---:|---:|
+| T0 → T1+ | 0.6518 | 2,608 |
+| T1 → T2+ | 0.5216 | 369 |
+| T2 → T3+ | 0.6229 | 57 |
+| T3 → T4+ | NA (<20 pos) | 11 |
+| T4 → T5 | NA (<20 pos) | 4 |
 
-| Threshold | TIERS v27 AUC | Best baseline AUC | Best baseline |
-|---|---:|---:|---|
-| T0 → T1+ | 0.6295 | 0.8264 | Logistic regression, balanced |
-| T0 → T4+ | 0.8550 | 0.8932 | Random forest, balanced |
-| T0 → T5 | **0.9380** | 0.9217 | Logistic regression, balanced |
-| Any escalation | 0.6569 | 0.8217 | Random forest, balanced |
+Baseline comparison on `test_1990_2014` shows that the uncalibrated starting
+priors still trail simple logistic regression on the repaired grid:
+
+| Target | TIERS v28 AUC | Transition Matrix AUC | LogReg (`trade+struct`) AUC |
+|---|---:|---:|---:|
+| Onset, any | 0.5637 | 0.5000 | 0.7340 |
+| Onset, force | 0.8246 | 0.5000 | 0.9113 |
+| Escalation | 0.5870 | 0.5539 | 0.7383 |
+| De-escalation | 0.5577 | 0.6889 | 0.7077 |
 
 v28 results should be read as sign-constrained starting-prior results, not as
-fully calibrated estimates. The economic-interdependence block is now attached
-through `data/processed/trade_interdependence.*`; full MLE/Bayesian calibration
-of the v28 hazard coefficients remains pending. For full results see
-`output/analysis/model_calibration_summary_v28.md`; v27 and v21 summaries are
-retained for comparison.
+calibrated estimates. For full reports see
+`output/analysis/model_calibration_summary_v28.md`,
+`output/analysis/model_calibration_summary_v27.md`, and
+`output/analysis/baseline_summary_v28.md`.
 
 ---
 

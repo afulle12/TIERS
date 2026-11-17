@@ -267,7 +267,7 @@ Every input carries a state ∈ {observed, defaulted, absent} (§1.9.1). Variabl
 
 ### 2.2 Structural & Military
 
-- **Rivalry ($\Omega$)** — [0,1], symmetric. Default: regional base rate.
+- **Rivalry ($\Omega$)** — [0,1], symmetric. Default: regional base rate. *(Superseded in v28: rivalry is directed and held per actor; see the v28 draft, section 4.)*
 - **Contiguity ($\Xi$)** — {0,0.5,1}, symmetric. Almost always observable; default 0. **Also feeds the Capability/Reach gate** (contiguity is a sufficient opener of T5 — §3.7).
 - **First-Mover Advantage ($FMA_{i\to j}$)** — [0,1], directional. Default 0. **Logically posterior to $Cap$:** if $Cap_{i\to j}$ cannot clear its gate, FMA is moot for the gated tier.
 - **Closing Window ($-\dot{W}_{i\to j}$)** — [0,1], directional; drives the forward-looking term. If absent, $\gamma$ effectively 0 (myopic member).

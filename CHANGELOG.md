@@ -5,6 +5,68 @@ All notable changes to TIERS are recorded here. The format follows
 [Semantic Versioning](https://semver.org/) with the spec major version as the
 project version.
 
+## [Unreleased] - 2026-11 — Repair phase 2 (data): complete data & T1 union rebuild
+
+### Added
+- `scripts/build/state_system.py`: state-system membership by year (COW members
+  from NMC that have a CShapes unit), with both COW and Gleditsch-Ward codes.
+- `scripts/build/source_coverage.py` & `data/processed/source_coverage.csv`:
+  declares tier observability by year and marks pre-1989 unobserved T2 sanctions
+  with `unobserved_tiers` bitmask so evaluation withholds transitions whose label
+  could change if missing tiers were observed.
+- `scripts/build/build_mid_dyads.py`: derives every MID-sourced event from the
+  raw MID 5.0 participant file. Direction and tier come from the acting state's
+  own hostility level; threats and displays are T1, use of force T4, war T5.
+  In coalition disputes a force-level tier needs evidence the force was aimed
+  at that target. Replaces the inherited MID rows, whose initiator and target
+  were reversed, and retires `build_t1_dyads.py`.
+- `scripts/build/build_t1_sources.py`: builds the Section 2.8 T1 union from
+  `EUSANCT_THREAT` (`threat_dyad==1`, `sanction_dyad!=1`), `TIES` v4.0 (with
+  `TIESCorrection.txt` errata, non-imposed year spans, and EEC/EU `1000`
+  expansion), `ICB` v16 (crisis dyad-years with `TRIGENT`/`SOUTHV` direction
+  recovery, filtered to pair-years `< T3`), and `DIPREP` (Pardee DRD `Focus==3`
+  recalls, withdrawals, severance, and expulsions).
+- `scripts/build/build_dyad_states.py`: one row per ordered pair of existing
+  states per year, resolved to the highest recorded tier and shared by both
+  directions (`uiw_tier`), with `directed_tier`, `t1_basis`, `unobserved_tiers`,
+  and Sechser MCT v0.9 validation check (`106/117` in-window dyad-years and
+  `92/103` episodes at T1+).
+- `scripts/build/build_pipeline.py`: single command to rebuild the full Phase 2
+  table chain and run `tests/test_data_contracts.py`.
+- `tests/test_build_mid_dyads.py`, `tests/test_build_t1_sources.py`,
+  `tests/test_data_contracts.py` (53 tests total passing; obsolete trade xfail
+  removed; rivalry mirroring, coverage bitmask, and T1 union checks added).
+- `evaluation.dyad_year_codes` / `mean_over_directions`: all backtests and
+  baselines count each dyad-year once using the mean of directed forecasts and
+  respect `unobserved_tiers`.
+
+### Changed
+- `integrate_eusanct.py`: T2 filters dyadic `sanction_dyad == 1` (fixing 121
+  premature threat-only US/EU rows), resolves COW `ccodecow` via `state_system`
+  (preserving Yemen `679`, Germany `255`, Myanmar `775`, Sri Lanka `780`, Nepal
+  `790`, Fiji `950`, Barbados `53`), and exports `eusanct_threat_events.csv`.
+- `build_rivalry.py` & `tiers_lib_v27.py`: rivalry is now directed (`ActorState.rivalry`:
+  decayed history of the other side's militarised actions using events from 1900).
+- `build_trade_interdependence.py`: builds both directions from one source and
+  enforces symmetric `trade_surface_norm_ab` and `mutual_trade_dependence_ab`.
+- `build_features.py`, `build_features_v27.py`, `build_features_v28.py`: no
+  silent deduplication, skip-if-exists, or redundant CSV mirrors.
+- `tiers_lib_v27.py`: reconciliation ties average both directional allocations
+  within `1e-12` instead of breaking arbitrarily on floating-point noise.
+
+### Effect
+- Directed dyad-years 1946–2014: 2,101,408 -> 1,388,704 (non-existent states
+  removed). Capability shares summing to one: 62.7% -> 100% of rows; trade and
+  rivalry symmetry invariants pass across all 1,388,704 rows.
+- T1 pair-years (1946–2014): expanded to 4,565 via Section 2.8 union (`TIES`:
+  1,533 alone; `EUSANCT_THREAT`: 922 alone; `DIPREP`: 826 alone; `MID`: 740
+  alone; `ICB`: 128 alone; plus overlaps).
+- Test-window (1990–2014) onset from peace, per dyad-year: 3,027 any-onset, 258
+  force-onset, 14 war-onset (suppressed `< 20`). TIERS v28 force-onset AUC
+  0.8246 vs LogReg(trade+struct) 0.9113; `T1->T2` now has 369 test positives
+  (up from 19 previously).
+
+
 ## [Unreleased] - 2026-07 — v27.0 engine implemented and backtested
 
 ### Added

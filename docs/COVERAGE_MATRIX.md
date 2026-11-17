@@ -7,9 +7,9 @@ sections 1.6, 1.9, 3.1, 3.8.
 
 | Variable | Spec § | Source | State in this run | Notes |
 |---|---|---|---|---|
-| $X_t$ — Current tier | 1.6.1 | `conflict_dyads_full.csv` (`uiw_tier`) | **observed** (100%) | High-salience; fail-loud if unresolvable. |
-| $D_k$ — Duration | 1.6.3 | Derived from `tier_transitions_full.csv` (years at current tier) | **observed** (99%) | Triple role: persistence, lock-in, Attribution×Duration. |
-| $\Omega$ — Rivalry | 1.6.4 | `data/processed/rivalry_omega.csv` (built from MIDB 5.0) | **empirical** (3% of 2014 dyads) | 928/30,435 directed pairs have a recency-decayed MID history. Other dyads default to 0 (no MID history). |
+| $X_t$ — Current tier | 1.6.1 | `data/processed/dyad_states.parquet` (`uiw_tier`) | **observed** (T1/T3/T4/T5 all yrs; T2 1989+) | Shared pair-year max tier (`MID5` + `EUSANCT` + `TIES` + `ICB` + `DIPREP` + `UCDP`). `unobserved_tiers` marks pre-1989 T2 gap. |
+| $D_k$ — Duration | 1.6.3 | `data/processed/dyad_states.parquet` (`d_k_years`) | **observed** (100%) | Years already spent at the current shared tier per directed pair. |
+| $\Omega$ — Rivalry | 1.6.4 | `data/processed/rivalry_omega.csv` (from MIDB 5.0 events 1900–2014) | **empirical** (5.7% of all rows; 1,652 pairs in 2014) | Directed: $i$'s rivalry toward $j$ is the decayed history of $j$'s militarised actions against $i$ (`ActorState.rivalry`). |
 | $\Xi$ — Contiguity | 1.6.4 | `data/processed/contiguity_xi.csv` (built from CShapes 2.0) | **empirical** (100%) | {0, 0.5, 1}; also feeds the Capability/Reach gate. |
 | $FMA_{i\to j}$ | 1.6.5 | `data/processed/contiguity_xi.csv` (`fma` column) | **empirical** (100%) | First-Mover Advantage from great-circle distance. |
 | $-\dot W_{i\to j}$ | 1.6.5 | `data/processed/dyads_with_features_v27.parquet` (`closing_window_a/b`) | **empirical** (99.7%) | Rolling 5-year CINC growth from NMC v7.0. |
@@ -24,7 +24,7 @@ sections 1.6, 1.9, 3.1, 3.8.
 | $WMD$ | 1.6.5 | None attached | **absent** | Cap consistency condition not exercised. |
 | $Cap_{i\to j}$ | 1.6.5 / 3.7 | `data/processed/dyads_with_features_v27.parquet` (`cap_a_to_b`, `cap_b_to_a`) | **empirical** (100%) | Composite of $\Xi$, CINC share, distance. **High-salience** for the T5 reach gate. |
 | $\hat{\mathcal{C}}_i(\mathcal{C}_c)$ — Belief | 1.6.5 | None attached | **absent** | $\delta=0$ -> public member active. |
-| Attribution | 1.6.1 | `data/processed/conflict_dyads_full.csv` (`attribution`) | **empirical** (0.5% — T3 rows only) | Modifier is 0 for non-T3 dyads. |
+| Attribution | 1.6.1 | `data/processed/dyad_states.parquet` (`attribution`) | **empirical** (T3 rows only) | Modifier is 0 for non-T3 dyads. |
 | Integration depth | 1.6.5 | None attached | **defaulted** | Could be derived from ATOP depth asymmetry. |
 | Stakes | 1.6.5 | None attached | **defaulted** | Per spec, falls back to $\Omega\Xi$. |
 | Intent/selectivity | 1.6.5 | None attached | **absent** | T3 entry gate; classification fallback. |

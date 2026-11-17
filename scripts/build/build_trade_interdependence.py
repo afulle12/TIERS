@@ -13,9 +13,12 @@ Reads:
   data/raw/TRADHIST_v4.dta
   data/processed/country_code_crosswalk.csv (built on demand)
 
+Both directions of a pair are always written, from the same source, so the
+fields the model treats as shared by the dyad agree across them.
+
 Writes:
-  data/processed/trade_interdependence.csv
-  data/processed/trade_interdependence.parquet (if pyarrow is available)
+  data/processed/trade_interdependence.parquet
+  data/processed/trade_interdependence.csv (only with --csv)
 """
 from __future__ import annotations
 
@@ -50,7 +53,7 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--year-min", type=int, default=1827)
     p.add_argument("--year-max", type=int, default=2024)
     p.add_argument("--source", choices=["all", "baci", "tradhist"], default="all")
-    p.add_argument("--no-parquet", action="store_true", help="Only write CSV output")
+    p.add_argument("--csv", action="store_true", help="Also write a CSV copy (about 600 MB)")
     p.add_argument("--force-crosswalk", action="store_true")
     return p.parse_args()
 
@@ -62,7 +65,7 @@ def _source_map(crosswalk: pd.DataFrame, source: str) -> dict[object, int]:
         cw["source_code"] = cw["source_code"].astype(int)
     else:
         cw["source_code"] = cw["source_code"].astype(str).str.strip().str.upper()
-    return dict(zip(cw["source_code"], cw["gwno"]))
+    return dict(zip(cw["source_code"], cw["gwno"], strict=True))
 
 
 def _year_from_baci_name(name: str) -> int | None:
@@ -155,6 +158,54 @@ def load_tradhist(year_min: int, year_max: int, crosswalk: pd.DataFrame) -> pd.D
     )
 
 
+def _complete_pairs(flow: pd.DataFrame) -> pd.DataFrame:
+    """Return one row per direction for every pair that reports a flow either way.
+
+    A pair with exports in one direction only still gets both directed rows;
+    the unreported direction has zero exports. Without this the two
+    directions of a dyad disagree on whether trade was observed at all.
+    """
+    key = ["year", "initiator_gwno", "target_gwno"]
+    fwd = flow[key + ["exports_a_to_b"]]
+    rev = fwd.rename(columns={
+        "initiator_gwno": "target_gwno",
+        "target_gwno": "initiator_gwno",
+        "exports_a_to_b": "exports_b_to_a",
+    })
+    out = fwd.merge(rev, on=key, how="outer")
+    out["exports_a_to_b"] = out["exports_a_to_b"].fillna(0.0)
+    out["exports_b_to_a"] = out["exports_b_to_a"].fillna(0.0)
+    return out
+
+
+def _country_totals(flow: pd.DataFrame, has_totals: bool) -> pd.DataFrame:
+    """One row of total exports and imports per country-year.
+
+    Each country gets a single pair of totals, used wherever it appears, so a
+    dependence share is the same whichever direction of the dyad reads it.
+    """
+    if has_totals:
+        as_origin = flow.rename(columns={
+            "initiator_gwno": "gwno", "total_exports_a": "total_exports", "total_imports_a": "total_imports",
+        })[["year", "gwno", "total_exports", "total_imports"]]
+        as_dest = flow.rename(columns={
+            "target_gwno": "gwno", "total_exports_b": "total_exports", "total_imports_b": "total_imports",
+        })[["year", "gwno", "total_exports", "total_imports"]]
+        both = pd.concat([as_origin, as_dest], ignore_index=True)
+        for col in ("total_exports", "total_imports"):
+            both[col] = pd.to_numeric(both[col], errors="coerce")
+        return both.groupby(["year", "gwno"], as_index=False)[["total_exports", "total_imports"]].max().fillna(0.0)
+    exp_totals = (
+        flow.groupby(["year", "initiator_gwno"], as_index=False)["exports_a_to_b"].sum()
+        .rename(columns={"initiator_gwno": "gwno", "exports_a_to_b": "total_exports"})
+    )
+    imp_totals = (
+        flow.groupby(["year", "target_gwno"], as_index=False)["exports_a_to_b"].sum()
+        .rename(columns={"target_gwno": "gwno", "exports_a_to_b": "total_imports"})
+    )
+    return exp_totals.merge(imp_totals, on=["year", "gwno"], how="outer").fillna(0.0)
+
+
 def _complete_trade_frame(
     flow: pd.DataFrame,
     source: str,
@@ -162,58 +213,31 @@ def _complete_trade_frame(
     source_rank: int,
     has_totals: bool = False,
 ) -> pd.DataFrame:
-    """Attach reverse flows, totals, and directed dependence variables."""
+    """Attach reverse flows, totals, and directed dependence variables.
+
+    The output has both directions of every pair, and every field that the
+    model treats as shared by the dyad (`trade_surface_ab`,
+    `mutual_trade_dependence_ab`, `trade_shock_ab`) is equal across them.
+    """
     flow = flow.copy()
     flow["year"] = flow["year"].astype(int)
     flow["initiator_gwno"] = flow["initiator_gwno"].astype(int)
     flow["target_gwno"] = flow["target_gwno"].astype(int)
     flow["exports_a_to_b"] = pd.to_numeric(flow["exports_a_to_b"], errors="coerce").fillna(0.0)
 
-    rev = flow[["year", "initiator_gwno", "target_gwno", "exports_a_to_b"]].rename(
-        columns={
-            "initiator_gwno": "target_gwno",
-            "target_gwno": "initiator_gwno",
-            "exports_a_to_b": "exports_b_to_a",
-        }
+    out = _complete_pairs(flow)
+    totals = _country_totals(flow, has_totals)
+    out = out.merge(
+        totals.rename(columns={
+            "gwno": "initiator_gwno", "total_exports": "total_exports_a", "total_imports": "total_imports_a",
+        }),
+        on=["year", "initiator_gwno"], how="left",
+    ).merge(
+        totals.rename(columns={
+            "gwno": "target_gwno", "total_exports": "total_exports_b", "total_imports": "total_imports_b",
+        }),
+        on=["year", "target_gwno"], how="left",
     )
-    out = flow.merge(rev, on=["year", "initiator_gwno", "target_gwno"], how="left")
-    out["exports_b_to_a"] = out["exports_b_to_a"].fillna(0.0)
-
-    if has_totals:
-        out["total_exports_a"] = pd.to_numeric(out["total_exports_a"], errors="coerce")
-        out["total_imports_a"] = pd.to_numeric(out["total_imports_a"], errors="coerce")
-        out["total_exports_b"] = pd.to_numeric(out["total_exports_b"], errors="coerce")
-        out["total_imports_b"] = pd.to_numeric(out["total_imports_b"], errors="coerce")
-    else:
-        exp_totals = (
-            flow.groupby(["year", "initiator_gwno"], as_index=False)["exports_a_to_b"]
-            .sum()
-            .rename(columns={"initiator_gwno": "gwno", "exports_a_to_b": "total_exports"})
-        )
-        imp_totals = (
-            flow.groupby(["year", "target_gwno"], as_index=False)["exports_a_to_b"]
-            .sum()
-            .rename(columns={"target_gwno": "gwno", "exports_a_to_b": "total_imports"})
-        )
-        totals = exp_totals.merge(imp_totals, on=["year", "gwno"], how="outer").fillna(0.0)
-        out = out.merge(
-            totals.rename(columns={
-                "gwno": "initiator_gwno",
-                "total_exports": "total_exports_a",
-                "total_imports": "total_imports_a",
-            }),
-            on=["year", "initiator_gwno"],
-            how="left",
-        )
-        out = out.merge(
-            totals.rename(columns={
-                "gwno": "target_gwno",
-                "total_exports": "total_exports_b",
-                "total_imports": "total_imports_b",
-            }),
-            on=["year", "target_gwno"],
-            how="left",
-        )
 
     for col in ["total_exports_a", "total_imports_a", "total_exports_b", "total_imports_b"]:
         out[col] = pd.to_numeric(out[col], errors="coerce").fillna(0.0)
@@ -238,6 +262,7 @@ def _complete_trade_frame(
     )
     out["trade_vulnerability_b_to_a"] = out["dep_b_on_a"]
     out["trade_surface_ab"] = np.log1p(out["exports_a_to_b"] + out["exports_b_to_a"])
+    out = out.sort_values(["initiator_gwno", "target_gwno", "year"]).reset_index(drop=True)
     out["trade_shock_ab"] = out.groupby(["initiator_gwno", "target_gwno"])["trade_surface_ab"].diff().fillna(0.0)
     out["trade_source"] = source
     out["trade_value_unit"] = value_unit
@@ -255,8 +280,15 @@ def combine_sources(frames: list[pd.DataFrame]) -> pd.DataFrame:
     if not frames:
         return pd.DataFrame()
     out = pd.concat(frames, ignore_index=True)
-    out = out.sort_values(["year", "initiator_gwno", "target_gwno", "source_rank"])
-    out = out.drop_duplicates(["year", "initiator_gwno", "target_gwno"], keep="first")
+    # Choose the source per pair-year, not per direction: where a pair appears
+    # in both sources, both of its directed rows come from the preferred one.
+    lo = np.minimum(out["initiator_gwno"], out["target_gwno"])
+    hi = np.maximum(out["initiator_gwno"], out["target_gwno"])
+    best = out.groupby([out["year"], lo, hi])["source_rank"].transform("min")
+    out = out[out["source_rank"] == best]
+    out = out.sort_values(["year", "initiator_gwno", "target_gwno"])
+    if out.duplicated(["year", "initiator_gwno", "target_gwno"]).any():
+        raise ValueError("trade: duplicate directed dyad-year after combining sources")
     out["trade_surface_norm_ab"] = out.groupby("year")["trade_surface_ab"].rank(pct=True)
     out = out.drop(columns=["source_rank"])
 
@@ -291,15 +323,16 @@ def main() -> int:
         print("[WARN] No trade rows produced")
         return 1
 
+    pq_path = OUT_BASE.with_suffix(".parquet")
+    out.to_parquet(pq_path, index=False)
+    print(f"Wrote {pq_path} ({len(out):,} directed dyad-years)")
     csv_path = OUT_BASE.with_suffix(".csv")
-    out.to_csv(csv_path, index=False)
-    print(f"Wrote {csv_path} ({len(out):,} directed dyad-years)")
-    if not args.no_parquet:
-        try:
-            out.to_parquet(OUT_BASE.with_suffix(".parquet"), index=False)
-            print(f"Wrote {OUT_BASE.with_suffix('.parquet')}")
-        except ImportError:
-            print("[WARN] pyarrow not available; skipped parquet output")
+    if args.csv:
+        out.to_csv(csv_path, index=False)
+        print(f"Wrote {csv_path}")
+    elif csv_path.exists():
+        print(f"[NOTE] {csv_path} is from an earlier build and was not rewritten; "
+              "the feature builders read the Parquet file.")
 
     print("Rows by source:")
     for source, count in out["trade_source"].value_counts().sort_index().items():

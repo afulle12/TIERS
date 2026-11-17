@@ -4,12 +4,11 @@ v28 keeps the v27 structural features and adds the shared CEPII-derived
 economic-interdependence table built by `build_trade_interdependence.py`.
 
 Reads:
-  data/processed/dyads_with_features_v27.parquet or .csv
+  data/processed/dyads_with_features_v27.parquet
   data/processed/trade_interdependence.parquet or .csv
 
 Writes:
   data/processed/dyads_with_features_v28.parquet
-  data/processed/dyads_with_features_v28.csv
 """
 from __future__ import annotations
 
@@ -34,11 +33,7 @@ TRADE_COLUMNS = [
 
 
 def _read_base() -> pd.DataFrame:
-    pq = DATA_PROCESSED / "dyads_with_features_v27.parquet"
-    csv = DATA_PROCESSED / "dyads_with_features_v27.csv"
-    if pq.exists():
-        return pd.read_parquet(pq)
-    return pd.read_csv(csv)
+    return pd.read_parquet(DATA_PROCESSED / "dyads_with_features_v27.parquet")
 
 
 def _read_trade() -> pd.DataFrame:
@@ -49,26 +44,9 @@ def _read_trade() -> pd.DataFrame:
     return pd.read_csv(csv)
 
 
-def _ensure_gwno_keys(grid: pd.DataFrame) -> pd.DataFrame:
-    if {"initiator_gwno", "target_gwno"}.issubset(grid.columns):
-        return grid
-    cf = pd.read_csv(
-        DATA_PROCESSED / "conflict_dyads_full.csv",
-        usecols=["year", "initiator", "target", "initiator_gwno", "target_gwno"],
-    )
-    cf = cf.dropna(subset=["initiator_gwno", "target_gwno"])
-    cf = cf.drop_duplicates(["year", "initiator", "target"], keep="first")
-    out = grid.merge(cf, on=["year", "initiator", "target"], how="left")
-    out = out.dropna(subset=["initiator_gwno", "target_gwno"])
-    out["initiator_gwno"] = out["initiator_gwno"].astype(int)
-    out["target_gwno"] = out["target_gwno"].astype(int)
-    return out
-
-
 def main() -> int:
     print("Loading v27 structural feature grid...")
     grid = _read_base()
-    grid = _ensure_gwno_keys(grid)
     print(f"  {len(grid):,} rows")
 
     print("Loading trade interdependence source of truth...")
@@ -88,12 +66,11 @@ def main() -> int:
         else:
             grid[c] = pd.to_numeric(grid[c], errors="coerce").fillna(0.0)
 
+    if grid.duplicated(["year", "initiator_ccode", "target_ccode"]).any():
+        raise ValueError("trade join duplicated directed dyad-years")
     out_pq = DATA_PROCESSED / "dyads_with_features_v28.parquet"
-    out_csv = DATA_PROCESSED / "dyads_with_features_v28.csv"
     grid.to_parquet(out_pq, index=False)
-    grid.to_csv(out_csv, index=False)
     print(f"Wrote {out_pq}")
-    print(f"Wrote {out_csv}")
     print("Trade coverage:")
     print(grid["trade_source"].value_counts(dropna=False).to_string())
     return 0

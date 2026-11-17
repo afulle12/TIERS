@@ -130,6 +130,12 @@ def _g(actor: ActorState, name: str, default: float = 0.0) -> float:
     return float(value)
 
 
+def actor_rivalry(actor: ActorState, sym: DyadState) -> float:
+    """The actor's own rivalry toward the other state, else the dyad's shared value."""
+    own = getattr(actor, "rivalry", None)
+    return float(sym.rivalry if own is None else own)
+
+
 def trade_observed(actor: ActorState) -> bool:
     return getattr(actor, "state_integration", InputState.DEFAULTED) != InputState.ABSENT
 
@@ -143,7 +149,7 @@ def adjacent_hazard(k: int, actor: ActorState, target: ActorState, sym: DyadStat
     dep_self = _g(actor, "dep_on_target", 0.0)
     n_pub = _clip01(actor.n_pub)
     cap_shift = _clip01(abs(actor.capability_share - target.capability_share))
-    rivalry = _clip01(sym.rivalry)
+    rivalry = _clip01(actor_rivalry(actor, sym))
     contig = _clip01(sym.contiguity)
     duration = max(0.0, float(sym.duration))
     fma = _clip01(actor.fma)
@@ -197,7 +203,7 @@ def deesc_hazard(actor: ActorState, sym: DyadState, priors: Priors) -> float:
     h = (
         priors.deesc_base + priors.deesc_diplomatic * actor.deesc_inputs[1]
         + priors.deesc_mediation * actor.deesc_inputs[2] + priors.deesc_mutual * mutual
-        + priors.deesc_public * _clip01(actor.n_pub) - priors.deesc_rivalry * _clip01(sym.rivalry)
+        + priors.deesc_public * _clip01(actor.n_pub) - priors.deesc_rivalry * _clip01(actor_rivalry(actor, sym))
         - priors.deesc_duration * max(0.0, sym.duration)
     )
     return _sigmoid(h)
@@ -208,7 +214,7 @@ def skip_hazard(k: int, j: int, actor: ActorState, sym: DyadState, gate_t5: bool
         return 0.0
     if j == TIER_MAX and not gate_t5:
         return 0.0
-    structural = _clip01(0.35 * sym.rivalry + 0.25 * sym.contiguity + 0.20 * actor.cap_proxy + 0.20 * actor.closing_window)
+    structural = _clip01(0.35 * actor_rivalry(actor, sym) + 0.25 * sym.contiguity + 0.20 * actor.cap_proxy + 0.20 * actor.closing_window)
     h = (
         priors.skip_base + priors.skip_structural * structural + priors.skip_shock * actor.shock_k
         + priors.skip_fma * actor.fma + priors.skip_reach * float(gate_t5)
@@ -422,7 +428,13 @@ def score_dataframe_v28(df, priors: Optional[Priors] = None) -> Dict[str, np.nda
     k = np.clip(_col_array(df, "uiw_tier", 0, dtype=int), TIER_MIN, TIER_MAX)
     duration = _col_array(df, "d_k_years", 0.0, dtype=float)
     contig_raw = _col_array(df, "contiguity_xi", 0.0, dtype=float)
+    # Rivalry is directed: `rivalry_omega` is the initiator's toward the
+    # target and `rivalry_omega_b` the target's toward the initiator. A frame
+    # without the second column is scored with the same value both ways.
     rivalry_raw = _col_array(df, "rivalry_omega", 0.0, dtype=float)
+    rivalry_raw_b = (
+        _col_array(df, "rivalry_omega_b", 0.0, dtype=float) if "rivalry_omega_b" in df.columns else rivalry_raw
+    )
     fma_raw = _col_array(df, "fma", 0.0, dtype=float)
     cap_ab = _col_array(df, "cap_a_to_b", 0.0, dtype=float)
     cap_ba = _col_array(df, "cap_b_to_a", 0.0, dtype=float)
@@ -472,7 +484,7 @@ def score_dataframe_v28(df, priors: Optional[Priors] = None) -> Dict[str, np.nda
             priors,
         )
         pi_ba_t = _score_directed_v28_batch(
-            k[m], duration[m], rivalry_raw[m], contig_raw[m], gate_t5[m],
+            k[m], duration[m], rivalry_raw_b[m], contig_raw[m], gate_t5[m],
             n_pub_b[m], c_t_ba[m], c_t_ab[m], cw_b[m], fma_raw[m], cap_ba[m], np.zeros(m.sum()),
             surface[m], mutual[m], dep_ba[m], tr_lev_ba[m], imp_lev_ba[m], exp_lev_ba[m],
             priors,

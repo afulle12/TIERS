@@ -1,151 +1,171 @@
-"""Build a per-dyad rivalry (Omega) table from MIDB 5.0 participant-level data.
+"""Build the rivalry table from the directed MID events (proposal section 2.6).
 
-For each directed pair (i, j) and each year T in the data window, Omega_{i,j}(T)
-is a recency-decayed sum of MID events in which i and j were on opposing sides,
-weighted by hostility level and fatality.
+Definition
+----------
+Rivalry is directed. State i's rivalry toward state j in year T is the
+recency-decayed history of j's militarised actions against i:
 
-The decay kernel is exp(-lambda * (T - t)) with lambda = 0.10 (half-life ~ 7 years).
-The result is clipped to [0, 1]; the empirical scale shows the most rivalrous
-dyads (e.g. India-Pakistan, Israel-Iran) saturate near 1.0 in their peak years.
+    Omega_{i<-j}(T) = min(1, sum_{t <= T} w_{j->i}(t) * exp(-LAMBDA * (T - t)))
 
-Input: data/raw/MID-5-Data-and-Supporting-Materials/MIDB 5.0.csv
-  (one row per (dispute, participant) pair, full 1816-2014 range; MIDIP 5.0 only
-  covers 1992-2014 so we use the dispute-level MIDB file for full coverage).
+so a state that has been threatened or attacked treats the other as a rival
+whether or not it ever acted itself. One-sided rivalry is intended.
 
-Output: data/processed/rivalry_omega.csv with columns
-    year, initiator_gwno, target_gwno, rivalry_omega
+  w_{j->i}(t)  the weight of the hostility level j directed at i in year t,
+               summed over the disputes active that year. The level is j's
+               own MID hostility level, lowered to a display of force where
+               the event builder found no evidence that j's force was aimed
+               at i (`build_mid_dyads.py`, coalition rule).
+  LAMBDA       0.10 per year, a half-life of about seven years.
+
+Forecast origin. A row for year T uses events up to and including year T and
+is used to forecast the tier in year T + 1. Nothing from T + 1 enters.
+
+History. Events from 1900 on are used, so rivalries do not start from zero
+in 1946. A state keeps its history across a change of code (Germany, Yemen,
+Serbia) through `history_id`.
+
+Columns, on the row (initiator = i, target = j):
+
+  rivalry_omega      Omega_{i<-j}: the initiator's rivalry toward the target
+  rivalry_omega_b    Omega_{j<-i}: the target's rivalry toward the initiator
+  conflict_history   the same decayed sum over both directions together, a
+                     shared measure of how much the pair has fought
+
+Only rows with a non-zero value are written; absent rows mean no history.
+
+Input:  data/processed/mid_dyad_events.csv, data/processed/state_system.csv
+Output: data/processed/rivalry_omega.csv, keyed on COW codes
 """
 from __future__ import annotations
 
 import os
-import warnings
 
 import numpy as np
 import pandas as pd
 
-warnings.filterwarnings("ignore")
+from state_system import cow_to_gw, load_state_system
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DATA_RAW = os.path.join(ROOT, "data", "raw", "MID-5-Data-and-Supporting-Materials")
 DATA_PROCESSED = os.path.join(ROOT, "data", "processed")
+MID_EVENTS_CSV = os.path.join(DATA_PROCESSED, "mid_dyad_events.csv")
+OUT_CSV = os.path.join(DATA_PROCESSED, "rivalry_omega.csv")
 
+HISTORY_LO = 1900            # first year of events used as history
 YEAR_LO, YEAR_HI = 1946, 2014
-LAMBDA = 0.10   # recency decay; half-life ~ 7 years
+LAMBDA = 0.10                # recency decay; half-life ~ 7 years
+MIN_VALUE = 1e-4             # values below this are written as no history
 
-# Hostility weight by MID hostlev (1=no militarized action ... 5=war)
-HOSTLEV_WEIGHT = {0: 0.0, 1: 0.10, 2: 0.25, 3: 0.50, 4: 0.75, 5: 1.00}
-# Fatality multiplier
-FATALITY_MULT = {0: 0.5, 1: 0.7, 2: 1.0}   # 0=none, 1=1-25, 2=26+
-
-
-def load_midip() -> pd.DataFrame:
-    """Load MIDB 5.0 participant-level data; return rows with valid year and ccode."""
-    path = os.path.join(DATA_RAW, "MIDB 5.0.csv")
-    df = pd.read_csv(path)
-    df = df.dropna(subset=["ccode", "styear", "sidea"])
-    df["ccode"] = df["ccode"].astype(int)
-    df["styear"] = df["styear"].astype(int)
-    df["sidea"] = df["sidea"].astype(int)
-    df["hostlev"] = df["hostlev"].fillna(1).astype(int)
-    df["fatality"] = df["fatality"].fillna(0).astype(int)
-    return df
+# Weight by MID hostility level: 2 threat, 3 display, 4 use of force, 5 war.
+HOSTLEV_WEIGHT = {2: 0.25, 3: 0.50, 4: 0.75, 5: 1.00}
 
 
-def expand_directed_events(df: pd.DataFrame) -> pd.DataFrame:
-    """For each dispute, expand participants into directed (initiator, target) rows.
+def history_id(ccode: int, year: int) -> int:
+    """An identifier that follows a state through a change of country code.
 
-    A directed event (i, j, year, weight) means i and j were on opposing sides
-    in a dispute that began (or had an incident) in `year`; the event is recorded
-    from i's perspective, so it contributes to both rivalry_omega(i->j) and
-    rivalry_omega(j->i) (symmetric per spec section 1.6.4).
+    Gleditsch-Ward numbers keep Germany (260) and Yemen (678) continuous
+    across unification where COW starts a new code; COW keeps Serbia (345)
+    continuous across 2006 where Gleditsch-Ward does not.
     """
-    rows: list = []
-    for dispnum, grp in df.groupby("dispnum"):
-        # Per dispute we may have multiple rows per participant (multi-year
-        # incidents); deduplicate participants to sets per side.
-        sideA = set(grp[grp.sidea == 1]["ccode"].astype(int).unique())
-        sideB = set(grp[grp.sidea == 0]["ccode"].astype(int).unique())
-        if len(sideA) == 0 or len(sideB) == 0:
-            continue
-        # Aggregate weight to the dispute-year level
-        for year, ygrp in grp.groupby("styear"):
-            hostlev_max = int(ygrp["hostlev"].max())
-            fatal_max = int(ygrp["fatality"].max())
-            w = HOSTLEV_WEIGHT.get(hostlev_max, 0.25) * FATALITY_MULT.get(fatal_max, 0.5)
-            if w <= 0.0:
-                continue
-            for i in sideA:
-                for j in sideB:
-                    if i == j:
-                        continue
-                    rows.append((int(year), int(i), int(j), w))
-    return pd.DataFrame(rows, columns=["year", "ccode_a", "ccode_b", "weight"])
+    if ccode == 345:
+        return 345
+    return cow_to_gw(int(ccode), int(year))
 
 
-def build_omega_table(events: pd.DataFrame) -> pd.DataFrame:
-    """For each directed (i, j) and year T in [YEAR_LO, YEAR_HI], compute
+def directed_weights(events: pd.DataFrame) -> pd.DataFrame:
+    """Return `year, actor, target, weight` summed over the disputes of a year.
 
-        Omega_{i,j}(T) = clip( sum_{t < T} w(i,j,t) * exp(-LAMBDA * (T - t)), 0, 1 )
+    `actor` is the state that acted and `target` the state acted against,
+    both as history ids.
     """
-    events = events.sort_values("year")
-    # Pivot events to a per-(i, j) list of (year, weight)
-    by_pair: dict = {}
-    for (a, b), grp in events.groupby(["ccode_a", "ccode_b"]):
-        by_pair[(a, b)] = list(zip(grp["year"].values, grp["weight"].values))
+    ev = events[["year", "initiator_ccode", "target_ccode", "uiw_tier", "hostlev"]].copy()
+    # A row capped to T1 by the coalition rule keeps the participant's own
+    # hostility level; what was aimed at this target is at most a display.
+    level = np.where(ev["uiw_tier"] == 1, np.minimum(ev["hostlev"], 3), ev["hostlev"])
+    ev["weight"] = pd.Series(level, index=ev.index).map(HOSTLEV_WEIGHT).fillna(0.0)
+    ev["actor"] = [history_id(c, y) for c, y in zip(ev["initiator_ccode"], ev["year"], strict=True)]
+    ev["target"] = [history_id(c, y) for c, y in zip(ev["target_ccode"], ev["year"], strict=True)]
+    ev = ev[ev["actor"] != ev["target"]]
+    return ev.groupby(["year", "actor", "target"], as_index=False)["weight"].sum()
 
-    # Output as a sparse per-year update: for each (i, j), walk years and
-    # accumulate the decayed sum.
-    out: list = []
-    n_pairs = len(by_pair)
-    print(f"  {n_pairs:,} directed pairs in MID history")
-    for idx, ((a, b), evs) in enumerate(by_pair.items()):
-        if idx > 0 and idx % 5000 == 0:
-            print(f"  ... {idx:,} / {n_pairs:,}")
-        evs_sorted = sorted(evs, key=lambda x: x[0])
-        omega = 0.0
-        ev_ptr = 0
-        for T in range(YEAR_LO, YEAR_HI + 1):
-            # Add all events at year T (events are stored at the dispute styear;
-            # we treat them as instantaneous for the rivalry accumulation)
-            while ev_ptr < len(evs_sorted) and evs_sorted[ev_ptr][0] == T:
-                omega += evs_sorted[ev_ptr][1]
-                ev_ptr += 1
-            # Apply decay from T-1 to T
-            if T > YEAR_LO:
-                omega *= float(np.exp(-LAMBDA))
-            omega_clipped = float(np.clip(omega, 0.0, 1.0))
-            out.append((T, a, b, omega_clipped))
-    df = pd.DataFrame(out, columns=["year", "initiator_gwno", "target_gwno", "rivalry_omega"])
-    df["rivalry_omega"] = df["rivalry_omega"].astype(np.float32)
-    return df
+
+def decayed_history(weights: pd.DataFrame, year_lo: int, year_hi: int, lam: float = LAMBDA) -> pd.DataFrame:
+    """Decayed running sum per (actor, target), one column per year `year_lo..year_hi`.
+
+    `value[T] = value[T - 1] * exp(-lam) + weight[T]`, which equals
+    `sum_{t <= T} weight[t] * exp(-lam * (T - t))`. Not clipped.
+    """
+    first = int(min(weights["year"].min(), year_lo)) if len(weights) else year_lo
+    years = list(range(first, year_hi + 1))
+    wide = (
+        weights.pivot_table(index=["actor", "target"], columns="year", values="weight", aggfunc="sum")
+        .reindex(columns=years)
+        .fillna(0.0)
+    )
+    decay = float(np.exp(-lam))
+    vals = wide.to_numpy(dtype=float)
+    out = np.zeros_like(vals)
+    running = np.zeros(vals.shape[0])
+    for col in range(vals.shape[1]):
+        running = running * decay + vals[:, col]
+        out[:, col] = running
+    res = pd.DataFrame(out, index=wide.index, columns=years)
+    return res[[y for y in years if y >= year_lo]]
+
+
+def build_rivalry(events: pd.DataFrame, states: pd.DataFrame,
+                  year_lo: int = YEAR_LO, year_hi: int = YEAR_HI, lam: float = LAMBDA) -> pd.DataFrame:
+    """Return the sparse rivalry table for member pairs in `year_lo..year_hi`."""
+    weights = directed_weights(events[events["year"] <= year_hi])
+    hist = decayed_history(weights, year_lo, year_hi, lam)
+    acted = (
+        hist.stack().rename("acted").reset_index()
+        .rename(columns={"level_2": "year"})
+    )
+    acted.columns = ["actor", "target", "year", "acted"]
+    acted = acted[acted["acted"] > 0.0]
+
+    # On the row (i, j): what j did to i is `received`, what i did to j is `sent`.
+    received = acted.rename(columns={"actor": "h_j", "target": "h_i", "acted": "received"})
+    sent = acted.rename(columns={"actor": "h_i", "target": "h_j", "acted": "sent"})
+    pair = received.merge(sent, on=["year", "h_i", "h_j"], how="outer").fillna(0.0)
+
+    pair["rivalry_omega"] = np.minimum(pair["received"], 1.0)
+    pair["rivalry_omega_b"] = np.minimum(pair["sent"], 1.0)
+    pair["conflict_history"] = np.minimum(pair["received"] + pair["sent"], 1.0)
+
+    # Attach the COW code each state carries in that year; pairs in which
+    # either state is not a member that year drop out.
+    s = states[(states["year"] >= year_lo) & (states["year"] <= year_hi)][["year", "ccode"]].copy()
+    s["h"] = [history_id(c, y) for c, y in zip(s["ccode"], s["year"], strict=True)]
+    out = pair.merge(
+        s.rename(columns={"h": "h_i", "ccode": "initiator_ccode"}), on=["year", "h_i"], how="inner"
+    ).merge(
+        s.rename(columns={"h": "h_j", "ccode": "target_ccode"}), on=["year", "h_j"], how="inner"
+    )
+    cols = ["rivalry_omega", "rivalry_omega_b", "conflict_history"]
+    out = out[(out[cols] >= MIN_VALUE).any(axis=1)]
+    out = out[["year", "initiator_ccode", "target_ccode"] + cols].astype({"year": int})
+    out[cols] = out[cols].round(6)
+    out = out.sort_values(["year", "initiator_ccode", "target_ccode"]).reset_index(drop=True)
+    if out.duplicated(["year", "initiator_ccode", "target_ccode"]).any():
+        raise ValueError("rivalry: duplicate directed dyad-year")
+    return out
 
 
 def main() -> int:
-    out_path = os.path.join(DATA_PROCESSED, "rivalry_omega.csv")
-    if os.path.exists(out_path):
-        print(f"Already exists: {out_path}")
-        return 0
-
-    print("Loading MIDIP 5.0...")
-    midip = load_midip()
-    print(f"  {len(midip):,} participant-incident rows")
-    midip = midip[(midip.styear >= YEAR_LO) & (midip.styear <= YEAR_HI)]
-    print(f"  in window {YEAR_LO}-{YEAR_HI}: {len(midip):,}")
-
-    print("Expanding directed (i, j) events...")
-    events = expand_directed_events(midip)
-    print(f"  {len(events):,} directed event rows")
-    # Reduce by (year, i, j) summing the weights so we accumulate cleanly
-    events = events.groupby(["year", "ccode_a", "ccode_b"], as_index=False)["weight"].sum()
-    print(f"  after aggregation: {len(events):,}")
-
-    print("Building per-year recency-decayed Omega table...")
-    df = build_omega_table(events)
-    df.to_csv(out_path, index=False)
-    print(f"\nWrote {len(df):,} directed rows -> {out_path}")
-    print(f"  max Omega:  {df.rivalry_omega.max():.3f}")
-    print(f"  median:     {df.rivalry_omega.median():.3f}")
-    print(f"  99th pct:   {df.rivalry_omega.quantile(0.99):.3f}")
+    events = pd.read_csv(MID_EVENTS_CSV)
+    events = events[events["year"] >= HISTORY_LO]
+    states = load_state_system()
+    out = build_rivalry(events, states)
+    out.to_csv(OUT_CSV, index=False)
+    last = out[out["year"] == YEAR_HI]
+    print(f"Rivalry -> {OUT_CSV} ({len(out):,} directed dyad-years with history, "
+          f"{YEAR_LO}-{YEAR_HI}; events from {int(events['year'].min())})")
+    print(f"  {YEAR_HI}: {len(last):,} directed pairs; "
+          f"one-sided (one direction zero): "
+          f"{int(((last.rivalry_omega < MIN_VALUE) ^ (last.rivalry_omega_b < MIN_VALUE)).sum()):,}")
+    print(f"  median {out.rivalry_omega[out.rivalry_omega > 0].median():.3f}, "
+          f"share at the cap of 1.0: {(out.rivalry_omega >= 1.0).mean():.1%}")
     return 0
 
 

@@ -28,18 +28,21 @@ from evaluation import (  # noqa: E402
     MIN_POSITIVES,
     RANDOM_STATE,
     TRAIN_SPLIT,
-    compute_metrics,
+    collapse_directions,
+    collapse_target_scores,
     evaluate_pis_on_split,
+    evaluate_target_scores,
     extract_target,
     fit_and_score_logreg_targets,
-    fit_transition_matrix,
+    fit_transition_rates,
     format_ci,
     load_feature_grid,
     reliability_table,
-    score_transition_matrix,
     sha256_file,
     stamp_header_lines,
     training_base_rates,
+    transition_rate_scores,
+    unobserved_next_of,
     unordered_dyad_codes,
 )
 from tiers_lib_v27 import ActorState, DyadState, InputState  # noqa: E402
@@ -103,6 +106,8 @@ class V28Calibrator:
             state_cap=InputState.OBSERVED,
             state_integration=trade_state,
         )
+        actor_a.rivalry = float(row.get("rivalry_omega", 0.0))
+        actor_b.rivalry = float(row.get("rivalry_omega_b", row.get("rivalry_omega", 0.0)))
         actor_a.trade_surface_norm = float(row.get("trade_surface_norm_ab", 0.0))
         actor_a.dep_on_target = float(row.get("dep_a_on_b", 0.0))
         actor_a.mutual_trade_dependence = float(row.get("mutual_trade_dependence_ab", 0.0))
@@ -178,12 +183,13 @@ def write_summary(
     window_counts: dict[str, int],
 ) -> str:
     extra = [
-        "- **Windows:** " + ", ".join(f"{k}={v:,}" for k, v in window_counts.items()),
+        "- **Windows (directed rows):** " + ", ".join(f"{k}={v:,}" for k, v in window_counts.items()),
+        "- **Unit of evaluation:** one row per unordered dyad-year; the forecast is the mean of the two directed forecasts.",
         f"- **Sampling:** {'full population (unweighted)' if sample_cap <= 0 else f'cap={sample_cap:,} per split (weighted by 1/inclusion_prob)'}",
         f"- **Bootstrap:** {n_boot} unordered-dyad-clustered replicates; metrics suppressed below {MIN_POSITIVES} positives.",
     ]
     lines = stamp_header_lines(
-        "TIERS v28.0 Phase 1 Evaluation Report",
+        "TIERS v28.0 Evaluation Report",
         stats=stats,
         parameters_desc=priors_desc,
         seed=seed,
@@ -193,6 +199,27 @@ def write_summary(
     lines.append("")
     for split in ("test_1990_2014", "trade_window_1995_2014", "train_1946_1989"):
         lines.extend(_markdown_table_for_split(metrics_df, split, HEADLINE_TARGETS))
+
+    lines.append("## Rows withheld by source coverage")
+    lines.append("")
+    lines.append(
+        "A transition is not scored for a target whose label could change if a tier with no "
+        "source that year were filled in. Sanctions (T2) have no source before 1989, so a dyad "
+        "recorded at T0 or T1 then may have been under sanctions."
+    )
+    lines.append("")
+    lines.append("| Target | Split | Dyad-years scored | Withheld |")
+    lines.append("|---|---|---:|---:|")
+    cov = metrics_df[(metrics_df["model"] == "TIERS v28") & (metrics_df["target"].isin(HEADLINE_TARGETS))]
+    for r in cov.itertuples(index=False):
+        if r.n_masked_rows > 0:
+            lines.append(f"| {r.target} | {r.split} | {r.n_sample_rows:,} | {r.n_masked_rows:,} |")
+    lines.append("")
+    lines.append(
+        "Where the training window is mostly withheld, the training base rate and the baselines "
+        "for that target rest on the remaining years only."
+    )
+    lines.append("")
 
     lines.append("## Adjacent Step Transitions (Test 1990–2014)")
     lines.append("")
@@ -263,10 +290,7 @@ def main() -> int:
     trade_full = df[(df["year"] >= 1995) & (df["year"] <= 2014)].copy().reset_index(drop=True)
 
     train_rates = training_base_rates(train_full, ALL_TARGETS)
-    t_mat = fit_transition_matrix(
-        train_full["uiw_tier"].to_numpy(dtype=int),
-        train_full["uiw_tier_next"].to_numpy(dtype=int),
-    )
+    tm_rates = fit_transition_rates(train_full, ALL_TARGETS)
 
     splits = {
         "train_1946_1989": _subsample_with_prob(train_full, args.sample, args.seed),
@@ -287,75 +311,49 @@ def main() -> int:
 
     for split_name, (sub, inc_prob) in splits.items():
         print(f"\n--- {split_name}: scoring {len(sub):,} rows ---")
-        clusters = unordered_dyad_codes(sub)
         res_v28 = score_dataframe_v28(sub, priors)
         sub = sub.copy()
         sub["active_member"] = res_v28["member_ab"]
-        pis_v28 = res_v28["pi"]
-        pis_tm = score_transition_matrix(t_mat, sub["uiw_tier"].to_numpy(dtype=int))
 
-        all_metrics.extend(
-            evaluate_pis_on_split(
-                sub, pis_v28, split_name, "TIERS v28", train_rates,
-                target_names=ALL_TARGETS, clusters=clusters, inclusion_prob=inc_prob,
-                n_boot=args.n_boot, seed=args.seed,
-            )
-        )
-        all_metrics.extend(
-            evaluate_pis_on_split(
-                sub, pis_tm, split_name, "Transition matrix", train_rates,
-                target_names=ALL_TARGETS, clusters=clusters, inclusion_prob=inc_prob,
-                n_boot=args.n_boot, seed=args.seed,
-            )
+        # The tier is shared by the dyad, so the two directed rows of a
+        # dyad-year carry the same outcome. Count each dyad-year once: average
+        # the two directed forecasts and keep the canonical row.
+        pair, (pis_v28, inc_prob) = collapse_directions(sub, res_v28["pi"], inc_prob)
+        clusters = unordered_dyad_codes(pair)
+        cur = pair["uiw_tier"].to_numpy(dtype=int)
+        nxt = pair["uiw_tier_next"].to_numpy(dtype=int)
+        unobs = unobserved_next_of(pair)
+        common = dict(
+            train_rates=train_rates, clusters=clusters, inclusion_prob=inc_prob,
+            n_boot=args.n_boot, seed=args.seed,
         )
 
-        # Per-target logistic regression baseline evaluation
-        cur = sub["uiw_tier"].to_numpy(dtype=int)
-        nxt = sub["uiw_tier_next"].to_numpy(dtype=int)
-        for tname in ALL_TARGETS:
-            tmask, y_t, _ = extract_target(cur, nxt, None, tname)
-            if len(y_t) == 0:
-                continue
-            p_lr = logreg_preds[split_name][tname]
-            if len(p_lr) == len(y_t) and np.all(np.isfinite(p_lr)):
-                m = compute_metrics(
-                    y_t, p_lr,
-                    inclusion_prob=inc_prob[tmask] if inc_prob is not None else None,
-                    ref_rate=train_rates.get(tname),
-                    clusters=clusters[tmask],
-                    n_boot=args.n_boot,
-                    seed=args.seed,
-                )
-            else:
-                m = compute_metrics(
-                    y_t, np.zeros_like(y_t, dtype=float),
-                    inclusion_prob=inc_prob[tmask] if inc_prob is not None else None,
-                    ref_rate=train_rates.get(tname),
-                    clusters=None,
-                    n_boot=0,
-                    min_positives=len(y_t) + 1,  # suppress
-                )
-            m.update({
-                "split": split_name,
-                "model": "LogReg(trade+struct)",
-                "subgroup_col": "ALL",
-                "subgroup": "ALL",
-                "target": tname,
-            })
-            all_metrics.append(m)
+        all_metrics.extend(
+            evaluate_pis_on_split(pair, pis_v28, split_name, "TIERS v28", target_names=ALL_TARGETS, **common)
+        )
+
+        tm_scores = transition_rate_scores(pair, tm_rates, ALL_TARGETS)
+        # Logistic predictions arrive per directed eligible row; average them
+        # over the two directions in the same way as the model's.
+        lr_scores = collapse_target_scores(sub, logreg_preds[split_name], ALL_TARGETS)
+        all_metrics.extend(
+            evaluate_target_scores(pair, tm_scores, split_name, "Transition matrix", target_names=ALL_TARGETS, **common)
+        )
+        all_metrics.extend(
+            evaluate_target_scores(pair, lr_scores, split_name, "LogReg(trade+struct)", target_names=ALL_TARGETS, **common)
+        )
 
         if split_name in ("test_1990_2014", "trade_window_1995_2014"):
             for sg_col in ("active_member", "trade_source"):
                 rows_sg = evaluate_pis_on_split(
-                    sub, pis_v28, split_name, "TIERS v28", train_rates,
-                    target_names=HEADLINE_TARGETS, clusters=clusters, inclusion_prob=inc_prob,
-                    n_boot=args.n_boot, seed=args.seed, subgroup_col=sg_col,
+                    pair, pis_v28, split_name, "TIERS v28",
+                    target_names=HEADLINE_TARGETS, subgroup_col=sg_col, **common,
                 )
                 all_subgroups.extend([r for r in rows_sg if r["subgroup"] != "ALL"])
 
         if split_name == "test_1990_2014":
             for tname in HEADLINE_TARGETS:
-                tmask, y_t, p_t = extract_target(cur, nxt, pis_v28, tname)
+                tmask, y_t, p_t = extract_target(cur, nxt, pis_v28, tname, unobs)
                 rel = reliability_table(
                     y_t, p_t, inclusion_prob=inc_prob[tmask] if inc_prob is not None else None, n_bins=10
                 )

@@ -20,6 +20,7 @@ from evaluation import (  # noqa: E402
     MIN_POSITIVES,
     RANDOM_STATE,
     TRAIN_SPLIT,
+    collapse_directions,
     evaluate_pis_on_split,
     format_ci,
     load_feature_grid,
@@ -143,10 +144,12 @@ def main() -> int:
             inc = np.full(len(sub), prob, dtype=float)
         print(f"--- {split_name}: scoring {len(sub):,} rows ---")
         res = score_dataframe_v27(sub, priors)
-        clusters = unordered_dyad_codes(sub)
+        # One row per dyad-year: the mean of the two directed forecasts.
+        pair, (pis, inc) = collapse_directions(sub, res["pi"], inc)
+        clusters = unordered_dyad_codes(pair)
         rows.extend(
             evaluate_pis_on_split(
-                sub, res["pi"], split_name, "TIERS v27", train_rates,
+                pair, pis, split_name, "TIERS v27", train_rates,
                 target_names=ALL_TARGETS, clusters=clusters, inclusion_prob=inc,
                 n_boot=args.n_boot, seed=args.seed,
             )
@@ -157,11 +160,13 @@ def main() -> int:
     out.to_csv(csv_path, index=False)
 
     lines = stamp_header_lines(
-        "TIERS v27.0 Phase 1 Evaluation Report",
+        "TIERS v27.0 Evaluation Report",
         stats=stats,
         parameters_desc="default v27 Priors()",
         seed=args.seed,
         extra=[
+            "- **Unit of evaluation:** one row per unordered dyad-year; the forecast is the mean of the two directed forecasts. "
+            "Rows whose label depends on a tier with no source that year are withheld.",
             f"- **Bootstrap:** {args.n_boot} unordered-dyad-clustered replicates; metrics suppressed below {MIN_POSITIVES} positives.",
         ],
     )

@@ -60,6 +60,7 @@ def score_year(year: int, out_path: str, priors: Priors | None = None) -> pd.Dat
         "dep_b_on_a": _col("dep_b_on_a", 0.0),
         "contiguity_xi": _col("contiguity_xi", 0.0),
         "rivalry_omega": _col("rivalry_omega", 0.0),
+        "rivalry_omega_b": _col("rivalry_omega_b", 0.0),
         "cap_a_to_b": _col("cap_a_to_b", 0.0),
         "cap_b_to_a": _col("cap_b_to_a", 0.0),
         "gate_t5": res["gate_t5"].astype(bool),

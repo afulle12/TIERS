@@ -10,7 +10,11 @@ responsible for complying with the licensing terms of each source dataset.**
 | MIDA / MIDIP / MIDI | 5.0 | 1816-2014 | Research use | Gibler & Miller (2021). |
 | UCDP Dyadic | v26.1 | 1946-onward | CC-BY 4.0 | Davies, S., Pettersson, T., Sollenberg, M., & Öberg, M. (2025). *Organized violence 1989–2024 and the return of armed conflict*. |
 | UCDP/PRIO Armed Conflict | v26.1 | 1946-onward | CC-BY 4.0 | Davies et al. (2025); UCDP/PRIO ACD Dataset Codebook. |
-| EUSANCT | 2022 | 1989-2015 | Research use | Hufbauer, G., Jung, E., Moran, T., & Oldenski, L. (2022). *The EUSANCT Dataset*. Peterson Institute. |
+| EUSANCT | 2022 | 1989-2015 | Research use | Weber, P. M., & Schneider, G. (2022). *Post-Cold War Sanctioning by the EU, the UN, and the US: Introducing the EUSANCT Dataset*. |
+| TIES (Threat and Imposition of Economic Sanctions) | v4.0 / v4.1 | 1945-2005 | Research use | Morgan, T. C., Bapat, N., & Kobayashi, Y. (2014). *Threat and Imposition of Economic Sanctions 1945–2005*. |
+| ICB (International Crisis Behavior) | v16 | 1918-2022 | Research use | Brecher, M., Wilkenfeld, J., et al. (2025). *International Crisis Behavior Data Archive, Version 16*. |
+| Pardee Diplometrics Diplomatic Representation | v2023 / 2026 release | 1960-2025 | Research use | Frederick S. Pardee Institute for International Futures. *Diplomatic Representation Dataset*. |
+| Militarized Compellent Threats (validation check) | v0.9 | 1918-2001 | Research use | Sechser, T. S. (2011). *Militarized Compellent Threats, 1918–2001*. |
 | CShapes | 2.0 | 1946-onward | CC-BY 4.0 | Weidmann, N. B., Rød, J. K., & Ketterer, L. (2024). *Introducing the CShapes 2.0 dataset*. |
 | V-Dem | v16 (CY Core) | 1789-2024 | CC-BY 4.0 | Coppedge, M. et al. (2025). *V-Dem [Country-Year/Country-Date] Dataset v16*. |
 | NMC (COW National Material Capabilities) | v7.0 abridged | 1816-2022 | Research use | Singer, J. D., Bremer, S. A., & Stuckey, J. (1972); updated. |
@@ -23,12 +27,12 @@ responsible for complying with the licensing terms of each source dataset.**
 
 | Tier | Definition | Sources used |
 |---|---|---|
-| T1 — Diplomatic Crisis | Formal friction: protests, recalls, ultimatums, UN votes, coercive threats | MIDB (hostlev=2 threats + hostlev=1 diplomatic originators, 1900–2014) + EUSANCT (threat_dyad=1, 1989–2015) + Wikipedia (LLM extraction, 2015–onward) |
-| T2 — Economic Coercion | Active sanctions, trade restrictions, financial exclusion | MIDB + EUSANCT (dyadic sanctions, 1989–2015) + Wikipedia (LLM extraction, 2015–onward) |
-| T3 — Proxy/Indirect Military | Sustained, selective material support to j's adversaries, directed at j | UCDP Dyadic v26.1, type_of_conflict==4 (internationalized internal) + Wikipedia (LLM extraction, 2015–onward) |
-| T4 — Limited Direct Military | Open, attributed exchange of fire between i and j forces | MIDB (hostlev≥3, militarized action) + Wikipedia (infobox parser, all years) |
-| T5 — Strategic War | Nationwide / multi-front warfare, sustained campaigns | MIDB (highest hostlev/fatality thresholds) + Wikipedia (infobox parser, all years) |
-| T0 — Peace | Inferred: no T1–T5 event in the dyad-year | Inverse of the above; inferred by the build pipeline |
+| T1 — Diplomatic Crisis | Formal friction: protests, recalls, ultimatums, coercive threats | MID5 (`hostlev` 2–3 threats/displays + coalition-capped force, 1900–2014) + EUSANCT (`threat_dyad==1`, `sanction_dyad!=1`, 1989–2015) + TIES v4.0 (`threat==1`, non-imposed years, 1945–2005) + ICB v16 (crisis dyad-years below T3, 1918–2022) + Pardee DRD (`Focus==3` recalls/withdrawals/expulsions, 1960–2025) |
+| T2 — Economic Coercion | Active sanctions, trade restrictions, financial exclusion | EUSANCT (`sanction_dyad==1` for US/EU, 1989–2015; unobserved 1946–1988 via `source_coverage.py`) |
+| T3 — Proxy/Indirect Military | Sustained, selective material support to j's adversaries, directed at j | UCDP Dyadic v26.1, `type_of_conflict==4` troop support |
+| T4 — Limited Direct Military | Open, attributed exchange of fire between i and j forces | MID5 (`hostlev==4` with target evidence) + UCDP Interstate Armed Conflict v26.1 |
+| T5 — Strategic War | Nationwide / multi-front warfare, sustained campaigns | MID5 (`hostlev==5` with target evidence) |
+| T0 — Peace | Inferred: no T1–T5 event in the dyad-year | Complement of T1–T5 events across `state_system` members |
 
 ## Economic-interdependence data
 

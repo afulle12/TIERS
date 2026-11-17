@@ -1,0 +1,1171 @@
+year,initiator,target,initiator_ccode,target_ccode,initiator_gwno,target_gwno,uiw_tier,tier_label,source,t1_basis,event_ref
+2010,Belgium,Bosnia-Herzegovina,211,346,211,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Luxembourg,Bosnia-Herzegovina,212,346,212,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,France,Bosnia-Herzegovina,220,346,220,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,German Federal Republic,Bosnia-Herzegovina,255,346,260,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Italy/Sardinia,Bosnia-Herzegovina,325,346,325,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Netherlands,Bosnia-Herzegovina,210,346,210,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Denmark,Bosnia-Herzegovina,390,346,390,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Ireland,Bosnia-Herzegovina,205,346,205,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,United Kingdom,Bosnia-Herzegovina,200,346,200,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Greece,Bosnia-Herzegovina,350,346,350,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Spain,Bosnia-Herzegovina,230,346,230,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Portugal,Bosnia-Herzegovina,235,346,235,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Austria,Bosnia-Herzegovina,305,346,305,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Finland,Bosnia-Herzegovina,375,346,375,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Sweden,Bosnia-Herzegovina,380,346,380,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Poland,Bosnia-Herzegovina,290,346,290,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Hungary,Bosnia-Herzegovina,310,346,310,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Czech Republic,Bosnia-Herzegovina,316,346,316,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Slovakia,Bosnia-Herzegovina,317,346,317,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Malta,Bosnia-Herzegovina,338,346,338,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Slovenia,Bosnia-Herzegovina,349,346,349,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Cyprus,Bosnia-Herzegovina,352,346,352,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Estonia,Bosnia-Herzegovina,366,346,366,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Latvia,Bosnia-Herzegovina,367,346,367,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Lithuania,Bosnia-Herzegovina,368,346,368,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Bulgaria,Bosnia-Herzegovina,355,346,355,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2010,Rumania,Bosnia-Herzegovina,360,346,360,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Belgium,Bosnia-Herzegovina,211,346,211,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Luxembourg,Bosnia-Herzegovina,212,346,212,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,France,Bosnia-Herzegovina,220,346,220,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,German Federal Republic,Bosnia-Herzegovina,255,346,260,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Italy/Sardinia,Bosnia-Herzegovina,325,346,325,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Netherlands,Bosnia-Herzegovina,210,346,210,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Denmark,Bosnia-Herzegovina,390,346,390,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Ireland,Bosnia-Herzegovina,205,346,205,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,United Kingdom,Bosnia-Herzegovina,200,346,200,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Greece,Bosnia-Herzegovina,350,346,350,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Spain,Bosnia-Herzegovina,230,346,230,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Portugal,Bosnia-Herzegovina,235,346,235,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Austria,Bosnia-Herzegovina,305,346,305,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Finland,Bosnia-Herzegovina,375,346,375,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Sweden,Bosnia-Herzegovina,380,346,380,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Poland,Bosnia-Herzegovina,290,346,290,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Hungary,Bosnia-Herzegovina,310,346,310,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Czech Republic,Bosnia-Herzegovina,316,346,316,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Slovakia,Bosnia-Herzegovina,317,346,317,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Malta,Bosnia-Herzegovina,338,346,338,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Slovenia,Bosnia-Herzegovina,349,346,349,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Cyprus,Bosnia-Herzegovina,352,346,352,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Estonia,Bosnia-Herzegovina,366,346,366,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Latvia,Bosnia-Herzegovina,367,346,367,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Lithuania,Bosnia-Herzegovina,368,346,368,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Bulgaria,Bosnia-Herzegovina,355,346,355,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2011,Rumania,Bosnia-Herzegovina,360,346,360,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Belgium,Bosnia-Herzegovina,211,346,211,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Luxembourg,Bosnia-Herzegovina,212,346,212,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,France,Bosnia-Herzegovina,220,346,220,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,German Federal Republic,Bosnia-Herzegovina,255,346,260,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Italy/Sardinia,Bosnia-Herzegovina,325,346,325,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Netherlands,Bosnia-Herzegovina,210,346,210,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Denmark,Bosnia-Herzegovina,390,346,390,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Ireland,Bosnia-Herzegovina,205,346,205,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,United Kingdom,Bosnia-Herzegovina,200,346,200,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Greece,Bosnia-Herzegovina,350,346,350,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Spain,Bosnia-Herzegovina,230,346,230,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Portugal,Bosnia-Herzegovina,235,346,235,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Austria,Bosnia-Herzegovina,305,346,305,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Finland,Bosnia-Herzegovina,375,346,375,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Sweden,Bosnia-Herzegovina,380,346,380,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Poland,Bosnia-Herzegovina,290,346,290,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Hungary,Bosnia-Herzegovina,310,346,310,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Czech Republic,Bosnia-Herzegovina,316,346,316,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Slovakia,Bosnia-Herzegovina,317,346,317,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Malta,Bosnia-Herzegovina,338,346,338,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Slovenia,Bosnia-Herzegovina,349,346,349,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Cyprus,Bosnia-Herzegovina,352,346,352,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Estonia,Bosnia-Herzegovina,366,346,366,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Latvia,Bosnia-Herzegovina,367,346,367,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Lithuania,Bosnia-Herzegovina,368,346,368,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Bulgaria,Bosnia-Herzegovina,355,346,355,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2012,Rumania,Bosnia-Herzegovina,360,346,360,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010012201
+2007,Belgium,Bulgaria,211,355,211,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Luxembourg,Bulgaria,212,355,212,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,France,Bulgaria,220,355,220,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,German Federal Republic,Bulgaria,255,355,260,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Italy/Sardinia,Bulgaria,325,355,325,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Netherlands,Bulgaria,210,355,210,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Denmark,Bulgaria,390,355,390,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Ireland,Bulgaria,205,355,205,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,United Kingdom,Bulgaria,200,355,200,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Greece,Bulgaria,350,355,350,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Spain,Bulgaria,230,355,230,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Portugal,Bulgaria,235,355,235,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Austria,Bulgaria,305,355,305,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Finland,Bulgaria,375,355,375,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Sweden,Bulgaria,380,355,380,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Poland,Bulgaria,290,355,290,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Hungary,Bulgaria,310,355,310,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Czech Republic,Bulgaria,316,355,316,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Slovakia,Bulgaria,317,355,317,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Malta,Bulgaria,338,355,338,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Slovenia,Bulgaria,349,355,349,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Cyprus,Bulgaria,352,355,352,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Estonia,Bulgaria,366,355,366,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Latvia,Bulgaria,367,355,367,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Lithuania,Bulgaria,368,355,368,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+2007,Rumania,Bulgaria,360,355,360,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2007062701
+1999,Belgium,Comoros,211,581,211,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Luxembourg,Comoros,212,581,212,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,France,Comoros,220,581,220,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,German Federal Republic,Comoros,255,581,260,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Italy/Sardinia,Comoros,325,581,325,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Netherlands,Comoros,210,581,210,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Denmark,Comoros,390,581,390,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Ireland,Comoros,205,581,205,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,United Kingdom,Comoros,200,581,200,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Greece,Comoros,350,581,350,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Spain,Comoros,230,581,230,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Portugal,Comoros,235,581,235,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Austria,Comoros,305,581,305,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Finland,Comoros,375,581,375,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1999,Sweden,Comoros,380,581,380,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Belgium,Comoros,211,581,211,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Luxembourg,Comoros,212,581,212,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,France,Comoros,220,581,220,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,German Federal Republic,Comoros,255,581,260,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Italy/Sardinia,Comoros,325,581,325,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Netherlands,Comoros,210,581,210,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Denmark,Comoros,390,581,390,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Ireland,Comoros,205,581,205,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,United Kingdom,Comoros,200,581,200,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Greece,Comoros,350,581,350,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Spain,Comoros,230,581,230,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Portugal,Comoros,235,581,235,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Austria,Comoros,305,581,305,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Finland,Comoros,375,581,375,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+2000,Sweden,Comoros,380,581,380,581,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999050701
+1991,Belgium,Democratic Republic of Congo (Zaire),211,490,211,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Luxembourg,Democratic Republic of Congo (Zaire),212,490,212,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,France,Democratic Republic of Congo (Zaire),220,490,220,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,German Federal Republic,Democratic Republic of Congo (Zaire),255,490,260,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Italy/Sardinia,Democratic Republic of Congo (Zaire),325,490,325,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Netherlands,Democratic Republic of Congo (Zaire),210,490,210,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Denmark,Democratic Republic of Congo (Zaire),390,490,390,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Ireland,Democratic Republic of Congo (Zaire),205,490,205,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,United Kingdom,Democratic Republic of Congo (Zaire),200,490,200,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Greece,Democratic Republic of Congo (Zaire),350,490,350,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Spain,Democratic Republic of Congo (Zaire),230,490,230,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+1991,Portugal,Democratic Republic of Congo (Zaire),235,490,235,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990052201
+2003,Belgium,Cote D'Ivoire,211,437,211,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Luxembourg,Cote D'Ivoire,212,437,212,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,France,Cote D'Ivoire,220,437,220,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,German Federal Republic,Cote D'Ivoire,255,437,260,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Italy/Sardinia,Cote D'Ivoire,325,437,325,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Netherlands,Cote D'Ivoire,210,437,210,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Denmark,Cote D'Ivoire,390,437,390,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Ireland,Cote D'Ivoire,205,437,205,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,United Kingdom,Cote D'Ivoire,200,437,200,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Greece,Cote D'Ivoire,350,437,350,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Spain,Cote D'Ivoire,230,437,230,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Portugal,Cote D'Ivoire,235,437,235,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Austria,Cote D'Ivoire,305,437,305,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Finland,Cote D'Ivoire,375,437,375,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2003,Sweden,Cote D'Ivoire,380,437,380,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Belgium,Cote D'Ivoire,211,437,211,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Luxembourg,Cote D'Ivoire,212,437,212,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,France,Cote D'Ivoire,220,437,220,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,German Federal Republic,Cote D'Ivoire,255,437,260,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Italy/Sardinia,Cote D'Ivoire,325,437,325,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Netherlands,Cote D'Ivoire,210,437,210,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Denmark,Cote D'Ivoire,390,437,390,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Ireland,Cote D'Ivoire,205,437,205,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,United Kingdom,Cote D'Ivoire,200,437,200,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Greece,Cote D'Ivoire,350,437,350,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Spain,Cote D'Ivoire,230,437,230,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Portugal,Cote D'Ivoire,235,437,235,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Austria,Cote D'Ivoire,305,437,305,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Finland,Cote D'Ivoire,375,437,375,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Sweden,Cote D'Ivoire,380,437,380,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Poland,Cote D'Ivoire,290,437,290,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Hungary,Cote D'Ivoire,310,437,310,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Czech Republic,Cote D'Ivoire,316,437,316,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Slovakia,Cote D'Ivoire,317,437,317,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Malta,Cote D'Ivoire,338,437,338,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Slovenia,Cote D'Ivoire,349,437,349,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Cyprus,Cote D'Ivoire,352,437,352,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Estonia,Cote D'Ivoire,366,437,366,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Latvia,Cote D'Ivoire,367,437,367,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2004,Lithuania,Cote D'Ivoire,368,437,368,437,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003020401
+2013,Belgium,Croatia,211,344,211,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Luxembourg,Croatia,212,344,212,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,France,Croatia,220,344,220,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,German Federal Republic,Croatia,255,344,260,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Italy/Sardinia,Croatia,325,344,325,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Netherlands,Croatia,210,344,210,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Denmark,Croatia,390,344,390,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Ireland,Croatia,205,344,205,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,United Kingdom,Croatia,200,344,200,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Greece,Croatia,350,344,350,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Spain,Croatia,230,344,230,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Portugal,Croatia,235,344,235,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Austria,Croatia,305,344,305,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Finland,Croatia,375,344,375,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Sweden,Croatia,380,344,380,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Poland,Croatia,290,344,290,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Hungary,Croatia,310,344,310,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Czech Republic,Croatia,316,344,316,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Slovakia,Croatia,317,344,317,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Malta,Croatia,338,344,338,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Slovenia,Croatia,349,344,349,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Cyprus,Croatia,352,344,352,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Estonia,Croatia,366,344,366,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Latvia,Croatia,367,344,367,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Lithuania,Croatia,368,344,368,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Bulgaria,Croatia,355,344,355,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2013,Rumania,Croatia,360,344,360,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013081901
+2000,Belgium,Fiji,211,950,211,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Luxembourg,Fiji,212,950,212,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,France,Fiji,220,950,220,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,German Federal Republic,Fiji,255,950,260,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Italy/Sardinia,Fiji,325,950,325,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Netherlands,Fiji,210,950,210,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Denmark,Fiji,390,950,390,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Ireland,Fiji,205,950,205,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,United Kingdom,Fiji,200,950,200,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Greece,Fiji,350,950,350,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Spain,Fiji,230,950,230,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Portugal,Fiji,235,950,235,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Austria,Fiji,305,950,305,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Finland,Fiji,375,950,375,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2000,Sweden,Fiji,380,950,380,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000060101
+2006,Belgium,Fiji,211,950,211,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Luxembourg,Fiji,212,950,212,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,France,Fiji,220,950,220,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,German Federal Republic,Fiji,255,950,260,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Italy/Sardinia,Fiji,325,950,325,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Netherlands,Fiji,210,950,210,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Denmark,Fiji,390,950,390,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Ireland,Fiji,205,950,205,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,United Kingdom,Fiji,200,950,200,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Greece,Fiji,350,950,350,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Spain,Fiji,230,950,230,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Portugal,Fiji,235,950,235,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Austria,Fiji,305,950,305,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Finland,Fiji,375,950,375,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Sweden,Fiji,380,950,380,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Poland,Fiji,290,950,290,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Hungary,Fiji,310,950,310,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Czech Republic,Fiji,316,950,316,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Slovakia,Fiji,317,950,317,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Malta,Fiji,338,950,338,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Slovenia,Fiji,349,950,349,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Cyprus,Fiji,352,950,352,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Estonia,Fiji,366,950,366,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Latvia,Fiji,367,950,367,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2006,Lithuania,Fiji,368,950,368,950,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006120501
+2003,Belgium,Guinea,211,438,211,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Luxembourg,Guinea,212,438,212,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,France,Guinea,220,438,220,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,German Federal Republic,Guinea,255,438,260,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Italy/Sardinia,Guinea,325,438,325,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Netherlands,Guinea,210,438,210,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Denmark,Guinea,390,438,390,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Ireland,Guinea,205,438,205,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,United Kingdom,Guinea,200,438,200,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Greece,Guinea,350,438,350,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Spain,Guinea,230,438,230,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Portugal,Guinea,235,438,235,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Austria,Guinea,305,438,305,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Finland,Guinea,375,438,375,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2003,Sweden,Guinea,380,438,380,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Belgium,Guinea,211,438,211,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Luxembourg,Guinea,212,438,212,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,France,Guinea,220,438,220,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,German Federal Republic,Guinea,255,438,260,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Italy/Sardinia,Guinea,325,438,325,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Netherlands,Guinea,210,438,210,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Denmark,Guinea,390,438,390,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Ireland,Guinea,205,438,205,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,United Kingdom,Guinea,200,438,200,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Greece,Guinea,350,438,350,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Spain,Guinea,230,438,230,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Portugal,Guinea,235,438,235,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Austria,Guinea,305,438,305,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Finland,Guinea,375,438,375,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Sweden,Guinea,380,438,380,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Poland,Guinea,290,438,290,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Hungary,Guinea,310,438,310,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Czech Republic,Guinea,316,438,316,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Slovakia,Guinea,317,438,317,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Malta,Guinea,338,438,338,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Slovenia,Guinea,349,438,349,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Cyprus,Guinea,352,438,352,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Estonia,Guinea,366,438,366,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Latvia,Guinea,367,438,367,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+2004,Lithuania,Guinea,368,438,368,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003082601
+1999,Belgium,Guinea-Bissau,211,404,211,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Luxembourg,Guinea-Bissau,212,404,212,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,France,Guinea-Bissau,220,404,220,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,German Federal Republic,Guinea-Bissau,255,404,260,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Italy/Sardinia,Guinea-Bissau,325,404,325,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Netherlands,Guinea-Bissau,210,404,210,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Denmark,Guinea-Bissau,390,404,390,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Ireland,Guinea-Bissau,205,404,205,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,United Kingdom,Guinea-Bissau,200,404,200,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Greece,Guinea-Bissau,350,404,350,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Spain,Guinea-Bissau,230,404,230,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Portugal,Guinea-Bissau,235,404,235,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Austria,Guinea-Bissau,305,404,305,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Finland,Guinea-Bissau,375,404,375,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+1999,Sweden,Guinea-Bissau,380,404,380,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999070901
+2003,Belgium,Guinea-Bissau,211,404,211,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Luxembourg,Guinea-Bissau,212,404,212,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,France,Guinea-Bissau,220,404,220,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,German Federal Republic,Guinea-Bissau,255,404,260,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Italy/Sardinia,Guinea-Bissau,325,404,325,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Netherlands,Guinea-Bissau,210,404,210,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Denmark,Guinea-Bissau,390,404,390,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Ireland,Guinea-Bissau,205,404,205,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,United Kingdom,Guinea-Bissau,200,404,200,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Greece,Guinea-Bissau,350,404,350,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Spain,Guinea-Bissau,230,404,230,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Portugal,Guinea-Bissau,235,404,235,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Austria,Guinea-Bissau,305,404,305,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Finland,Guinea-Bissau,375,404,375,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2003,Sweden,Guinea-Bissau,380,404,380,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Belgium,Guinea-Bissau,211,404,211,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Luxembourg,Guinea-Bissau,212,404,212,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,France,Guinea-Bissau,220,404,220,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,German Federal Republic,Guinea-Bissau,255,404,260,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Italy/Sardinia,Guinea-Bissau,325,404,325,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Netherlands,Guinea-Bissau,210,404,210,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Denmark,Guinea-Bissau,390,404,390,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Ireland,Guinea-Bissau,205,404,205,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,United Kingdom,Guinea-Bissau,200,404,200,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Greece,Guinea-Bissau,350,404,350,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Spain,Guinea-Bissau,230,404,230,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Portugal,Guinea-Bissau,235,404,235,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Austria,Guinea-Bissau,305,404,305,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Finland,Guinea-Bissau,375,404,375,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Sweden,Guinea-Bissau,380,404,380,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Poland,Guinea-Bissau,290,404,290,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Hungary,Guinea-Bissau,310,404,310,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Czech Republic,Guinea-Bissau,316,404,316,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Slovakia,Guinea-Bissau,317,404,317,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Malta,Guinea-Bissau,338,404,338,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Slovenia,Guinea-Bissau,349,404,349,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Cyprus,Guinea-Bissau,352,404,352,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Estonia,Guinea-Bissau,366,404,366,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Latvia,Guinea-Bissau,367,404,367,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2004,Lithuania,Guinea-Bissau,368,404,368,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003091401
+2010,Belgium,Guinea-Bissau,211,404,211,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Luxembourg,Guinea-Bissau,212,404,212,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,France,Guinea-Bissau,220,404,220,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,German Federal Republic,Guinea-Bissau,255,404,260,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Italy/Sardinia,Guinea-Bissau,325,404,325,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Netherlands,Guinea-Bissau,210,404,210,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Denmark,Guinea-Bissau,390,404,390,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Ireland,Guinea-Bissau,205,404,205,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,United Kingdom,Guinea-Bissau,200,404,200,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Greece,Guinea-Bissau,350,404,350,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Spain,Guinea-Bissau,230,404,230,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Portugal,Guinea-Bissau,235,404,235,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Austria,Guinea-Bissau,305,404,305,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Finland,Guinea-Bissau,375,404,375,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Sweden,Guinea-Bissau,380,404,380,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Poland,Guinea-Bissau,290,404,290,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Hungary,Guinea-Bissau,310,404,310,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Czech Republic,Guinea-Bissau,316,404,316,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Slovakia,Guinea-Bissau,317,404,317,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Malta,Guinea-Bissau,338,404,338,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Slovenia,Guinea-Bissau,349,404,349,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Cyprus,Guinea-Bissau,352,404,352,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Estonia,Guinea-Bissau,366,404,366,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Latvia,Guinea-Bissau,367,404,367,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Lithuania,Guinea-Bissau,368,404,368,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Bulgaria,Guinea-Bissau,355,404,355,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2010,Rumania,Guinea-Bissau,360,404,360,404,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010040801
+2000,Belgium,Haiti,211,41,211,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Luxembourg,Haiti,212,41,212,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,France,Haiti,220,41,220,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,German Federal Republic,Haiti,255,41,260,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Italy/Sardinia,Haiti,325,41,325,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Netherlands,Haiti,210,41,210,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Denmark,Haiti,390,41,390,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Ireland,Haiti,205,41,205,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,United Kingdom,Haiti,200,41,200,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Greece,Haiti,350,41,350,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Spain,Haiti,230,41,230,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Portugal,Haiti,235,41,235,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Austria,Haiti,305,41,305,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Finland,Haiti,375,41,375,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+2000,Sweden,Haiti,380,41,380,41,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040901
+1998,Belgium,India,211,750,211,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Luxembourg,India,212,750,212,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,France,India,220,750,220,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,German Federal Republic,India,255,750,260,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Italy/Sardinia,India,325,750,325,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Netherlands,India,210,750,210,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Denmark,India,390,750,390,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Ireland,India,205,750,205,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,United Kingdom,India,200,750,200,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Greece,India,350,750,350,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Spain,India,230,750,230,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Portugal,India,235,750,235,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Austria,India,305,750,305,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Finland,India,375,750,375,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1998,Sweden,India,380,750,380,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051001
+1991,Belgium,Indonesia,211,850,211,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Luxembourg,Indonesia,212,850,212,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,France,Indonesia,220,850,220,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,German Federal Republic,Indonesia,255,850,260,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Italy/Sardinia,Indonesia,325,850,325,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Netherlands,Indonesia,210,850,210,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Denmark,Indonesia,390,850,390,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Ireland,Indonesia,205,850,205,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,United Kingdom,Indonesia,200,850,200,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Greece,Indonesia,350,850,350,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Spain,Indonesia,230,850,230,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1991,Portugal,Indonesia,235,850,235,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Belgium,Indonesia,211,850,211,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Luxembourg,Indonesia,212,850,212,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,France,Indonesia,220,850,220,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,German Federal Republic,Indonesia,255,850,260,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Italy/Sardinia,Indonesia,325,850,325,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Netherlands,Indonesia,210,850,210,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Denmark,Indonesia,390,850,390,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Ireland,Indonesia,205,850,205,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,United Kingdom,Indonesia,200,850,200,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Greece,Indonesia,350,850,350,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Spain,Indonesia,230,850,230,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1992,Portugal,Indonesia,235,850,235,850,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991112101
+1989,Belgium,Iran (Persia),211,630,211,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Luxembourg,Iran (Persia),212,630,212,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,France,Iran (Persia),220,630,220,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,German Federal Republic,Iran (Persia),260,630,260,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Italy/Sardinia,Iran (Persia),325,630,325,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Netherlands,Iran (Persia),210,630,210,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Denmark,Iran (Persia),390,630,390,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Ireland,Iran (Persia),205,630,205,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,United Kingdom,Iran (Persia),200,630,200,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Greece,Iran (Persia),350,630,350,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Spain,Iran (Persia),230,630,230,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1989,Portugal,Iran (Persia),235,630,235,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989021601
+1997,Belgium,Iran (Persia),211,630,211,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Luxembourg,Iran (Persia),212,630,212,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,France,Iran (Persia),220,630,220,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,German Federal Republic,Iran (Persia),255,630,260,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Italy/Sardinia,Iran (Persia),325,630,325,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Netherlands,Iran (Persia),210,630,210,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Denmark,Iran (Persia),390,630,390,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Ireland,Iran (Persia),205,630,205,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,United Kingdom,Iran (Persia),200,630,200,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Greece,Iran (Persia),350,630,350,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Spain,Iran (Persia),230,630,230,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Portugal,Iran (Persia),235,630,235,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Austria,Iran (Persia),305,630,305,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Finland,Iran (Persia),375,630,375,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+1997,Sweden,Iran (Persia),380,630,380,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997041001
+2006,Belgium,Iran (Persia),211,630,211,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Luxembourg,Iran (Persia),212,630,212,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,France,Iran (Persia),220,630,220,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,German Federal Republic,Iran (Persia),255,630,260,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Italy/Sardinia,Iran (Persia),325,630,325,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Netherlands,Iran (Persia),210,630,210,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Denmark,Iran (Persia),390,630,390,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Ireland,Iran (Persia),205,630,205,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,United Kingdom,Iran (Persia),200,630,200,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Greece,Iran (Persia),350,630,350,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Spain,Iran (Persia),230,630,230,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Portugal,Iran (Persia),235,630,235,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Austria,Iran (Persia),305,630,305,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Finland,Iran (Persia),375,630,375,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Sweden,Iran (Persia),380,630,380,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Poland,Iran (Persia),290,630,290,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Hungary,Iran (Persia),310,630,310,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Czech Republic,Iran (Persia),316,630,316,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Slovakia,Iran (Persia),317,630,317,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Malta,Iran (Persia),338,630,338,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Slovenia,Iran (Persia),349,630,349,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Cyprus,Iran (Persia),352,630,352,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Estonia,Iran (Persia),366,630,366,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Latvia,Iran (Persia),367,630,367,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2006,Lithuania,Iran (Persia),368,630,368,630,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2006031001
+2001,Belgium,Israel,211,666,211,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Luxembourg,Israel,212,666,212,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,France,Israel,220,666,220,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,German Federal Republic,Israel,255,666,260,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Italy/Sardinia,Israel,325,666,325,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Netherlands,Israel,210,666,210,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Denmark,Israel,390,666,390,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Ireland,Israel,205,666,205,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,United Kingdom,Israel,200,666,200,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Greece,Israel,350,666,350,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Spain,Israel,230,666,230,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Portugal,Israel,235,666,235,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Austria,Israel,305,666,305,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Finland,Israel,375,666,375,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2001,Sweden,Israel,380,666,380,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Belgium,Israel,211,666,211,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Luxembourg,Israel,212,666,212,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,France,Israel,220,666,220,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,German Federal Republic,Israel,255,666,260,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Italy/Sardinia,Israel,325,666,325,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Netherlands,Israel,210,666,210,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Denmark,Israel,390,666,390,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Ireland,Israel,205,666,205,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,United Kingdom,Israel,200,666,200,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Greece,Israel,350,666,350,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Spain,Israel,230,666,230,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Portugal,Israel,235,666,235,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Austria,Israel,305,666,305,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Finland,Israel,375,666,375,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2002,Sweden,Israel,380,666,380,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Belgium,Israel,211,666,211,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Luxembourg,Israel,212,666,212,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,France,Israel,220,666,220,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,German Federal Republic,Israel,255,666,260,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Italy/Sardinia,Israel,325,666,325,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Netherlands,Israel,210,666,210,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Denmark,Israel,390,666,390,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Ireland,Israel,205,666,205,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,United Kingdom,Israel,200,666,200,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Greece,Israel,350,666,350,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Spain,Israel,230,666,230,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Portugal,Israel,235,666,235,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Austria,Israel,305,666,305,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Finland,Israel,375,666,375,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+2003,Sweden,Israel,380,666,380,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001021601
+1991,Belgium,Kenya,211,501,211,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Luxembourg,Kenya,212,501,212,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,France,Kenya,220,501,220,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,German Federal Republic,Kenya,255,501,260,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Italy/Sardinia,Kenya,325,501,325,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Netherlands,Kenya,210,501,210,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Denmark,Kenya,390,501,390,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Ireland,Kenya,205,501,205,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,United Kingdom,Kenya,200,501,200,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Greece,Kenya,350,501,350,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Spain,Kenya,230,501,230,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1991,Portugal,Kenya,235,501,235,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Belgium,Kenya,211,501,211,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Luxembourg,Kenya,212,501,212,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,France,Kenya,220,501,220,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,German Federal Republic,Kenya,255,501,260,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Italy/Sardinia,Kenya,325,501,325,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Netherlands,Kenya,210,501,210,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Denmark,Kenya,390,501,390,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Ireland,Kenya,205,501,205,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,United Kingdom,Kenya,200,501,200,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Greece,Kenya,350,501,350,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Spain,Kenya,230,501,230,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+1992,Portugal,Kenya,235,501,235,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990071101
+2008,Belgium,Kenya,211,501,211,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Luxembourg,Kenya,212,501,212,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,France,Kenya,220,501,220,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,German Federal Republic,Kenya,255,501,260,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Italy/Sardinia,Kenya,325,501,325,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Netherlands,Kenya,210,501,210,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Denmark,Kenya,390,501,390,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Ireland,Kenya,205,501,205,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,United Kingdom,Kenya,200,501,200,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Greece,Kenya,350,501,350,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Spain,Kenya,230,501,230,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Portugal,Kenya,235,501,235,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Austria,Kenya,305,501,305,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Finland,Kenya,375,501,375,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Sweden,Kenya,380,501,380,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Poland,Kenya,290,501,290,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Hungary,Kenya,310,501,310,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Czech Republic,Kenya,316,501,316,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Slovakia,Kenya,317,501,317,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Malta,Kenya,338,501,338,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Slovenia,Kenya,349,501,349,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Cyprus,Kenya,352,501,352,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Estonia,Kenya,366,501,366,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Latvia,Kenya,367,501,367,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Lithuania,Kenya,368,501,368,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Bulgaria,Kenya,355,501,355,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2008,Rumania,Kenya,360,501,360,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008011501
+2001,Belgium,Macedonia (FYROM/North Macedonia),211,343,211,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Luxembourg,Macedonia (FYROM/North Macedonia),212,343,212,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,France,Macedonia (FYROM/North Macedonia),220,343,220,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,German Federal Republic,Macedonia (FYROM/North Macedonia),255,343,260,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Italy/Sardinia,Macedonia (FYROM/North Macedonia),325,343,325,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Netherlands,Macedonia (FYROM/North Macedonia),210,343,210,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Denmark,Macedonia (FYROM/North Macedonia),390,343,390,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Ireland,Macedonia (FYROM/North Macedonia),205,343,205,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,United Kingdom,Macedonia (FYROM/North Macedonia),200,343,200,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Greece,Macedonia (FYROM/North Macedonia),350,343,350,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Spain,Macedonia (FYROM/North Macedonia),230,343,230,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Portugal,Macedonia (FYROM/North Macedonia),235,343,235,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Austria,Macedonia (FYROM/North Macedonia),305,343,305,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Finland,Macedonia (FYROM/North Macedonia),375,343,375,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2001,Sweden,Macedonia (FYROM/North Macedonia),380,343,380,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062601
+2004,Belgium,Maldives,211,781,211,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Luxembourg,Maldives,212,781,212,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,France,Maldives,220,781,220,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,German Federal Republic,Maldives,255,781,260,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Italy/Sardinia,Maldives,325,781,325,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Netherlands,Maldives,210,781,210,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Denmark,Maldives,390,781,390,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Ireland,Maldives,205,781,205,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,United Kingdom,Maldives,200,781,200,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Greece,Maldives,350,781,350,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Spain,Maldives,230,781,230,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Portugal,Maldives,235,781,235,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Austria,Maldives,305,781,305,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Finland,Maldives,375,781,375,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Sweden,Maldives,380,781,380,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Poland,Maldives,290,781,290,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Hungary,Maldives,310,781,310,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Czech Republic,Maldives,316,781,316,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Slovakia,Maldives,317,781,317,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Malta,Maldives,338,781,338,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Slovenia,Maldives,349,781,349,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Cyprus,Maldives,352,781,352,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Estonia,Maldives,366,781,366,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Latvia,Maldives,367,781,367,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2004,Lithuania,Maldives,368,781,368,781,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091601
+2008,Belgium,Mauritania,211,435,211,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Luxembourg,Mauritania,212,435,212,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,France,Mauritania,220,435,220,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,German Federal Republic,Mauritania,255,435,260,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Italy/Sardinia,Mauritania,325,435,325,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Netherlands,Mauritania,210,435,210,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Denmark,Mauritania,390,435,390,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Ireland,Mauritania,205,435,205,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,United Kingdom,Mauritania,200,435,200,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Greece,Mauritania,350,435,350,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Spain,Mauritania,230,435,230,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Portugal,Mauritania,235,435,235,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Austria,Mauritania,305,435,305,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Finland,Mauritania,375,435,375,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Sweden,Mauritania,380,435,380,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Poland,Mauritania,290,435,290,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Hungary,Mauritania,310,435,310,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Czech Republic,Mauritania,316,435,316,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Slovakia,Mauritania,317,435,317,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Malta,Mauritania,338,435,338,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Slovenia,Mauritania,349,435,349,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Cyprus,Mauritania,352,435,352,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Estonia,Mauritania,366,435,366,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Latvia,Mauritania,367,435,367,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Lithuania,Mauritania,368,435,368,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Bulgaria,Mauritania,355,435,355,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2008,Rumania,Mauritania,360,435,360,435,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008080601
+2002,Belgium,Morocco,211,600,211,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Luxembourg,Morocco,212,600,212,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,France,Morocco,220,600,220,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,German Federal Republic,Morocco,255,600,260,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Italy/Sardinia,Morocco,325,600,325,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Netherlands,Morocco,210,600,210,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Denmark,Morocco,390,600,390,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Ireland,Morocco,205,600,205,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,United Kingdom,Morocco,200,600,200,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Greece,Morocco,350,600,350,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Spain,Morocco,230,600,230,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Portugal,Morocco,235,600,235,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Austria,Morocco,305,600,305,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Finland,Morocco,375,600,375,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+2002,Sweden,Morocco,380,600,380,600,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002071501
+1998,Belgium,Pakistan,211,770,211,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Luxembourg,Pakistan,212,770,212,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,France,Pakistan,220,770,220,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,German Federal Republic,Pakistan,255,770,260,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Italy/Sardinia,Pakistan,325,770,325,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Netherlands,Pakistan,210,770,210,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Denmark,Pakistan,390,770,390,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Ireland,Pakistan,205,770,205,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,United Kingdom,Pakistan,200,770,200,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Greece,Pakistan,350,770,350,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Spain,Pakistan,230,770,230,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Portugal,Pakistan,235,770,235,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Austria,Pakistan,305,770,305,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Finland,Pakistan,375,770,375,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1998,Sweden,Pakistan,380,770,380,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Belgium,Pakistan,211,770,211,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Luxembourg,Pakistan,212,770,212,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,France,Pakistan,220,770,220,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,German Federal Republic,Pakistan,255,770,260,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Italy/Sardinia,Pakistan,325,770,325,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Netherlands,Pakistan,210,770,210,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Denmark,Pakistan,390,770,390,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Ireland,Pakistan,205,770,205,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,United Kingdom,Pakistan,200,770,200,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Greece,Pakistan,350,770,350,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Spain,Pakistan,230,770,230,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Portugal,Pakistan,235,770,235,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Austria,Pakistan,305,770,305,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Finland,Pakistan,375,770,375,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+1999,Sweden,Pakistan,380,770,380,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998051002
+2000,Belgium,Pakistan,211,770,211,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Luxembourg,Pakistan,212,770,212,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,France,Pakistan,220,770,220,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,German Federal Republic,Pakistan,255,770,260,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Italy/Sardinia,Pakistan,325,770,325,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Netherlands,Pakistan,210,770,210,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Denmark,Pakistan,390,770,390,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Ireland,Pakistan,205,770,205,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,United Kingdom,Pakistan,200,770,200,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Greece,Pakistan,350,770,350,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Spain,Pakistan,230,770,230,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Portugal,Pakistan,235,770,235,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Austria,Pakistan,305,770,305,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Finland,Pakistan,375,770,375,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2000,Sweden,Pakistan,380,770,380,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Belgium,Pakistan,211,770,211,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Luxembourg,Pakistan,212,770,212,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,France,Pakistan,220,770,220,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,German Federal Republic,Pakistan,255,770,260,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Italy/Sardinia,Pakistan,325,770,325,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Netherlands,Pakistan,210,770,210,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Denmark,Pakistan,390,770,390,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Ireland,Pakistan,205,770,205,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,United Kingdom,Pakistan,200,770,200,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Greece,Pakistan,350,770,350,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Spain,Pakistan,230,770,230,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Portugal,Pakistan,235,770,235,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Austria,Pakistan,305,770,305,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Finland,Pakistan,375,770,375,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+2001,Sweden,Pakistan,380,770,380,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999101301
+1992,Belgium,Peru,211,135,211,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Luxembourg,Peru,212,135,212,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,France,Peru,220,135,220,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,German Federal Republic,Peru,255,135,260,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Italy/Sardinia,Peru,325,135,325,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Netherlands,Peru,210,135,210,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Denmark,Peru,390,135,390,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Ireland,Peru,205,135,205,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,United Kingdom,Peru,200,135,200,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Greece,Peru,350,135,350,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Spain,Peru,230,135,230,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1992,Portugal,Peru,235,135,235,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Belgium,Peru,211,135,211,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Luxembourg,Peru,212,135,212,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,France,Peru,220,135,220,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,German Federal Republic,Peru,255,135,260,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Italy/Sardinia,Peru,325,135,325,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Netherlands,Peru,210,135,210,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Denmark,Peru,390,135,390,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Ireland,Peru,205,135,205,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,United Kingdom,Peru,200,135,200,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Greece,Peru,350,135,350,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Spain,Peru,230,135,230,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+1993,Portugal,Peru,235,135,235,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992040601
+2004,Belgium,Russia (Soviet Union),211,365,211,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Luxembourg,Russia (Soviet Union),212,365,212,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,France,Russia (Soviet Union),220,365,220,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,German Federal Republic,Russia (Soviet Union),255,365,260,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Italy/Sardinia,Russia (Soviet Union),325,365,325,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Netherlands,Russia (Soviet Union),210,365,210,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Denmark,Russia (Soviet Union),390,365,390,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Ireland,Russia (Soviet Union),205,365,205,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,United Kingdom,Russia (Soviet Union),200,365,200,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Greece,Russia (Soviet Union),350,365,350,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Spain,Russia (Soviet Union),230,365,230,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Portugal,Russia (Soviet Union),235,365,235,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Austria,Russia (Soviet Union),305,365,305,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Finland,Russia (Soviet Union),375,365,375,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Sweden,Russia (Soviet Union),380,365,380,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Poland,Russia (Soviet Union),290,365,290,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Hungary,Russia (Soviet Union),310,365,310,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Czech Republic,Russia (Soviet Union),316,365,316,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Slovakia,Russia (Soviet Union),317,365,317,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Malta,Russia (Soviet Union),338,365,338,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Slovenia,Russia (Soviet Union),349,365,349,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Cyprus,Russia (Soviet Union),352,365,352,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Estonia,Russia (Soviet Union),366,365,366,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Latvia,Russia (Soviet Union),367,365,367,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2004,Lithuania,Russia (Soviet Union),368,365,368,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004022301
+2008,Belgium,Russia (Soviet Union),211,365,211,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Luxembourg,Russia (Soviet Union),212,365,212,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,France,Russia (Soviet Union),220,365,220,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,German Federal Republic,Russia (Soviet Union),255,365,260,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Italy/Sardinia,Russia (Soviet Union),325,365,325,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Netherlands,Russia (Soviet Union),210,365,210,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Denmark,Russia (Soviet Union),390,365,390,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Ireland,Russia (Soviet Union),205,365,205,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,United Kingdom,Russia (Soviet Union),200,365,200,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Greece,Russia (Soviet Union),350,365,350,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Spain,Russia (Soviet Union),230,365,230,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Portugal,Russia (Soviet Union),235,365,235,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Austria,Russia (Soviet Union),305,365,305,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Finland,Russia (Soviet Union),375,365,375,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Sweden,Russia (Soviet Union),380,365,380,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Poland,Russia (Soviet Union),290,365,290,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Hungary,Russia (Soviet Union),310,365,310,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Czech Republic,Russia (Soviet Union),316,365,316,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Slovakia,Russia (Soviet Union),317,365,317,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Malta,Russia (Soviet Union),338,365,338,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Slovenia,Russia (Soviet Union),349,365,349,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Cyprus,Russia (Soviet Union),352,365,352,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Estonia,Russia (Soviet Union),366,365,366,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Latvia,Russia (Soviet Union),367,365,367,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Lithuania,Russia (Soviet Union),368,365,368,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Bulgaria,Russia (Soviet Union),355,365,355,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2008,Rumania,Russia (Soviet Union),360,365,360,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008082801
+2012,Belgium,Russia (Soviet Union),211,365,211,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Luxembourg,Russia (Soviet Union),212,365,212,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,France,Russia (Soviet Union),220,365,220,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,German Federal Republic,Russia (Soviet Union),255,365,260,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Italy/Sardinia,Russia (Soviet Union),325,365,325,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Netherlands,Russia (Soviet Union),210,365,210,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Denmark,Russia (Soviet Union),390,365,390,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Ireland,Russia (Soviet Union),205,365,205,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,United Kingdom,Russia (Soviet Union),200,365,200,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Greece,Russia (Soviet Union),350,365,350,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Spain,Russia (Soviet Union),230,365,230,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Portugal,Russia (Soviet Union),235,365,235,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Austria,Russia (Soviet Union),305,365,305,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Finland,Russia (Soviet Union),375,365,375,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Sweden,Russia (Soviet Union),380,365,380,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Poland,Russia (Soviet Union),290,365,290,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Hungary,Russia (Soviet Union),310,365,310,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Czech Republic,Russia (Soviet Union),316,365,316,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Slovakia,Russia (Soviet Union),317,365,317,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Malta,Russia (Soviet Union),338,365,338,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Slovenia,Russia (Soviet Union),349,365,349,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Cyprus,Russia (Soviet Union),352,365,352,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Estonia,Russia (Soviet Union),366,365,366,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Latvia,Russia (Soviet Union),367,365,367,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Lithuania,Russia (Soviet Union),368,365,368,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Bulgaria,Russia (Soviet Union),355,365,355,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2012,Rumania,Russia (Soviet Union),360,365,360,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Belgium,Russia (Soviet Union),211,365,211,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Luxembourg,Russia (Soviet Union),212,365,212,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,France,Russia (Soviet Union),220,365,220,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,German Federal Republic,Russia (Soviet Union),255,365,260,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Italy/Sardinia,Russia (Soviet Union),325,365,325,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Netherlands,Russia (Soviet Union),210,365,210,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Denmark,Russia (Soviet Union),390,365,390,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Ireland,Russia (Soviet Union),205,365,205,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,United Kingdom,Russia (Soviet Union),200,365,200,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Greece,Russia (Soviet Union),350,365,350,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Spain,Russia (Soviet Union),230,365,230,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Portugal,Russia (Soviet Union),235,365,235,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Austria,Russia (Soviet Union),305,365,305,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Finland,Russia (Soviet Union),375,365,375,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Sweden,Russia (Soviet Union),380,365,380,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Poland,Russia (Soviet Union),290,365,290,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Hungary,Russia (Soviet Union),310,365,310,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Czech Republic,Russia (Soviet Union),316,365,316,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Slovakia,Russia (Soviet Union),317,365,317,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Malta,Russia (Soviet Union),338,365,338,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Slovenia,Russia (Soviet Union),349,365,349,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Cyprus,Russia (Soviet Union),352,365,352,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Estonia,Russia (Soviet Union),366,365,366,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Latvia,Russia (Soviet Union),367,365,367,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Lithuania,Russia (Soviet Union),368,365,368,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Bulgaria,Russia (Soviet Union),355,365,355,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Rumania,Russia (Soviet Union),360,365,360,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+2013,Croatia,Russia (Soviet Union),344,365,344,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012042001
+1991,Belgium,Togo,211,461,211,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Luxembourg,Togo,212,461,212,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,France,Togo,220,461,220,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,German Federal Republic,Togo,255,461,260,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Italy/Sardinia,Togo,325,461,325,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Netherlands,Togo,210,461,210,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Denmark,Togo,390,461,390,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Ireland,Togo,205,461,205,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,United Kingdom,Togo,200,461,200,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Greece,Togo,350,461,350,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Spain,Togo,230,461,230,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1991,Portugal,Togo,235,461,235,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Belgium,Togo,211,461,211,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Luxembourg,Togo,212,461,212,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,France,Togo,220,461,220,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,German Federal Republic,Togo,255,461,260,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Italy/Sardinia,Togo,325,461,325,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Netherlands,Togo,210,461,210,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Denmark,Togo,390,461,390,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Ireland,Togo,205,461,205,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,United Kingdom,Togo,200,461,200,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Greece,Togo,350,461,350,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Spain,Togo,230,461,230,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1992,Portugal,Togo,235,461,235,461,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991120201
+1994,Belgium,Turkey (Ottoman Empire),211,640,211,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Luxembourg,Turkey (Ottoman Empire),212,640,212,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,France,Turkey (Ottoman Empire),220,640,220,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,German Federal Republic,Turkey (Ottoman Empire),255,640,260,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Italy/Sardinia,Turkey (Ottoman Empire),325,640,325,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Netherlands,Turkey (Ottoman Empire),210,640,210,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Denmark,Turkey (Ottoman Empire),390,640,390,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Ireland,Turkey (Ottoman Empire),205,640,205,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,United Kingdom,Turkey (Ottoman Empire),200,640,200,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Greece,Turkey (Ottoman Empire),350,640,350,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Spain,Turkey (Ottoman Empire),230,640,230,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+1994,Portugal,Turkey (Ottoman Empire),235,640,235,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994121901
+2000,Belgium,Zimbabwe (Rhodesia),211,552,211,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Luxembourg,Zimbabwe (Rhodesia),212,552,212,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,France,Zimbabwe (Rhodesia),220,552,220,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,German Federal Republic,Zimbabwe (Rhodesia),255,552,260,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Italy/Sardinia,Zimbabwe (Rhodesia),325,552,325,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Netherlands,Zimbabwe (Rhodesia),210,552,210,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Denmark,Zimbabwe (Rhodesia),390,552,390,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Ireland,Zimbabwe (Rhodesia),205,552,205,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,United Kingdom,Zimbabwe (Rhodesia),200,552,200,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Greece,Zimbabwe (Rhodesia),350,552,350,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Spain,Zimbabwe (Rhodesia),230,552,230,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Portugal,Zimbabwe (Rhodesia),235,552,235,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Austria,Zimbabwe (Rhodesia),305,552,305,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Finland,Zimbabwe (Rhodesia),375,552,375,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2000,Sweden,Zimbabwe (Rhodesia),380,552,380,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Belgium,Zimbabwe (Rhodesia),211,552,211,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Luxembourg,Zimbabwe (Rhodesia),212,552,212,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,France,Zimbabwe (Rhodesia),220,552,220,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,German Federal Republic,Zimbabwe (Rhodesia),255,552,260,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Italy/Sardinia,Zimbabwe (Rhodesia),325,552,325,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Netherlands,Zimbabwe (Rhodesia),210,552,210,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Denmark,Zimbabwe (Rhodesia),390,552,390,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Ireland,Zimbabwe (Rhodesia),205,552,205,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,United Kingdom,Zimbabwe (Rhodesia),200,552,200,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Greece,Zimbabwe (Rhodesia),350,552,350,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Spain,Zimbabwe (Rhodesia),230,552,230,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Portugal,Zimbabwe (Rhodesia),235,552,235,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Austria,Zimbabwe (Rhodesia),305,552,305,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Finland,Zimbabwe (Rhodesia),375,552,375,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+2001,Sweden,Zimbabwe (Rhodesia),380,552,380,552,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000040601
+1993,United States of America,Afghanistan,2,700,2,700,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1993040101
+1994,United States of America,Afghanistan,2,700,2,700,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1993040101
+2003,United States of America,Afghanistan,2,700,2,700,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002022501
+2003,United States of America,Albania,2,339,2,339,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003013102
+2000,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2001,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2002,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2003,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2004,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2005,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2006,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2007,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2008,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2009,United States of America,Austria,2,305,2,305,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122801
+2002,United States of America,Barbados,2,53,2,53,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002121001
+2002,United States of America,Belarus (Byelorussia),2,370,2,370,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002022701
+1997,United States of America,Belize,2,80,2,80,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997022801
+1998,United States of America,Belize,2,80,2,80,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997022801
+2000,United States of America,Belize,2,80,2,80,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061402
+2001,United States of America,Belize,2,80,2,80,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061402
+2002,United States of America,Belize,2,80,2,80,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061402
+2002,United States of America,Benin,2,434,2,434,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002012201
+1994,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994021003
+1995,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994021003
+1996,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994021003
+2000,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061406
+2001,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061406
+2002,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061406
+2003,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061406
+2010,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008091501
+2011,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008091501
+2012,United States of America,Bolivia,2,145,2,145,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008091501
+2002,United States of America,Bosnia-Herzegovina,2,346,2,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041101
+2003,United States of America,Bosnia-Herzegovina,2,346,2,346,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041101
+2000,United States of America,Botswana,2,571,2,571,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090801
+2001,United States of America,Botswana,2,571,2,571,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090801
+2002,United States of America,Botswana,2,571,2,571,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090801
+2003,United States of America,Botswana,2,571,2,571,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090801
+2002,United States of America,Brazil,2,140,2,140,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062001
+2002,United States of America,Bulgaria,2,355,2,355,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041107
+2000,United States of America,Burkina Faso (Upper Volta),2,439,2,439,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000073101
+2001,United States of America,Burkina Faso (Upper Volta),2,439,2,439,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000073101
+2015,United States of America,Burkina Faso (Upper Volta),2,439,2,439,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2015091701
+2001,United States of America,Central African Republic,2,482,2,482,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001100301
+2002,United States of America,Central African Republic,2,482,2,482,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001100301
+2010,United States of America,Chad,2,483,2,483,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061401
+2011,United States of America,Chad,2,483,2,483,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061401
+2013,United States of America,Chad,2,483,2,483,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013061901
+1994,United States of America,Colombia,2,100,2,100,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994062901
+1995,United States of America,Colombia,2,100,2,100,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994062901
+1998,United States of America,Colombia,2,100,2,100,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998022601
+1999,United States of America,Colombia,2,100,2,100,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998022601
+2002,United States of America,Colombia,2,100,2,100,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002080501
+1997,United States of America,Congo,2,484,2,484,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997060501
+1998,United States of America,Congo,2,484,2,484,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1997060501
+2002,United States of America,Democratic Republic of Congo (Zaire),2,490,2,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041103
+2003,United States of America,Democratic Republic of Congo (Zaire),2,490,2,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041103
+2010,United States of America,Democratic Republic of Congo (Zaire),2,490,2,490,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061402
+2001,United States of America,Costa Rica,2,94,2,94,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001060701
+2002,United States of America,Costa Rica,2,94,2,94,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001060701
+2001,United States of America,Croatia,2,344,2,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001052101
+2002,United States of America,Croatia,2,344,2,344,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001052101
+2002,United States of America,Djibouti,2,522,2,522,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002110501
+2003,United States of America,Djibouti,2,522,2,522,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002110501
+2000,United States of America,Ecuador,2,130,2,130,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000012101
+2002,United States of America,Ecuador,2,130,2,130,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002020501
+2011,United States of America,Egypt,2,651,2,651,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2011012801
+2012,United States of America,Egypt,2,651,2,651,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2011012801
+1989,United States of America,El Salvador,2,92,2,92,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989111601
+2004,United States of America,Eritrea,2,531,2,531,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091501
+2002,United States of America,Estonia,2,366,2,366,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002013001
+2000,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2001,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2002,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2003,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2004,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2005,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2006,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2007,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2008,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2009,United States of America,Finland,2,375,2,375,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000122901
+2000,United States of America,Gabon,2,481,2,481,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000092001
+2001,United States of America,Gabon,2,481,2,481,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000092001
+2002,United States of America,Gabon,2,481,2,481,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000092001
+2003,United States of America,Gabon,2,481,2,481,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000092001
+2002,United States of America,Gambia,2,420,2,420,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062802
+2003,United States of America,Gambia,2,420,2,420,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062802
+1991,United States of America,German Federal Republic,2,255,2,260,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012804
+2000,United States of America,Ghana,2,452,2,452,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061404
+2001,United States of America,Ghana,2,452,2,452,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061404
+2002,United States of America,Ghana,2,452,2,452,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061404
+2003,United States of America,Ghana,2,452,2,452,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061404
+2001,United States of America,Guinea,2,438,2,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001110701
+2008,United States of America,Guinea,2,438,2,438,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2008122401
+2002,United States of America,Honduras,2,91,2,91,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002070101
+2003,United States of America,Honduras,2,91,2,91,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002070101
+2005,United States of America,India,2,750,2,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031502
+2006,United States of America,India,2,750,2,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031502
+2007,United States of America,India,2,750,2,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031502
+2008,United States of America,India,2,750,2,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031502
+2009,United States of America,India,2,750,2,750,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031502
+2002,United States of America,Ireland,2,205,2,205,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002040101
+2003,United States of America,Ireland,2,205,2,205,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002040101
+1992,United States of America,Israel,2,666,2,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1992010901
+2010,United States of America,Israel,2,666,2,666,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010010601
+1991,United States of America,Japan,2,740,2,740,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012803
+1990,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990081401
+2004,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2005,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2006,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2007,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2008,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2009,United States of America,Jordan,2,663,2,663,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004120801
+2010,United States of America,Kenya,2,501,2,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2009121601
+2012,United States of America,Kenya,2,501,2,501,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012070401
+1991,United States of America,Kuwait,2,690,2,690,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012801
+1992,United States of America,Kuwait,2,690,2,690,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012801
+1994,United States of America,Laos,2,812,2,812,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994040101
+1995,United States of America,Laos,2,812,2,812,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994040101
+2002,United States of America,Latvia,2,367,2,367,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062801
+2000,United States of America,Lesotho,2,570,2,570,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090601
+2001,United States of America,Lesotho,2,570,2,570,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090601
+2002,United States of America,Lesotho,2,570,2,570,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000090601
+2002,United States of America,Macedonia (FYROM/North Macedonia),2,343,2,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002030601
+2003,United States of America,Macedonia (FYROM/North Macedonia),2,343,2,343,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002030601
+2002,United States of America,Malawi,2,553,2,553,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002091901
+2000,United States of America,Mali,2,432,2,432,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000081601
+2001,United States of America,Mali,2,432,2,432,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000081601
+2002,United States of America,Mali,2,432,2,432,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000081601
+2002,United States of America,Malta,2,338,2,338,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001112901
+2002,United States of America,Mauritius,2,590,2,590,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002030501
+2003,United States of America,Mauritius,2,590,2,590,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002030501
+2002,United States of America,Mongolia,2,712,2,712,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041105
+2003,United States of America,Mongolia,2,712,2,712,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041105
+2002,United States of America,Namibia,2,565,2,565,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062501
+2002,United States of America,Niger,2,436,2,436,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041108
+2000,United States of America,Nigeria,2,475,2,475,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999022601
+2001,United States of America,Nigeria,2,475,2,475,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1999022601
+2002,United States of America,Nigeria,2,475,2,475,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001092701
+2015,United States of America,Nigeria,2,475,2,475,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2015062701
+2005,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+2006,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+2007,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+2008,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+2009,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+2010,United States of America,Pakistan,2,770,2,770,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2005031501
+1994,United States of America,Panama,2,95,2,95,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994021001
+1995,United States of America,Panama,2,95,2,95,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1994021001
+2002,United States of America,Panama,2,95,2,95,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002032101
+2003,United States of America,Panama,2,95,2,95,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002032101
+1995,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1995030102
+1996,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1995030102
+1997,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1995030102
+1998,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998022602
+1999,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998022602
+2000,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1998022602
+2001,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001051401
+2002,United States of America,Paraguay,2,150,2,150,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001051401
+1991,United States of America,Peru,2,135,2,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991030101
+2000,United States of America,Peru,2,135,2,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000042501
+2001,United States of America,Peru,2,135,2,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001111101
+2002,United States of America,Peru,2,135,2,135,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001111101
+2002,United States of America,Rumania,2,360,2,360,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041106
+2003,United States of America,Rumania,2,360,2,360,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041106
+2004,United States of America,Rumania,2,360,2,360,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041106
+1991,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012802
+1992,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1991012802
+1996,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+1997,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+1998,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+1999,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2000,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2001,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2002,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2003,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2004,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2005,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996112901
+2006,United States of America,Saudi Arabia,2,670,2,670,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091502
+2000,United States of America,Senegal,2,433,2,433,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061403
+2001,United States of America,Senegal,2,433,2,433,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061403
+2002,United States of America,Senegal,2,433,2,433,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061403
+2003,United States of America,Senegal,2,433,2,433,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061403
+2000,United States of America,Sierra Leone,2,451,2,451,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000091502
+2001,United States of America,Sierra Leone,2,451,2,451,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000091502
+2002,United States of America,Sierra Leone,2,451,2,451,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000091502
+2003,United States of America,Sierra Leone,2,451,2,451,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000091502
+2002,United States of America,Slovakia,2,317,2,317,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002041102
+2001,United States of America,Slovenia,2,349,2,349,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001123101
+2002,United States of America,Slovenia,2,349,2,349,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001123101
+2015,United States of America,Somalia,2,520,2,520,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2015062702
+2000,United States of America,South Africa,2,560,2,560,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000112701
+2001,United States of America,South Africa,2,560,2,560,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000112701
+2002,United States of America,South Africa,2,560,2,560,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000112701
+2012,United States of America,South Sudan,2,626,2,626,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012062702
+2013,United States of America,South Sudan,2,626,2,626,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2012062702
+1989,United States of America,Sudan,2,625,2,625,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1989063001
+2001,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2002,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2003,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2004,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2005,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2006,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2007,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2008,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2009,United States of America,Sweden,2,380,2,380,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001062801
+2001,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2002,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2003,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2004,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2005,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2006,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2007,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2008,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2009,United States of America,Switzerland,2,225,2,225,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001101201
+2000,United States of America,Tajikistan,2,702,2,702,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061401
+2001,United States of America,Tajikistan,2,702,2,702,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061401
+2002,United States of America,Tajikistan,2,702,2,702,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061401
+2003,United States of America,Tajikistan,2,702,2,702,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061401
+2002,United States of America,Tanzania (Tanganyika),2,510,2,510,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002082001
+2003,United States of America,Thailand,2,800,2,800,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2003032301
+2002,United States of America,Timor-Leste,2,860,2,860,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002090601
+2003,United States of America,Timor-Leste,2,860,2,860,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002090601
+2000,United States of America,Trinidad and Tobago,2,52,2,52,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061411
+2001,United States of America,Trinidad and Tobago,2,52,2,52,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061411
+2002,United States of America,Trinidad and Tobago,2,52,2,52,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061411
+1996,United States of America,Turkey (Ottoman Empire),2,640,2,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996080701
+1997,United States of America,Turkey (Ottoman Empire),2,640,2,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1996080701
+2013,United States of America,Turkey (Ottoman Empire),2,640,2,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013112101
+2014,United States of America,Turkey (Ottoman Empire),2,640,2,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013112101
+2015,United States of America,Turkey (Ottoman Empire),2,640,2,640,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013112101
+2014,United States of America,Turkmenistan,2,701,2,701,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2014091501
+2015,United States of America,Turkmenistan,2,701,2,701,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2014091501
+1990,United States of America,Russia (Soviet Union),2,365,2,365,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990041601
+2002,United States of America,Uganda,2,500,2,500,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002061401
+2003,United States of America,Uganda,2,500,2,500,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002061401
+2001,United States of America,Ukraine,2,369,2,369,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2001071201
+2009,United States of America,Ukraine,2,369,2,369,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2009092401
+2010,United States of America,Ukraine,2,369,2,369,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2009092401
+2013,United States of America,Ukraine,2,369,2,369,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2013121201
+2002,United States of America,Uruguay,2,165,2,165,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002062803
+2000,United States of America,Venezuela,2,101,2,101,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061405
+2001,United States of America,Venezuela,2,101,2,101,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061405
+2002,United States of America,Venezuela,2,101,2,101,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2000061405
+2004,United States of America,Democratic Republic of Vietnam,2,816,2,816,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091503
+2005,United States of America,Democratic Republic of Vietnam,2,816,2,816,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091503
+2006,United States of America,Democratic Republic of Vietnam,2,816,2,816,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2004091503
+2010,United States of America,Yemen (Arab Republic of Yemen),2,679,2,678,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061404
+2013,United States of America,Yemen (Arab Republic of Yemen),2,679,2,678,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061404
+2014,United States of America,Yemen (Arab Republic of Yemen),2,679,2,678,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2010061404
+1990,United States of America,Serbia (Yugoslavia),2,345,2,345,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:1990110501
+2002,United States of America,Zambia,2,551,2,551,1,T1-Diplomatic Crisis,EUSANCT_THREAT,EUSANCT sanction threat,EUSANCT:2002111301

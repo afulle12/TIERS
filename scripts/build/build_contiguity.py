@@ -155,9 +155,6 @@ def compute_contiguity_for_year(year: int, by_gw: dict) -> list:
 
 def main() -> int:
     out_path = os.path.join(DATA_PROCESSED, "contiguity_xi.csv")
-    if os.path.exists(out_path):
-        print(f"Already exists: {out_path}")
-        return 0
 
     print("Loading CShapes 2.0...")
     cshapes = load_cshapes()

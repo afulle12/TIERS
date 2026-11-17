@@ -7,6 +7,12 @@ Replaces the duplicated per-script `load_data()` / `shift(-1)` logic with:
 - ROC AUC, average precision, log-loss, Brier score, Brier skill vs training base rate,
   reliability tables, and unordered-dyad-clustered bootstrap confidence intervals.
 - Suppression of discrimination/calibration metrics when positives < `min_positives` (20).
+- Source-coverage masks: a transition is not scored for a target whose label
+  could change if a tier with no source that year were filled in
+  (`label_decidable`, fed by `scripts/build/source_coverage.py`).
+- One row per dyad-year: the tier is shared by the two directions, so each
+  dyad-year is counted once with the mean of its two directed forecasts
+  (`collapse_directions`).
 """
 from __future__ import annotations
 
@@ -124,6 +130,81 @@ def deescalation_probability(pis: np.ndarray, current_tier: np.ndarray) -> np.nd
     return (pis * (tiers < cur[:, None])).sum(axis=1)
 
 
+COVERAGE_CSV = os.path.join(DATA_PROCESSED, "source_coverage.csv")
+
+
+def load_unobserved_by_year(path: str = COVERAGE_CSV) -> Dict[int, int]:
+    """Return `{year: bitmask}`; bit `u` is set when tier `u` has no source that year.
+
+    The file is written by `scripts/build/source_coverage.py`.
+    """
+    cov = pd.read_csv(path)
+    cov = cov[~cov["observed"].astype(bool)]
+    out: Dict[int, int] = {}
+    for year, tier in zip(cov["year"].astype(int), cov["tier"].astype(int), strict=True):
+        out[year] = out.get(year, 0) | (1 << tier)
+    return out
+
+
+def attach_coverage(df: pd.DataFrame, unobserved_by_year: Optional[Dict[int, int]] = None) -> pd.DataFrame:
+    """Add `unobserved_next`: the tiers that cannot be observed in year + 1."""
+    if unobserved_by_year is None:
+        unobserved_by_year = load_unobserved_by_year()
+    out = df.copy()
+    out["unobserved_next"] = (
+        (out["year"].astype(int) + 1).map(unobserved_by_year).fillna(0).astype(int)
+    )
+    return out
+
+
+def unobserved_next_of(df: pd.DataFrame) -> Optional[np.ndarray]:
+    """The frame's `unobserved_next` column, or None when coverage was not attached."""
+    if "unobserved_next" in df.columns:
+        return df["unobserved_next"].to_numpy(dtype=int)
+    return None
+
+
+def _label(target_name: str, k: int, n: int) -> Optional[int]:
+    """Label of one transition `k -> n` for a target, or None when `k` is not eligible."""
+    mask, y, _ = extract_target(np.array([k]), np.array([n]), None, target_name)
+    return int(y[0]) if mask[0] else None
+
+
+def label_decidable(target_name: str, cur_tier: np.ndarray, unobserved_next: np.ndarray) -> np.ndarray:
+    """True where the target's label does not depend on an unobserved tier.
+
+    A dyad recorded at tier `n` next year may really be at an unobserved tier
+    `u > n` (the highest tier wins, so an unobserved tier can only hide above
+    the recorded one). A row with starting tier `k` is decidable when, for
+    every unobserved `u` and every recorded `n < u`, the label of `k -> n`
+    equals the label of `k -> u`. The test uses every possible `n`, not the
+    row's own, so that positives and negatives are dropped together.
+
+    Example: with T2 unobserved, "Onset, any" is undecidable (a recorded T0
+    may be T2) while "Onset, force" is decidable (T0 and T2 are both below T4).
+
+    The starting tier is taken as recorded. Before 1989 "T0" therefore means
+    "no militarised or proxy conflict recorded; sanctions unknown".
+    """
+    cur = np.asarray(cur_tier, dtype=int)
+    unobs = np.asarray(unobserved_next, dtype=int)
+    out = np.ones(len(cur), dtype=bool)
+    for bits in np.unique(unobs):
+        if bits == 0:
+            continue
+        hidden = [u for u in range(1, 6) if (int(bits) >> u) & 1]
+        for k in range(6):
+            if _label(target_name, k, 0) is None:
+                continue
+            ok = all(
+                _label(target_name, k, n) == _label(target_name, k, u)
+                for u in hidden for n in range(u)
+            )
+            if not ok:
+                out[(unobs == bits) & (cur == k)] = False
+    return out
+
+
 def attach_next_year_tier(df: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
     """Attach `uiw_tier_next` by joining `(initiator, target, year + 1)`.
 
@@ -176,6 +257,7 @@ def load_feature_grid(
     df["trade_source"] = df["trade_source"].fillna("NONE").astype(str)
 
     joined, n_dup_keys = attach_next_year_tier(df)
+    joined = attach_coverage(joined)
     stats = LoadStats(
         path=os.path.relpath(path, ROOT) if os.path.isabs(path) else path,
         sha256=sha256_file(path),
@@ -194,10 +276,22 @@ def extract_target(
     next_tier: np.ndarray,
     pis: Optional[np.ndarray],
     target_name: str,
+    unobserved_next: Optional[np.ndarray] = None,
 ) -> Tuple[np.ndarray, np.ndarray, Optional[np.ndarray]]:
-    """Return `(eligible_mask, y_true_eligible, score_eligible)` for `target_name`."""
+    """Return `(eligible_mask, y_true_eligible, score_eligible)` for `target_name`.
+
+    When `unobserved_next` is given (one bitmask per row, see
+    `attach_coverage`), rows whose label depends on an unobserved tier are
+    not eligible.
+    """
     cur = np.asarray(cur_tier, dtype=int)
     nxt = np.asarray(next_tier, dtype=int)
+    if unobserved_next is not None and np.any(np.asarray(unobserved_next) != 0):
+        base, y_all, p_all = extract_target(cur, nxt, pis, target_name)
+        sel = label_decidable(target_name, cur, unobserved_next)[base]
+        mask = base.copy()
+        mask[base] = sel
+        return mask, y_all[sel], (p_all[sel] if p_all is not None else None)
 
     if target_name == "Onset, any":
         mask = cur == 0
@@ -249,6 +343,65 @@ def unordered_dyad_codes(df: pd.DataFrame) -> np.ndarray:
     pair_keys = lo * n_c + hi
     codes, _ = pd.factorize(pair_keys, sort=False)
     return codes.astype(np.int32)
+
+
+def dyad_year_codes(df: pd.DataFrame) -> Tuple[np.ndarray, np.ndarray]:
+    """Return `(codes, canonical)` for a directed grid with a shared dyad tier.
+
+    `codes` is one integer per (year, unordered pair), so the two directed rows
+    of a dyad-year share a code. `canonical` marks one of the two (the row
+    whose initiator sorts first), which is the row kept when each dyad-year
+    is counted once.
+    """
+    if {"initiator_ccode", "target_ccode"}.issubset(df.columns):
+        a = df["initiator_ccode"].to_numpy(dtype=np.int64)
+        b = df["target_ccode"].to_numpy(dtype=np.int64)
+    else:
+        names = pd.Index(df["initiator"]).append(pd.Index(df["target"])).unique()
+        lookup = {name: idx for idx, name in enumerate(sorted(names))}
+        a = df["initiator"].map(lookup).to_numpy(dtype=np.int64)
+        b = df["target"].map(lookup).to_numpy(dtype=np.int64)
+    lo, hi = np.minimum(a, b), np.maximum(a, b)
+    year = df["year"].to_numpy(dtype=np.int64)
+    raw = (year * 100_000 + lo) * 100_000 + hi
+    codes, _ = pd.factorize(raw, sort=False)
+    return codes.astype(np.int64), a < b
+
+
+def mean_over_directions(codes: np.ndarray, values: np.ndarray) -> np.ndarray:
+    """Average `values` over the rows that share a dyad-year code.
+
+    The result is aligned with the input rows: both directed rows of a
+    dyad-year receive the mean of their two forecasts. A row whose partner is
+    absent (for example after sampling) keeps its own value.
+    """
+    values = np.asarray(values, dtype=float)
+    # Re-number the codes so a subset of rows still yields compact groups.
+    _, codes = np.unique(codes, return_inverse=True)
+    n_groups = int(codes.max()) + 1 if len(codes) else 0
+    counts = np.bincount(codes, minlength=n_groups).astype(float)
+    if values.ndim == 1:
+        return (np.bincount(codes, weights=values, minlength=n_groups) / counts)[codes]
+    out = np.empty_like(values)
+    for j in range(values.shape[1]):
+        out[:, j] = (np.bincount(codes, weights=values[:, j], minlength=n_groups) / counts)[codes]
+    return out
+
+
+def collapse_directions(
+    df: pd.DataFrame, *arrays: Optional[np.ndarray]
+) -> Tuple[pd.DataFrame, List[Optional[np.ndarray]]]:
+    """Reduce a directed frame to one row per dyad-year.
+
+    Returns the canonical rows of `df` and, for each array aligned with `df`,
+    its mean over the two directions on those rows. `None` passes through.
+    A row whose partner is absent (after sampling, say) keeps its own value.
+    """
+    codes, canon = dyad_year_codes(df)
+    out: List[Optional[np.ndarray]] = []
+    for arr in arrays:
+        out.append(None if arr is None else mean_over_directions(codes, np.asarray(arr))[canon])
+    return df[canon].reset_index(drop=True), out
 
 
 def _rank_stats_sorted(
@@ -600,7 +753,7 @@ def fit_and_score_logreg_targets(
 
     for tname in target_names:
         multi_tier = tname in ("Escalation", "De-escalation")
-        mask_tr, y_tr, _ = extract_target(cur_tr, nxt_tr, None, tname)
+        mask_tr, y_tr, _ = extract_target(cur_tr, nxt_tr, None, tname, unobserved_next_of(train_df))
         n_pos = int(y_tr.sum())
         if n_pos < min_positives or (len(y_tr) - n_pos) < 1:
             for split, edf in eval_dfs.items():
@@ -609,6 +762,7 @@ def fit_and_score_logreg_targets(
                     edf["uiw_tier_next"].to_numpy(dtype=int),
                     None,
                     tname,
+                    unobserved_next_of(edf),
                 )
                 preds[split][tname] = np.full(int(mask_ev.sum()), np.nan, dtype=float)
             continue
@@ -626,6 +780,7 @@ def fit_and_score_logreg_targets(
                 edf["uiw_tier_next"].to_numpy(dtype=int),
                 None,
                 tname,
+                unobserved_next_of(edf),
             )
             x_ev = (eval_multi[split] if multi_tier else eval_single[split])[mask_ev]
             preds[split][tname] = pipe.predict_proba(x_ev)[:, 1] if len(x_ev) else np.array([], dtype=float)
@@ -640,10 +795,130 @@ def training_base_rates(
     cur = train_df["uiw_tier"].to_numpy(dtype=int)
     nxt = train_df["uiw_tier_next"].to_numpy(dtype=int)
     rates: Dict[str, float] = {}
+    unobs = unobserved_next_of(train_df)
     for tname in target_names:
-        _, y, _ = extract_target(cur, nxt, None, tname)
+        _, y, _ = extract_target(cur, nxt, None, tname, unobs)
         rates[tname] = float(y.mean()) if len(y) > 0 else float("nan")
     return rates
+
+
+def fit_transition_rates(
+    train_df: pd.DataFrame, target_names: Sequence[str] = ALL_TARGETS
+) -> Dict[str, np.ndarray]:
+    """Per target, the training rate of a positive label for each starting tier.
+
+    This is the transition-matrix baseline written per target, so that each
+    target is fitted only on the training rows whose label is decidable. With
+    full coverage it gives the same forecasts as `fit_transition_matrix`.
+    A starting tier with no usable training rows gets the target's overall
+    training rate.
+    """
+    cur = train_df["uiw_tier"].to_numpy(dtype=int)
+    nxt = train_df["uiw_tier_next"].to_numpy(dtype=int)
+    unobs = unobserved_next_of(train_df)
+    out: Dict[str, np.ndarray] = {}
+    for tname in target_names:
+        mask, y, _ = extract_target(cur, nxt, None, tname, unobs)
+        overall = float(y.mean()) if len(y) else 0.0
+        rates = np.full(6, overall, dtype=float)
+        cur_m = cur[mask]
+        for k in range(6):
+            sel = cur_m == k
+            if np.any(sel):
+                rates[k] = float(y[sel].mean())
+        out[tname] = rates
+    return out
+
+
+def transition_rate_scores(
+    df: pd.DataFrame, rates: Dict[str, np.ndarray], target_names: Sequence[str] = ALL_TARGETS
+) -> Dict[str, np.ndarray]:
+    """Scores from `fit_transition_rates`, aligned to each target's eligible rows of `df`."""
+    cur = df["uiw_tier"].to_numpy(dtype=int)
+    nxt = df["uiw_tier_next"].to_numpy(dtype=int)
+    unobs = unobserved_next_of(df)
+    out: Dict[str, np.ndarray] = {}
+    for tname in target_names:
+        tmask, _, _ = extract_target(cur, nxt, None, tname, unobs)
+        out[tname] = rates[tname][cur[tmask]]
+    return out
+
+
+def collapse_target_scores(
+    directed_df: pd.DataFrame, scores: Dict[str, np.ndarray], target_names: Sequence[str] = ALL_TARGETS
+) -> Dict[str, np.ndarray]:
+    """Average per-target scores over the two directions of each dyad-year.
+
+    `scores[t]` is aligned to target `t`'s eligible rows of `directed_df` (as
+    returned by `fit_and_score_logreg_targets`). The result is aligned to the
+    eligible rows of `collapse_directions(directed_df)`. Targets whose scores
+    are missing or not finite are left out.
+    """
+    codes, canon = dyad_year_codes(directed_df)
+    cur = directed_df["uiw_tier"].to_numpy(dtype=int)
+    nxt = directed_df["uiw_tier_next"].to_numpy(dtype=int)
+    unobs = unobserved_next_of(directed_df)
+    out: Dict[str, np.ndarray] = {}
+    for tname in target_names:
+        dmask, _, _ = extract_target(cur, nxt, None, tname, unobs)
+        p_dir = scores.get(tname)
+        if p_dir is None or len(p_dir) != int(dmask.sum()) or not len(p_dir) or not np.all(np.isfinite(p_dir)):
+            continue
+        out[tname] = mean_over_directions(codes[dmask], p_dir)[canon[dmask]]
+    return out
+
+
+def evaluate_target_scores(
+    df: pd.DataFrame,
+    scores: Dict[str, np.ndarray],
+    split_name: str,
+    model_name: str,
+    train_rates: Dict[str, float],
+    target_names: Sequence[str] = ALL_TARGETS,
+    clusters: Optional[np.ndarray] = None,
+    inclusion_prob: Optional[np.ndarray] = None,
+    n_boot: int = 200,
+    seed: int = RANDOM_STATE,
+    min_positives: int = MIN_POSITIVES,
+) -> List[Dict]:
+    """Evaluate per-target probabilities that are aligned to each target's eligible rows.
+
+    A target whose scores are missing, the wrong length or not finite is
+    reported with counts only.
+    """
+    cur = df["uiw_tier"].to_numpy(dtype=int)
+    nxt = df["uiw_tier_next"].to_numpy(dtype=int)
+    unobs = unobserved_next_of(df)
+    if clusters is None and {"initiator", "target"}.issubset(df.columns):
+        clusters = unordered_dyad_codes(df)
+    rows: List[Dict] = []
+    for tname in target_names:
+        base, _, _ = extract_target(cur, nxt, None, tname)
+        tmask, y, _ = extract_target(cur, nxt, None, tname, unobs)
+        if len(y) == 0:
+            continue
+        p = scores.get(tname)
+        usable = p is not None and len(p) == len(y) and bool(np.all(np.isfinite(p)))
+        inc = inclusion_prob[tmask] if inclusion_prob is not None else None
+        if usable:
+            m = compute_metrics(
+                y, p, inclusion_prob=inc, ref_rate=train_rates.get(tname),
+                clusters=clusters[tmask] if clusters is not None else None,
+                n_boot=n_boot, seed=seed, min_positives=min_positives,
+            )
+        else:
+            m = compute_metrics(
+                y, np.zeros(len(y), dtype=float), inclusion_prob=inc,
+                ref_rate=train_rates.get(tname), clusters=None, n_boot=0,
+                min_positives=len(y) + 1,
+            )
+        m.update({
+            "split": split_name, "model": model_name, "subgroup_col": "ALL",
+            "subgroup": "ALL", "target": tname,
+            "n_masked_rows": int(base.sum() - tmask.sum()),
+        })
+        rows.append(m)
+    return rows
 
 
 def evaluate_pis_on_split(
@@ -664,6 +939,7 @@ def evaluate_pis_on_split(
     """Evaluate a `(N, 6)` next-tier distribution matrix across targets (and optional subgroups)."""
     cur = df["uiw_tier"].to_numpy(dtype=int)
     nxt = df["uiw_tier_next"].to_numpy(dtype=int)
+    unobs = unobserved_next_of(df)
     if clusters is None and {"initiator", "target"}.issubset(df.columns):
         clusters = unordered_dyad_codes(df)
 
@@ -687,8 +963,10 @@ def evaluate_pis_on_split(
         pis_g = pis[gmask]
         cl_g = clusters[gmask] if clusters is not None else None
         inc_g = inclusion_prob[gmask] if inclusion_prob is not None else None
+        unobs_g = unobs[gmask] if unobs is not None else None
         for tname in target_names:
-            tmask, y, p = extract_target(cur_g, nxt_g, pis_g, tname)
+            base, _, _ = extract_target(cur_g, nxt_g, None, tname)
+            tmask, y, p = extract_target(cur_g, nxt_g, pis_g, tname, unobs_g)
             if len(y) == 0:
                 continue
             m = compute_metrics(
@@ -707,6 +985,7 @@ def evaluate_pis_on_split(
                 "subgroup_col": subgroup_col or "ALL",
                 "subgroup": gname,
                 "target": tname,
+                "n_masked_rows": int(base.sum() - tmask.sum()),
             })
             rows.append(m)
     return rows

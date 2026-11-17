@@ -96,6 +96,23 @@ closing window
 Capability/Reach gate for T5
 ```
 
+**Rivalry is directed (amended November 2026).** v27 section 1.6.4 called
+$\Omega$ symmetric. In v28, `Rivalry_AB` is A's rivalry toward B: the
+recency-decayed history of B's militarised actions against A,
+
+```text
+Rivalry_AB(T) = min(1, sum over t <= T of w_BA(t) * exp(-0.10 * (T - t)))
+```
+
+where `w_BA(t)` weights the hostility level B directed at A in year t
+(threat 0.25, display 0.50, use of force 0.75, war 1.00). A state that has
+been threatened or attacked treats the other as a rival whether or not it
+acted itself, so `Rivalry_AB` and `Rivalry_BA` can differ. Events through
+year T are used to forecast year T + 1, and history runs from 1900. The value
+lives on the actor, not on the shared dyad state. A shared `conflict_history`
+(the same sum over both directions) is built alongside it and is not yet
+used by the engine. Builder: `scripts/build/build_rivalry.py`.
+
 v28 adds an economic-interdependence block built from bilateral trade data,
 initially CEPII BACI for 1995-2024 coverage:
 

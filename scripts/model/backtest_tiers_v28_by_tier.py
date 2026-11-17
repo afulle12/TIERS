@@ -23,9 +23,12 @@ from evaluation import (  # noqa: E402
     MIN_POSITIVES,
     RANDOM_STATE,
     TRAIN_SPLIT,
+    collapse_directions,
     compute_metrics,
+    label_decidable,
     load_feature_grid,
     training_base_rates,
+    unobserved_next_of,
     unordered_dyad_codes,
 )
 from tiers_lib_v28 import Priors, priors_from_mapping, score_dataframe_v28  # noqa: E402
@@ -76,35 +79,45 @@ def evaluate_split(
         sub = df[df["uiw_tier"] == tier].copy()
         if sub.empty:
             continue
-        sample, inc = stratified_sample(sub, tier, max_rows_per_tier)
-        print(f"\n--- {tag} T{tier}: scoring {len(sample):,} rows ({len(sub):,} eligible) ---")
-        res = score_dataframe_v28(sample, priors)
-        pis = res["pi"]
-        sample = sample.copy()
-        sample["active_member"] = res["member_ab"]
+        print(f"\n--- {tag} T{tier}: scoring {len(sub):,} directed rows ---")
+        res = score_dataframe_v28(sub, priors)
+        sub["active_member"] = res["member_ab"]
+        # One row per dyad-year (mean of the two directed forecasts), then sample.
+        pair, (pis_all,) = collapse_directions(sub, res["pi"])
+        pair["_row"] = np.arange(len(pair))
+        sample, inc = stratified_sample(pair, tier, max_rows_per_tier)
+        pis = pis_all[sample["_row"].to_numpy()]
         clusters = unordered_dyad_codes(sample)
 
+        cur_tier = sample["uiw_tier"].to_numpy(dtype=int)
         next_tier = sample["uiw_tier_next"].to_numpy(dtype=int)
+        unobs = unobserved_next_of(sample)
+        # (label, score, training-rate key, target name used for the coverage mask)
         variants = {
-            "exact": ((next_tier == tier + 1).astype(int), pis[:, tier + 1], f"T{tier}->T{tier + 1}"),
-            "cumulative": ((next_tier >= tier + 1).astype(int), pis[:, tier + 1:].sum(axis=1), f"T{tier}->T{tier + 1}+"),
-            "to_t5": ((next_tier == 5).astype(int), pis[:, 5], "Onset, war" if tier == 0 else f"T{tier}->T5"),
+            "exact": ((next_tier == tier + 1).astype(int), pis[:, tier + 1], f"T{tier}->T{tier + 1}", f"T{tier}->T{tier + 1}"),
+            "cumulative": ((next_tier >= tier + 1).astype(int), pis[:, tier + 1:].sum(axis=1), f"T{tier}->T{tier + 1}+", f"T{tier}->T{tier + 1}+"),
+            "to_t5": ((next_tier == 5).astype(int), pis[:, 5], "Onset, war" if tier == 0 else f"T{tier}->T5", f"T{tier}->T5"),
         }
         trade_sources = ["ALL"] + sorted(str(s) for s in sample["trade_source"].dropna().unique())
         for source in trade_sources:
             mask = np.ones(len(sample), dtype=bool) if source == "ALL" else (sample["trade_source"].to_numpy() == source)
             if not np.any(mask):
                 continue
-            for variant, (y_arr, p_arr, rate_key) in variants.items():
+            for variant, (y_arr, p_arr, rate_key, mask_name) in variants.items():
                 ref = train_rates.get(rate_key if rate_key != "T0->T1+" else "Onset, any")
                 if rate_key == "T4->T5+":
                     ref = train_rates.get("T4->T5")
+                vmask = mask
+                if unobs is not None:
+                    vmask = mask & label_decidable(mask_name, cur_tier, unobs)
+                if not np.any(vmask):
+                    continue
                 m = compute_metrics(
-                    y_arr[mask],
-                    p_arr[mask],
-                    inclusion_prob=inc[mask] if inc is not None else None,
+                    y_arr[vmask],
+                    p_arr[vmask],
+                    inclusion_prob=inc[vmask] if inc is not None else None,
                     ref_rate=ref,
-                    clusters=clusters[mask],
+                    clusters=clusters[vmask],
                     n_boot=n_boot,
                     seed=RANDOM_STATE,
                     min_positives=MIN_POSITIVES,
