@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import math
 import os
+import sys
 import warnings
 
 import numpy as np
@@ -29,6 +30,9 @@ warnings.filterwarnings("ignore")
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_PROCESSED = os.path.join(ROOT, "data", "processed")
 OUT_ANALYSIS = os.path.join(ROOT, "output", "analysis")
+sys.path.insert(0, os.path.join(ROOT, "scripts", "model"))
+
+from evaluation import load_feature_grid
 
 YEAR_LO, YEAR_HI = 1946, 2014
 TRAIN_SPLIT = 1989
@@ -62,19 +66,7 @@ OUTCOMES = ["escalate", "same", "deescalate"]
 
 
 def load_data() -> pd.DataFrame:
-    pq = os.path.join(DATA_PROCESSED, "dyads_with_features_v28.parquet")
-    csv = os.path.join(DATA_PROCESSED, "dyads_with_features_v28.csv")
-    if os.path.exists(pq):
-        df = pd.read_parquet(pq)
-    else:
-        df = pd.read_csv(csv)
-
-    df = df[(df.year >= YEAR_LO) & (df.year <= YEAR_HI)].copy()
-    df = df.sort_values(["initiator", "target", "year"])
-    df["uiw_tier_next"] = df.groupby(["initiator", "target"])["uiw_tier"].shift(-1)
-    df = df.dropna(subset=["uiw_tier_next"]).reset_index(drop=True)
-    df["uiw_tier"] = df["uiw_tier"].astype(int)
-    df["uiw_tier_next"] = df["uiw_tier_next"].astype(int)
+    df, _ = load_feature_grid("v28", year_lo=YEAR_LO, year_hi=YEAR_HI)
     df["tier_delta"] = df["uiw_tier_next"] - df["uiw_tier"]
     df["escalate"] = (df["tier_delta"] > 0).astype(int)
     df["same"] = (df["tier_delta"] == 0).astype(int)

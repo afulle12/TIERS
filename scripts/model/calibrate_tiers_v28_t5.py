@@ -21,8 +21,8 @@ DATA_PROCESSED = os.path.join(ROOT, "data", "processed")
 OUT_ANALYSIS = os.path.join(ROOT, "output", "analysis")
 sys.path.insert(0, os.path.join(ROOT, "scripts", "model"))
 
-from backtest_tiers_v28 import V28Calibrator
-from tiers_lib_v28 import Priors, priors_from_mapping
+from evaluation import load_feature_grid
+from tiers_lib_v28 import Priors, priors_from_mapping, score_dataframe_v28
 
 YEAR_LO, YEAR_HI = 1946, 2014
 TRAIN_SPLIT = 1989
@@ -33,17 +33,7 @@ T45_KEYS = ["a_45", "b_45_reach", "b_45_rivalry", "b_45_fma", "b_45_stakes", "b_
 
 
 def load_data() -> pd.DataFrame:
-    pq = os.path.join(DATA_PROCESSED, "dyads_with_features_v28.parquet")
-    csv = os.path.join(DATA_PROCESSED, "dyads_with_features_v28.csv")
-    df = pd.read_parquet(pq) if os.path.exists(pq) else pd.read_csv(csv)
-    df = df[(df.year >= YEAR_LO) & (df.year <= YEAR_HI)].copy().sort_values("year")
-    df["uiw_tier_next"] = df.groupby(["initiator", "target"])["uiw_tier"].shift(-1)
-    df = df.dropna(subset=["uiw_tier_next"]).reset_index(drop=True)
-    df["uiw_tier"] = df["uiw_tier"].astype(int)
-    df["uiw_tier_next"] = df["uiw_tier_next"].astype(int)
-    if "trade_source" not in df.columns:
-        df["trade_source"] = "NONE"
-    df["trade_source"] = df["trade_source"].fillna("NONE")
+    df, _ = load_feature_grid("v28", year_lo=YEAR_LO, year_hi=YEAR_HI)
     return df
 
 
@@ -62,10 +52,7 @@ def with_values(base: Priors, keys: Sequence[str], beta: np.ndarray) -> Priors:
 
 
 def score_t5(df: pd.DataFrame, priors: Priors) -> np.ndarray:
-    cal = V28Calibrator(priors)
-    out = np.zeros(len(df), dtype=float)
-    for i, (_, row) in enumerate(df.iterrows()):
-        out[i] = cal.score_row(row)["pi_reconciled"][5]
+    out = score_dataframe_v28(df, priors)["pi"][:, 5]
     return np.clip(out, 1e-9, 1.0 - 1e-9)
 
 

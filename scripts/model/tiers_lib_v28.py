@@ -20,8 +20,11 @@ from tiers_lib_v27 import (
     TIER_MAX,
     TIER_MIN,
     TIERS,
+    _col_array,
     capability_reach_gate,
     reconcile_with_current,
+    reconcile_with_current_batch,
+    score_dataframe_v27,
     score_dyad_year as score_dyad_year_v27,
 )
 
@@ -271,3 +274,229 @@ def score_dyad_year(actor_i: ActorState, actor_j: ActorState, sym: DyadState, pr
         "diag_ab": res_ab["diag"],
         "diag_ba": res_ba["diag"],
     }
+
+
+def _sigmoid_batch(x: np.ndarray) -> np.ndarray:
+    """Numerically stable vectorized sigmoid."""
+    out = np.empty_like(x, dtype=float)
+    pos = x >= 0
+    out[pos] = 1.0 / (1.0 + np.exp(-x[pos]))
+    ez = np.exp(np.clip(x[~pos], -700.0, 0.0))
+    out[~pos] = ez / (1.0 + ez)
+    return out
+
+
+def _score_directed_v28_batch(
+    k: np.ndarray,
+    duration: np.ndarray,
+    rivalry_raw: np.ndarray,
+    contig_raw: np.ndarray,
+    gate_t5: np.ndarray,
+    n_pub: np.ndarray,
+    cap_share: np.ndarray,
+    other_cap_share: np.ndarray,
+    closing_raw: np.ndarray,
+    fma_raw: np.ndarray,
+    cap_proxy_raw: np.ndarray,
+    attribution: np.ndarray,
+    surface: np.ndarray,
+    mutual: np.ndarray,
+    dep_self: np.ndarray,
+    leverage: np.ndarray,
+    import_lev: np.ndarray,
+    export_lev: np.ndarray,
+    priors: Priors,
+) -> np.ndarray:
+    """Vectorized directed v28 transition-hazard distribution for arrays of length N."""
+    n = len(k)
+    n_pub_c = np.clip(n_pub, 0.0, 1.0)
+    cap_shift = np.clip(np.abs(cap_share - other_cap_share), 0.0, 1.0)
+    rivalry = np.clip(rivalry_raw, 0.0, 1.0)
+    contig = np.clip(contig_raw, 0.0, 1.0)
+    dur = np.maximum(0.0, duration)
+    fma = np.clip(fma_raw, 0.0, 1.0)
+    closing = np.clip(closing_raw, 0.0, 1.0)
+    attr_dur = np.clip(attribution, 0.0, 1.0) * dur
+    stakes = 0.5
+
+    # Adjacent upward hazards (evaluated on k in 0..4)
+    h0 = (
+        priors.a_01 + priors.b_01_surface * surface + priors.b_01_rivalry * rivalry
+        + priors.b_01_contiguity * contig + priors.b_01_cap_shift * cap_shift
+        - priors.b_01_mutual * mutual - priors.b_01_public * n_pub_c
+    )
+    h1 = (
+        priors.a_12 + priors.b_12_leverage * leverage
+        + priors.b_12_import_lev * import_lev + priors.b_12_export_lev * export_lev
+        + priors.b_12_surface * surface + priors.b_12_rivalry * rivalry
+        + priors.b_12_public * n_pub_c - priors.b_12_self_cost * dep_self
+    )
+    h2 = (
+        priors.a_23 + priors.b_23_duration * dur + priors.b_23_rivalry * rivalry
+        + priors.b_23_failed_coercion * np.clip(dur / 5.0, 0.0, 1.0)
+        + priors.b_23_proxy_access * contig - priors.b_23_mutual * mutual
+        - priors.b_23_public * n_pub_c
+    )
+    h3 = (
+        priors.a_34 + priors.b_34_attr_dur * attr_dur + priors.b_34_rivalry * rivalry
+        + priors.b_34_contiguity * contig + priors.b_34_fma * fma
+        + priors.b_34_closing * closing - priors.b_34_mutual * mutual
+        - priors.b_34_trade_cost * mutual - priors.b_34_public * n_pub_c
+    )
+    effective_trade_cost = mutual * (1.0 - stakes)
+    h4 = (
+        priors.a_45 + priors.b_45_reach * gate_t5.astype(float) + priors.b_45_rivalry * rivalry
+        + priors.b_45_fma * fma + priors.b_45_stakes * stakes
+        + priors.b_45_mobilization * np.clip(dur / 5.0, 0.0, 1.0)
+        - priors.b_45_mutual * effective_trade_cost - priors.b_45_public * n_pub_c
+    )
+    h_adj_all = np.column_stack([h0, h1, h2, h3, h4, np.zeros(n, dtype=float)])
+    adj_logits = h_adj_all[np.arange(n), k]
+    adj = _sigmoid_batch(adj_logits)
+    adj = np.where(k == 4, adj * gate_t5.astype(float), adj)
+    adj = np.where(k < TIER_MAX, adj, 0.0)
+
+    # De-escalation hazard (deesc_inputs=(0,0,0))
+    deesc_logit = (
+        priors.deesc_base + priors.deesc_mutual * mutual
+        + priors.deesc_public * n_pub_c - priors.deesc_rivalry * rivalry
+        - priors.deesc_duration * dur
+    )
+    deesc = np.where(k > TIER_MIN, _sigmoid_batch(deesc_logit), 0.0)
+
+    # Skip base hazard (matches scalar skip_hazard: structural clips weighted raw inputs)
+    structural = np.clip(
+        0.35 * rivalry_raw + 0.25 * contig_raw + 0.20 * cap_proxy_raw + 0.20 * closing_raw,
+        0.0,
+        1.0,
+    )
+    skip_logit = (
+        priors.skip_base + priors.skip_structural * structural
+        + priors.skip_fma * fma_raw + priors.skip_reach * gate_t5.astype(float)
+        - priors.skip_mutual * mutual
+    )
+    skip_base_sig = _sigmoid_batch(skip_logit)
+
+    raw = np.zeros((n, 6), dtype=float)
+    row_idx = np.arange(n)
+
+    # De-escalation mass into k-1 and T0
+    has_deesc = (k > TIER_MIN) & (deesc > 0.0)
+    if np.any(has_deesc):
+        idx_d = row_idx[has_deesc]
+        raw[idx_d, k[has_deesc] - 1] += deesc[has_deesc] * 0.70
+        raw[idx_d, TIER_MIN] += deesc[has_deesc] * 0.30
+
+    # Adjacent upward mass into k+1
+    has_up = k < TIER_MAX
+    if np.any(has_up):
+        idx_u = row_idx[has_up]
+        raw[idx_u, k[has_up] + 1] += adj[has_up]
+
+    # Skip upward mass into j >= k + 2
+    tiers = np.arange(TIER_MIN, TIER_MAX + 1)[None, :]
+    skip_dist = tiers - k[:, None] - 1
+    skip_mask = (tiers >= k[:, None] + 2) & ((tiers < TIER_MAX) | gate_t5[:, None])
+    raw += np.where(
+        skip_mask,
+        skip_base_sig[:, None] * np.exp(-priors.lambda_skip * np.maximum(skip_dist, 0)),
+        0.0,
+    )
+
+    # Persistence mass at k
+    stay_logit = priors.persistence_base + priors.persistence_duration * dur - priors.persistence_deesc * deesc
+    raw[row_idx, k] += np.exp(stay_logit)
+
+    total = raw.sum(axis=1, keepdims=True)
+    pi = np.where(total > 0.0, raw / np.where(total > 0.0, total, 1.0), 0.0)
+    zero_tot = total[:, 0] <= 0.0
+    if np.any(zero_tot):
+        pi[zero_tot, k[zero_tot]] = 1.0
+    return pi
+
+
+def score_dataframe_v28(df, priors: Optional[Priors] = None) -> Dict[str, np.ndarray]:
+    """Vectorized v28.0 scoring over a feature DataFrame, matching `V28Calibrator.score_row`."""
+    priors = priors or Priors()
+    n = len(df)
+    k = np.clip(_col_array(df, "uiw_tier", 0, dtype=int), TIER_MIN, TIER_MAX)
+    duration = _col_array(df, "d_k_years", 0.0, dtype=float)
+    contig_raw = _col_array(df, "contiguity_xi", 0.0, dtype=float)
+    rivalry_raw = _col_array(df, "rivalry_omega", 0.0, dtype=float)
+    fma_raw = _col_array(df, "fma", 0.0, dtype=float)
+    cap_ab = _col_array(df, "cap_a_to_b", 0.0, dtype=float)
+    cap_ba = _col_array(df, "cap_b_to_a", 0.0, dtype=float)
+    cw_a = _col_array(df, "closing_window_a", 0.5, dtype=float)
+    cw_b = _col_array(df, "closing_window_b", 0.5, dtype=float)
+    n_pub_a = _col_array(df, "n_pub_a", 0.9, dtype=float)
+    n_pub_b = _col_array(df, "n_pub_b", 0.9, dtype=float)
+    c_t_ab = _col_array(df, "c_t_ab", 0.5, dtype=float)
+    c_t_ba = _col_array(df, "c_t_ba", 0.5, dtype=float)
+    attr = _col_array(df, "attribution", 0.0, dtype=float)
+
+    surface = _col_array(df, "trade_surface_norm_ab", 0.0, dtype=float)
+    mutual = _col_array(df, "mutual_trade_dependence_ab", 0.0, dtype=float)
+    dep_ab = _col_array(df, "dep_a_on_b", 0.0, dtype=float)
+    dep_ba = _col_array(df, "dep_b_on_a", 0.0, dtype=float)
+    imp_lev_ab = _col_array(df, "import_leverage_a_over_b", 0.0, dtype=float)
+    exp_lev_ab = _col_array(df, "export_leverage_a_over_b", 0.0, dtype=float)
+    tr_lev_ab = _col_array(df, "trade_leverage_a_over_b", 0.0, dtype=float)
+
+    imp_dep_ab = _col_array(df, "import_dep_a_on_b", 0.0, dtype=float)
+    imp_dep_ba = _col_array(df, "import_dep_b_on_a", 0.0, dtype=float)
+    exp_dep_ab = _col_array(df, "export_dep_a_on_b", 0.0, dtype=float)
+    exp_dep_ba = _col_array(df, "export_dep_b_on_a", 0.0, dtype=float)
+    imp_lev_ba = np.maximum(imp_dep_ab - imp_dep_ba, 0.0)
+    exp_lev_ba = np.maximum(exp_dep_ab - exp_dep_ba, 0.0)
+    tr_lev_ba = np.maximum(imp_lev_ba, exp_lev_ba)
+
+    if "trade_source" in df.columns:
+        trade_src = df["trade_source"].fillna("NONE").astype(str).to_numpy()
+    else:
+        trade_src = np.full(n, "NONE", dtype=object)
+    trade_obs = trade_src != "NONE"
+
+    gate_t5 = (contig_raw >= priors.xi_star) | (cap_ab >= priors.tau) | (cap_ba >= priors.tau)
+
+    pi_ab = np.zeros((n, 6), dtype=float)
+    pi_ba = np.zeros((n, 6), dtype=float)
+    pi_rel = np.zeros((n, 6), dtype=float)
+    member = np.empty(n, dtype=object)
+
+    if np.any(trade_obs):
+        m = trade_obs
+        pi_ab_t = _score_directed_v28_batch(
+            k[m], duration[m], rivalry_raw[m], contig_raw[m], gate_t5[m],
+            n_pub_a[m], c_t_ab[m], c_t_ba[m], cw_a[m], fma_raw[m], cap_ab[m], attr[m],
+            surface[m], mutual[m], dep_ab[m], tr_lev_ab[m], imp_lev_ab[m], exp_lev_ab[m],
+            priors,
+        )
+        pi_ba_t = _score_directed_v28_batch(
+            k[m], duration[m], rivalry_raw[m], contig_raw[m], gate_t5[m],
+            n_pub_b[m], c_t_ba[m], c_t_ab[m], cw_b[m], fma_raw[m], cap_ba[m], np.zeros(m.sum()),
+            surface[m], mutual[m], dep_ba[m], tr_lev_ba[m], imp_lev_ba[m], exp_lev_ba[m],
+            priors,
+        )
+        pi_ab[m] = pi_ab_t
+        pi_ba[m] = pi_ba_t
+        pi_rel[m] = reconcile_with_current_batch(pi_ab_t, pi_ba_t, k[m])
+        member[m] = "v28-trade"
+
+    if np.any(~trade_obs):
+        nm = ~trade_obs
+        v27_res = score_dataframe_v27(df.iloc[nm], priors)
+        pi_ab[nm] = v27_res["pi_ab"]
+        pi_ba[nm] = v27_res["pi_ba"]
+        pi_rel[nm] = v27_res["pi"]
+        member[nm] = v27_res["member_ab"]
+
+    return {
+        "pi": pi_rel,
+        "pi_ab": pi_ab,
+        "pi_ba": pi_ba,
+        "gate_t5": gate_t5,
+        "member_ab": member,
+        "member_ba": member,
+        "k": k,
+    }
+

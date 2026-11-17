@@ -699,3 +699,170 @@ def coverage_vector(actor: ActorState, sym: DyadState) -> Dict[str, str]:
         "integration": actor.state_integration.value,
         "stakes": actor.state_stakes.value,
     }
+
+
+def _col_array(df, name: str, default: float, dtype=float) -> np.ndarray:
+    """Extract a numeric column from a DataFrame or return a constant array."""
+    n = len(df)
+    if name not in df.columns:
+        return np.full(n, default, dtype=dtype)
+    vals = df[name].to_numpy()
+    arr = np.asarray(vals, dtype=dtype)
+    if np.issubdtype(arr.dtype, np.floating):
+        arr = np.where(np.isfinite(arr), arr, default)
+    return arr
+
+
+def reconcile_with_current_batch(
+    pi_ab: np.ndarray,
+    pi_ba: np.ndarray,
+    k: np.ndarray,
+) -> np.ndarray:
+    """Vectorized equivalent of `reconcile_with_current` for arrays of shape (N, 6)."""
+    n = len(k)
+    tiers = np.arange(TIER_MIN, TIER_MAX + 1)[None, :]  # (1, 6)
+    k_col = k[:, None]
+    down_mask = tiers < k_col
+    eq_mask = tiers == k_col
+    up_mask = tiers > k_col
+
+    down_ab = (pi_ab * down_mask).sum(axis=1)
+    down_ba = (pi_ba * down_mask).sum(axis=1)
+    up_ab = (pi_ab * up_mask).sum(axis=1)
+    up_ba = (pi_ba * up_mask).sum(axis=1)
+
+    p_down = np.minimum(down_ab, down_ba)
+    p_up = np.maximum(up_ab, up_ba)
+    p_0 = np.maximum(0.0, 1.0 - p_down - p_up)
+
+    choose_ab_down = (down_ab <= down_ba)[:, None]
+    down_source = np.where(choose_ab_down, pi_ab, pi_ba)
+    down_total = np.where(down_ab <= down_ba, down_ab, down_ba)[:, None]
+    safe_down_total = np.where(down_total > 0.0, down_total, 1.0)
+    down_contrib = np.where(
+        (p_down[:, None] > 0.0) & (down_total > 0.0) & down_mask,
+        p_down[:, None] * down_source / safe_down_total,
+        0.0,
+    )
+
+    choose_ab_up = (up_ab >= up_ba)[:, None]
+    up_source = np.where(choose_ab_up, pi_ab, pi_ba)
+    up_total = np.where(up_ab >= up_ba, up_ab, up_ba)[:, None]
+    safe_up_total = np.where(up_total > 0.0, up_total, 1.0)
+    up_contrib = np.where(
+        (p_up[:, None] > 0.0) & (up_total > 0.0) & up_mask,
+        p_up[:, None] * up_source / safe_up_total,
+        0.0,
+    )
+
+    pi_rel = np.zeros((n, 6), dtype=float)
+    pi_rel += down_contrib
+    pi_rel += np.where(eq_mask, p_0[:, None], 0.0)
+    pi_rel += up_contrib
+
+    total = pi_rel.sum(axis=1, keepdims=True)
+    pi_rel = np.where(total > 0.0, pi_rel / np.where(total > 0.0, total, 1.0), pi_rel)
+    return pi_rel
+
+
+def _score_directed_v27_batch(
+    k: np.ndarray,
+    duration: np.ndarray,
+    gate_t5: np.ndarray,
+    fma: np.ndarray,
+    closing_window: np.ndarray,
+    attribution: np.ndarray,
+    attr_observed: bool,
+    priors: Priors,
+) -> np.ndarray:
+    """Vectorized diagnostic-fallback v27 directed distribution (grad=0, DeEsc=0, Shock=0, stakes=0.5)."""
+    n = len(k)
+    tiers = np.arange(TIER_MIN, TIER_MAX + 1)[None, :]
+    k_col = k[:, None]
+
+    # Direction stage (c_field is tier-invariant in diagnostic fallback -> grad_down=grad_up=0)
+    b_down = np.maximum(0.0, priors.b_0 + priors.b_tier * k + priors.b_dur * duration)
+    u_down = -b_down
+    p_down_raw = np.where(k == TIER_MIN, 0.0, np.where(u_down > -700.0, np.exp(u_down), 0.0))
+
+    u_0 = priors.a_0 + priors.r_D * duration
+    p_0_raw = np.where(u_0 > -700.0, np.exp(u_0), 0.0)
+
+    up_barriers = np.array(
+        [UPWARD_BARRIER_DEFAULTS.get(t, 0.30) for t in TIERS], dtype=float
+    )
+    b_up = up_barriers[k]
+    u_up = -b_up
+    if attr_observed:
+        u_up = u_up + np.where(k == 3, priors.u_A * (attribution * duration), 0.0)
+    p_up_raw = np.where(k == TIER_MAX, 0.0, np.where(u_up > -700.0, np.exp(u_up), 0.0))
+
+    z = p_down_raw + p_0_raw + p_up_raw
+    z_safe = np.where(z > 0.0, z, 1.0)
+    p_down = np.where(z > 0.0, p_down_raw / z_safe, 0.0)
+    p_0 = np.where(z > 0.0, p_0_raw / z_safe, 1.0)
+    p_up = np.where(z > 0.0, p_up_raw / z_safe, 0.0)
+
+    # Allocation stage: omega_up
+    sigma = np.clip(fma * closing_window * 0.5, 0.0, 1.0)[:, None]
+    skip_up = tiers - k_col - 1
+    up_mask = tiers > k_col
+    skip_lookup = np.array([SKIP_DEFAULTS.get(s, 0.02) if s >= 0 else 0.0 for s in range(6)], dtype=float)
+    g_plus = np.where(up_mask, skip_lookup[np.clip(skip_up, 0, 5)], 0.0)
+    g_plus[:, TIER_MAX] = np.where(gate_t5, g_plus[:, TIER_MAX], 0.0)
+    om_up_raw = np.where(
+        up_mask,
+        np.exp(-priors.lambda_plus * np.maximum(skip_up, 0) * (1.0 - sigma)) * g_plus,
+        0.0,
+    )
+    om_up_sum = om_up_raw.sum(axis=1, keepdims=True)
+    om_up = np.where(om_up_sum > 0.0, om_up_raw / np.where(om_up_sum > 0.0, om_up_sum, 1.0), 0.0)
+
+    # Allocation stage: omega_down (DeEsc=(0,0,0), stalemate=0, ora=0 -> kappa = 0.5)
+    kap = 0.5
+    skip_down = k_col - tiers - 1
+    down_mask = tiers < k_col
+    step = (1.0 - kap) * np.exp(-priors.lambda_minus * np.maximum(skip_down, 0))
+    collapse = np.where(tiers == TIER_MIN, kap, 0.0)
+    om_down_raw = np.where(down_mask, step + collapse, 0.0)
+    om_down_sum = om_down_raw.sum(axis=1, keepdims=True)
+    om_down = np.where(
+        om_down_sum > 0.0, om_down_raw / np.where(om_down_sum > 0.0, om_down_sum, 1.0), 0.0
+    )
+
+    pi = np.zeros((n, 6), dtype=float)
+    pi += p_down[:, None] * om_down
+    pi += np.where(tiers == k_col, p_0[:, None], 0.0)
+    pi += p_up[:, None] * om_up
+    return pi
+
+
+def score_dataframe_v27(df, priors: Optional[Priors] = None) -> Dict[str, np.ndarray]:
+    """Vectorized v27.0 diagnostic-fallback scoring over a feature DataFrame."""
+    priors = priors or Priors()
+    n = len(df)
+    k = np.clip(_col_array(df, "uiw_tier", 0, dtype=int), TIER_MIN, TIER_MAX)
+    duration = _col_array(df, "d_k_years", 0.0, dtype=float)
+    contiguity = _col_array(df, "contiguity_xi", 0.0, dtype=float)
+    fma = _col_array(df, "fma", 0.0, dtype=float)
+    cap_ab = _col_array(df, "cap_a_to_b", 0.0, dtype=float)
+    cap_ba = _col_array(df, "cap_b_to_a", 0.0, dtype=float)
+    cw_a = _col_array(df, "closing_window_a", 0.5, dtype=float)
+    cw_b = _col_array(df, "closing_window_b", 0.5, dtype=float)
+    attr = _col_array(df, "attribution", 0.0, dtype=float)
+
+    gate_t5 = (contiguity >= priors.xi_star) | (cap_ab >= priors.tau) | (cap_ba >= priors.tau)
+    pi_ab = _score_directed_v27_batch(k, duration, gate_t5, fma, cw_a, attr, True, priors)
+    pi_ba = _score_directed_v27_batch(k, duration, gate_t5, fma, cw_b, np.zeros(n), False, priors)
+    pi_rel = reconcile_with_current_batch(pi_ab, pi_ba, k)
+    member = np.full(n, ActiveMember.DIAGNOSTIC_FALLBACK.value, dtype=object)
+    return {
+        "pi": pi_rel,
+        "pi_ab": pi_ab,
+        "pi_ba": pi_ba,
+        "gate_t5": gate_t5,
+        "member_ab": member,
+        "member_ba": member,
+        "k": k,
+    }
+
