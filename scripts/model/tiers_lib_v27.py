@@ -597,18 +597,39 @@ def reconcile_with_current(
         side (max).
     Persistence is the residual.
     """
+    if k_ab != k_ba:
+        raise ValueError("Directed runs must share the same current tier")
+
+    k = k_ab
     pi_rel = [0.0] * (TIER_MAX + 1)
-    upper = max(k_ab, k_ba)
-    lower = min(k_ab, k_ba)
-    for j in TIERS:
-        if j == TIER_MAX or j > upper:
-            pi_rel[j] = max(pi_ab[j], pi_ba[j])
-        elif j < lower:
-            pi_rel[j] = min(pi_ab[j], pi_ba[j])
-        else:
-            pi_rel[j] = max(pi_ab[j], pi_ba[j])
-    # If we double-counted, renormalise; but mass conservation is preserved
-    # by the P_0 residual in the directed runs.
+    down_ab = sum(pi_ab[:k])
+    down_ba = sum(pi_ba[:k])
+    up_ab = sum(pi_ab[k + 1:])
+    up_ba = sum(pi_ba[k + 1:])
+
+    p_down = min(down_ab, down_ba)
+    p_up = max(up_ab, up_ba)
+    p_0 = max(0.0, 1.0 - p_down - p_up)
+
+    if p_down > 0.0:
+        down_source = pi_ab if down_ab <= down_ba else pi_ba
+        down_total = down_ab if down_ab <= down_ba else down_ba
+        if down_total > 0.0:
+            for j in range(TIER_MIN, k):
+                pi_rel[j] = p_down * down_source[j] / down_total
+
+    pi_rel[k] = p_0
+
+    if p_up > 0.0:
+        up_source = pi_ab if up_ab >= up_ba else pi_ba
+        up_total = up_ab if up_ab >= up_ba else up_ba
+        if up_total > 0.0:
+            for j in range(k + 1, TIER_MAX + 1):
+                pi_rel[j] = p_up * up_source[j] / up_total
+
+    total = sum(pi_rel)
+    if total > 0.0:
+        pi_rel = [v / total for v in pi_rel]
     return pi_rel
 
 

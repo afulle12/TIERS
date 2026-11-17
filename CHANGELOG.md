@@ -8,19 +8,22 @@ project version.
 ## [Unreleased] - 2026-07 — v27.0 engine implemented and backtested
 
 ### Added
-- `scripts/model/eirene_lib_v27.py`: the v27.0 cost-field engine —
+- `scripts/model/tiers_lib_v27.py`: the v27.0 cost-field engine —
   status-quo-biased direction stage, Capability/Reach gate on T5,
   Attribution×Duration T3→T4 factor, nested-member resolution with
   diagnostic fallback when cost-field occupancy inputs are absent.
-- `scripts/model/backtest_eirene_v27.py`: v27 backtest mirroring the v21
+- `scripts/model/backtest_tiers_v27.py`: v27 backtest mirroring the v21
   backtest (same 1946–1989 / 1990–2014 split) for direct comparison.
   Test-set AUC: T0→T5 = 0.94, T0→T4+ = 0.86, T0→T1+ = 0.63
   (v21: 0.64 / 0.55 / 0.30). Results in
   `output/analysis/model_calibration_summary_v27.md`.
-- `scripts/model/eirene_score_v27.py`: forward-scores live dyads for a
+- `scripts/model/tiers_score_v27.py`: forward-scores live dyads for a
   target year; output in `output/forecasts/`.
-- `scripts/model/eirene_v27_invariants_testing.py`: invariant suite for
+- `scripts/model/tiers_v27_invariants_testing.py`: invariant suite for
   the v27 engine.
+- `scripts/model/baseline_tiers_v27.py`: baseline comparison against
+  logistic-regression and random-forest classifiers on the same v27 structural
+  feature grid and train/test split.
 - `scripts/build/build_contiguity.py` (CShapes contiguity/distance/FMA),
   `scripts/build/build_rivalry.py` (MIDB recency-decayed Omega),
   `scripts/build/build_features_v27.py` (v27 features grid parquet).
@@ -30,14 +33,25 @@ project version.
   `scripts/analysis/un_voting_dyad_alignment.py`.
 
 ### Changed
-- Project renamed from **Eirene** to **TIERS** (Tiered Interstate
+- Project renamed to **TIERS** (Tiered Interstate
   Escalation Risk System) to reflect the model's symmetric focus on
   escalation, persistence, and de-escalation across the six-tier taxonomy.
+- Fixed v27 dyad-level reconciliation to apply the spec §3.6 min-rule for
+  de-escalation mass and residual persistence. Refreshed the v27 backtest:
+  test AUC is T0→T5 = 0.9380, T0→T4+ = 0.8550, T0→T1+ = 0.6295, and
+  Any escalation = 0.6569.
+- Renamed model scripts/modules to `tiers_*` and updated imports, README
+  commands, and package metadata.
+- Made generated Wikipedia validation reports use repo-relative paths instead
+  of local absolute paths.
+- Added baseline comparison results. The diagnostic-fallback engine remains
+  strongest on T0→T5 (0.9380 AUC), but simple baselines outperform it on
+  T0→T1+, T0→T4+, and Any escalation until cost-field inputs are attached.
 
 ### Known gaps carried forward
 - Cost-field occupancy inputs (B^econ, B^blood, V_i) unattached — engine
   runs in diagnostic-fallback member on every row.
-- No baseline-model comparison or bootstrap confidence intervals yet.
+- Bootstrap confidence intervals are still pending.
 - Path 2 (contagion) still not scored in the backtest.
 
 ## [Unreleased] - 2026-06-20 — Pipeline rewrite: Ollama, 3-LLM-pass, explanation column
@@ -97,7 +111,7 @@ project version.
   batched 0/1 filter. The old `wiki_extract_llm_t123_classifier.py`
   is preserved on disk but is no longer wired into the orchestrator.
 
-## [Unreleased] - 2026-06-16 — Renamed to Eirene
+## [Unreleased] - 2026-06-16 — Renamed from WarModel
 
 ### Added — Wikipedia tier extraction (v27.0-aligned, 1900-2025)
 - New 9-stage Wikipedia pipeline (`scripts/build/wiki_pipeline.py`)
@@ -183,17 +197,17 @@ project version.
   to `tmp/wiki_t123_classifier_debug/<article_id>.json`.
 
 ### Changed
-- Project renamed from **WarModel** to **Eirene** (Greek goddess of peace).
+- Project renamed from **WarModel** as part of the transition to **TIERS**.
   The name better reflects the model's scope — escalation *and* de-escalation
   dynamics — and is intended as a neutral, scholarly label.
-- `pyproject.toml` `name` updated to `eirene`; package keywords refreshed.
-- `CITATION.cff` title and message updated; BibTeX key is now `eirene2026`.
+- `pyproject.toml` package metadata and keywords refreshed.
+- `CITATION.cff` title and message updated.
 - `README.md` and `CHANGELOG.md` updated throughout.
 - Renamed script files:
-  - `scripts/model/war_model.py` → `eirene_model.py`
-  - `scripts/model/war_model_lib.py` → `eirene_lib.py`
-  - `scripts/model/backtest_war_model.py` → `backtest_eirene.py`
-  - `scripts/model/warModelInvarientsTesting.py` → `eirene_invariants_testing.py`
+  - `scripts/model/war_model.py` → `tiers_model.py`
+  - `scripts/model/war_model_lib.py` → `tiers_lib.py`
+  - `scripts/model/backtest_war_model.py` → `backtest_tiers.py`
+  - `scripts/model/warModelInvarientsTesting.py` → `tiers_invariants_testing.py`
     (also corrects the `Invarients` → `Invariants` typo)
 
 ## [27.0.0] - 2026-06 — v27.0 spec; infrastructure + operational scaffolding
@@ -249,14 +263,14 @@ project version.
   de-escalates; long-duration T4 locks in via `b_dur·D_k`.
 
 ### Backtesting
-- `scripts/model/backtest_eirene.py` runs Path 1 (direct initiation) on
+- `scripts/model/backtest_tiers.py` runs Path 1 (direct initiation) on
   the T0–T5 grid; β calibrated to observed T0→T1+ rate.
 - Test-set AUC: T0→T5 = 0.64 (best); T0→T1+ = 0.30 (worst). High-severity
   thresholds predicted meaningfully above chance; low-severity discrimination
   still weak (Path 2 contagion not yet implemented).
 
 ### Known gaps (next release priorities)
-- **Codebase vs spec drift:** `eirene_lib.py` and `backtest_eirene.py`
+- **Codebase vs spec drift:** `tiers_lib.py` and `backtest_tiers.py`
   still implement the v21-level two-path product formula. v27.0's
   cost-field engine with status-quo-biased direction stage and
   Capability/Reach gate is not yet coded.

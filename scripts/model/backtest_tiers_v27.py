@@ -13,18 +13,23 @@ Reads:
   data/processed/dyads_with_features_v27.parquet
 
 Writes:
-  output/analysis/model_backtest_roc_v27.csv
-  output/analysis/model_backtest_calibration_v27.csv
-  output/charts/model_backtest_roc_v27.png
-  output/charts/model_backtest_calibration_v27.png
+  output/analysis/model_backtest_roc_v27_{train,test}.csv
+  output/analysis/model_backtest_roc_v27_perstep_{train,test}.csv
+  output/analysis/model_backtest_roc_v27_perstep_full_{train,test}.csv (--full)
+  output/charts/model_backtest_roc_v27_{train,test}.png
+  output/charts/model_backtest_roc_v27_perstep_{train,test}.png
+  output/charts/model_backtest_roc_v27_perstep_full_{train,test}.png (--full)
+  output/charts/model_backtest_calibration_v27_train.png
   output/analysis/model_calibration_summary_v27.md
 """
 from __future__ import annotations
 
+import argparse
 import os
 import sys
 import warnings
 from dataclasses import dataclass
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -58,6 +63,9 @@ TRAIN_SPLIT = 1989
 # Scoring sample sizes (cap for speed; the v21 backtest used 200k)
 SAMPLE_TRAIN = 200_000
 SAMPLE_TEST = 200_000
+SAMPLE_PERSTEP = 200_000
+
+TRANSITION_STEPS = [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5)]
 
 
 @dataclass
@@ -185,18 +193,24 @@ def score_distribution(row: pd.Series, cal: V27Calibrator) -> List[float]:
     return res["pi_reconciled"]
 
 
-def evaluate(df: pd.DataFrame, cal: V27Calibrator, tag: str):
-    print(f"\n--- Evaluation: {tag} ---")
-    n_sample = min(200_000, len(df))
-    sample = df.sample(n_sample, random_state=42) if len(df) > n_sample else df
-    print(f"  Scoring {len(sample):,} dyad-years...")
-
+def score_pis(sample: pd.DataFrame, cal: V27Calibrator) -> np.ndarray:
+    """Score rows and return the reconciled next-tier distribution matrix."""
     pis = np.zeros((len(sample), 6))
     for i, (_, row) in enumerate(sample.iterrows()):
         pi = score_distribution(row, cal)
         pis[i] = pi
         if (i + 1) % 25_000 == 0:
             print(f"    {i+1:,} / {len(sample):,}")
+    return pis
+
+
+def evaluate(df: pd.DataFrame, cal: V27Calibrator, tag: str):
+    print(f"\n--- Evaluation: {tag} ---")
+    n_sample = min(200_000, len(df))
+    sample = df.sample(n_sample, random_state=42) if len(df) > n_sample else df
+    print(f"  Scoring {len(sample):,} dyad-years...")
+
+    pis = score_pis(sample, cal)
 
     # P(any escalation) = 1 - P(T0)
     p_any_esc = 1.0 - pis[:, 0]
@@ -246,6 +260,86 @@ def evaluate(df: pd.DataFrame, cal: V27Calibrator, tag: str):
     return roc_data, cal_data, roc_df
 
 
+def evaluate_perstep(
+    df: pd.DataFrame,
+    cal: V27Calibrator,
+    tag: str,
+    *,
+    full: bool = False,
+    sample_cap: int = SAMPLE_PERSTEP,
+):
+    suffix = "full" if full else "sample"
+    print(f"\n--- Per-step evaluation: {tag} ({suffix}) ---")
+    if full:
+        sample = df
+    else:
+        n_sample = min(sample_cap, len(df))
+        sample = df.sample(n_sample, random_state=42) if len(df) > n_sample else df
+    print(f"  Scoring {len(sample):,} dyad-years...")
+
+    pis = score_pis(sample, cal)
+    cur_tier = sample["uiw_tier"].astype(int).to_numpy()
+    next_tier = sample["uiw_tier_next"].astype(int).to_numpy()
+
+    rows = []
+    roc_data = []
+    for k, kp1 in TRANSITION_STEPS:
+        mask = cur_tier == k
+        n_rows = int(mask.sum())
+        if n_rows == 0:
+            print(f"  T{k}->T{kp1}: no current-tier rows, skipping")
+            continue
+
+        sub_pis = pis[mask]
+        sub_next = next_tier[mask]
+        variants = [
+            ("exact", sub_pis[:, kp1], (sub_next == kp1).astype(int)),
+            ("cumulative", sub_pis[:, kp1:].sum(axis=1), (sub_next >= kp1).astype(int)),
+        ]
+        for variant, y_score, y_true in variants:
+            label = f"T{k}->T{kp1}"
+            n_pos = int(y_true.sum())
+            n_neg = int(len(y_true) - n_pos)
+            low_n = n_pos < 10 or n_neg < 10
+            row = {
+                "tag": tag,
+                "threshold": label,
+                "variant": variant,
+                "auc": np.nan,
+                "brier": np.nan,
+                "n_pos": n_pos,
+                "n_neg": n_neg,
+                "n_rows": n_rows,
+                "low_n": low_n,
+            }
+            if n_pos < 5 or n_neg < 5:
+                print(
+                    f"  {label} ({variant}): too few events "
+                    f"(pos={n_pos}, neg={n_neg}), skipping AUC"
+                )
+                rows.append(row)
+                continue
+
+            auc = roc_auc_score(y_true, y_score)
+            brier = brier_score_loss(y_true, y_score)
+            fpr, tpr, _ = roc_curve(y_true, y_score)
+            roc_data.append((label, variant, fpr, tpr, auc, n_pos, n_neg))
+            row.update({"auc": round(auc, 4), "brier": round(brier, 4)})
+            rows.append(row)
+            marker = " [low N]" if low_n else ""
+            print(
+                f"  {label} ({variant}): AUC={auc:.4f}  "
+                f"Brier={brier:.4f}  (pos={n_pos}, neg={n_neg}){marker}"
+            )
+
+    roc_df = pd.DataFrame(rows)
+    full_part = "_full" if full else ""
+    out_path = os.path.join(OUT_ANALYSIS, f"model_backtest_roc_v27_perstep{full_part}_{tag}.csv")
+    roc_df.to_csv(out_path, index=False)
+    print(f"Per-step ROC table -> {out_path}")
+    return roc_data, roc_df
+
+
 def plot_roc(roc_data, tag):
     fig, ax = plt.subplots(figsize=(8, 7))
     colors = ["#d53e4f", "#fdae61", "#abdda4", "#74add1", "#fee08b"]
@@ -262,6 +356,41 @@ def plot_roc(roc_data, tag):
     fig.savefig(out_path, dpi=130)
     plt.close(fig)
     print(f"ROC chart -> {out_path}")
+
+
+def plot_roc_perstep(roc_data, tag, *, full: bool = False):
+    if not roc_data:
+        return
+    by_transition = {f"T{k}->T{kp1}": [] for k, kp1 in TRANSITION_STEPS}
+    for item in roc_data:
+        by_transition[item[0]].append(item)
+
+    fig, axes = plt.subplots(1, 5, figsize=(18, 4), sharex=True, sharey=True)
+    colors = {"exact": "#d53e4f", "cumulative": "#3288bd"}
+    for ax, (label, items) in zip(axes, by_transition.items()):
+        ax.plot([0, 1], [0, 1], "k--", alpha=0.35, lw=1)
+        for _, variant, fpr, tpr, auc, n_pos, _n_neg in items:
+            ax.plot(
+                fpr,
+                tpr,
+                color=colors.get(variant, "#666666"),
+                lw=1.8,
+                label=f"{variant} AUC={auc:.3f}, n={n_pos}",
+            )
+        ax.set_title(label)
+        ax.grid(alpha=0.25)
+        ax.legend(loc="lower right", fontsize=7)
+    axes[0].set_ylabel("True Positive Rate")
+    for ax in axes:
+        ax.set_xlabel("False Positive Rate")
+    full_part = "full frame" if full else "200k sample"
+    fig.suptitle(f"v27.0 per-step tier-transition ROC: {tag} ({full_part})", y=1.03)
+    fig.tight_layout()
+    suffix = "_full" if full else ""
+    out_path = os.path.join(OUT_CHARTS, f"model_backtest_roc_v27_perstep{suffix}_{tag}.png")
+    fig.savefig(out_path, dpi=130, bbox_inches="tight")
+    plt.close(fig)
+    print(f"Per-step ROC chart -> {out_path}")
 
 
 def plot_calibration(cal_data, tag):
@@ -282,7 +411,53 @@ def plot_calibration(cal_data, tag):
     print(f"Calibration chart -> {out_path}")
 
 
-def write_summary(train_roc, test_roc):
+def fmt_metric(value) -> str:
+    if pd.isna(value):
+        return "NA"
+    return f"{float(value):.4f}"
+
+
+def append_perstep_section(lines, title, train_perstep, test_perstep):
+    if train_perstep is None or test_perstep is None:
+        return
+    lines.append(f"## {title}")
+    lines.append("")
+    lines.append("| Transition | Variant | Train AUC | Train n_pos | Test AUC | Test n_pos | Note |")
+    lines.append("|---|---|---:|---:|---:|---:|---|")
+    for k, kp1 in TRANSITION_STEPS:
+        threshold = f"T{k}->T{kp1}"
+        for variant in ["exact", "cumulative"]:
+            train_row = train_perstep[
+                (train_perstep["threshold"] == threshold)
+                & (train_perstep["variant"] == variant)
+            ]
+            test_row = test_perstep[
+                (test_perstep["threshold"] == threshold)
+                & (test_perstep["variant"] == variant)
+            ]
+            tr = train_row.iloc[0] if not train_row.empty else None
+            te = test_row.iloc[0] if not test_row.empty else None
+            train_auc = fmt_metric(tr.auc) if tr is not None else "NA"
+            test_auc = fmt_metric(te.auc) if te is not None else "NA"
+            train_pos = int(tr.n_pos) if tr is not None else 0
+            test_pos = int(te.n_pos) if te is not None else 0
+            low_n = bool((tr is not None and tr.low_n) or (te is not None and te.low_n))
+            note = "low N" if low_n else ""
+            lines.append(
+                f"| {threshold} | {variant} | {train_auc} | {train_pos} | "
+                f"{test_auc} | {test_pos} | {note} |"
+            )
+    lines.append("")
+
+
+def write_summary(
+    train_roc,
+    test_roc,
+    train_perstep=None,
+    test_perstep=None,
+    train_perstep_full=None,
+    test_perstep_full=None,
+):
     lines = [
         "# v27.0 model calibration summary",
         "",
@@ -290,6 +465,8 @@ def write_summary(train_roc, test_roc):
         "default values (b_0=0.15, b_tier=0.04, b_dur=0.10, u_D=0.40, u_A=0.12,",
         "u_Z=0.55, a_0=0.20, r_D=0.03, λ+=λ-=1.20, τ=0.40, ξ*=0.5).",
         "Full MLE / Bayesian calibration is pending per spec section 6.1.",
+        "This summary was generated after the v27 dyad-reconciliation patch",
+        "that applies the spec section 3.6 de-escalation min-rule.",
         "",
         "## Training set (1946-1989)",
         "",
@@ -310,6 +487,8 @@ def write_summary(train_roc, test_roc):
             f"| {r.threshold} | {r.auc} | {r.brier} | {r.n_pos} | {r.n_neg} |"
         )
     lines.append("")
+    append_perstep_section(lines, "Per-step tier transition AUC (200k sample)", train_perstep, test_perstep)
+    append_perstep_section(lines, "Per-step tier transition AUC (full frame)", train_perstep_full, test_perstep_full)
     lines.append("## Notes")
     lines.append("")
     lines.append("- Cost-field occupancy components (B^econ, B^blood, V_i) are")
@@ -318,8 +497,15 @@ def write_summary(train_roc, test_roc):
     lines.append("  of the cost-field weights β_{1,2,3} is TBD in the spec.")
     lines.append("- Capability/Reach gate, Attribution×Duration T3->T4 factor,")
     lines.append("  status-quo-biased down-barrier, and public member are all active.")
+    lines.append("- Dyad-level reconciliation applies unilateral escalation (max upward")
+    lines.append("  mass), mutual-consent de-escalation (min downward mass), and")
+    lines.append("  residual persistence per spec section 3.6.")
     lines.append("- All structural inputs (Xi, FMA, -W_dot, Ω, D_k, Cap) are empirical")
     lines.append("  except A_div, E_n, S_p which are documented as defaulted.")
+    lines.append("- Per-step rows report both exact next-tier outcomes and cumulative")
+    lines.append("  next-tier-or-higher outcomes. Rows marked low N have fewer than 10")
+    lines.append("  positive or negative examples; AUC is skipped when either class has")
+    lines.append("  fewer than 5 examples.")
     lines.append("- Compare with `model_calibration_summary.md` (v21 product-form).")
     lines.append("")
     path = os.path.join(OUT_ANALYSIS, "model_calibration_summary_v27.md")
@@ -329,6 +515,14 @@ def write_summary(train_roc, test_roc):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="also run per-step AUCs on the full train/test frames without sampling",
+    )
+    args = parser.parse_args()
+
     os.makedirs(OUT_ANALYSIS, exist_ok=True)
     os.makedirs(OUT_CHARTS, exist_ok=True)
     priors = Priors()
@@ -342,13 +536,40 @@ def main():
     train_roc_data, train_cal_data, train_roc_df = evaluate(train, cal, "train")
     test_roc_data, test_cal_data, test_roc_df = evaluate(test, cal, "test")
 
+    train_perstep_roc_data, train_perstep_df = evaluate_perstep(train, cal, "train")
+    test_perstep_roc_data, test_perstep_df = evaluate_perstep(test, cal, "test")
+
+    train_perstep_full_df = None
+    test_perstep_full_df = None
+    if args.full:
+        train_full_roc_data, train_perstep_full_df = evaluate_perstep(train, cal, "train", full=True)
+        test_full_roc_data, test_perstep_full_df = evaluate_perstep(test, cal, "test", full=True)
+    else:
+        train_full_roc_data = []
+        test_full_roc_data = []
+
     if train_roc_data:
         plot_roc(train_roc_data, "train")
     if test_roc_data:
         plot_roc(test_roc_data, "test")
+    if train_perstep_roc_data:
+        plot_roc_perstep(train_perstep_roc_data, "train")
+    if test_perstep_roc_data:
+        plot_roc_perstep(test_perstep_roc_data, "test")
+    if train_full_roc_data:
+        plot_roc_perstep(train_full_roc_data, "train", full=True)
+    if test_full_roc_data:
+        plot_roc_perstep(test_full_roc_data, "test", full=True)
     if train_cal_data:
         plot_calibration(train_cal_data, "train")
-    write_summary(train_roc_df, test_roc_df)
+    write_summary(
+        train_roc_df,
+        test_roc_df,
+        train_perstep_df,
+        test_perstep_df,
+        train_perstep_full_df,
+        test_perstep_full_df,
+    )
     print("\nDone.")
     return 0
 
