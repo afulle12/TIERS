@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tiers"
-version = "27.0.0"
-description = "Directed-dyad stochastic-game model of interstate conflict escalation, persistence, and de-escalation (UIW v27.0)"
+version = "28.0.0"
+description = "Directed-dyad stochastic-game model of interstate conflict escalation, persistence, and de-escalation (UIW v28.0)"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -57,13 +57,13 @@ dev = [
     "ruff>=0.1.0,<1.0",
 ]
 
-# [project.urls]
-# Repository = "<repo-url>"  # TODO: add once public GitHub repo is created
-# Documentation = "<repo-url>/tree/main/docs"
+[project.urls]
+Repository = "https://github.com/afulle12/TIERS"
+Documentation = "https://github.com/afulle12/TIERS/tree/main/docs"
 
 # [project.scripts]
-# eirene-score = "scripts.cli.score:main"
-# eirene-build = "scripts.cli.build:main"
+# tiers-score = "scripts.cli.score:main"
+# tiers-build = "scripts.cli.build:main"
 
 [tool.setuptools]
 packages = ["scripts", "scripts.build", "scripts.analysis", "scripts.model", "scripts.data"]

@@ -4,8 +4,8 @@ message: |
   specification document and the upstream data sources. See
   DATA_PROVENANCE.md for source-by-source attribution.
 title: "TIERS (Tiered Interstate Escalation Risk System) — A directed-dyad stochastic-game model of interstate conflict"
-version: 27.0.0
-date-released: 2026-07-04
+version: 28.0.0
+date-released: 2026-07-07
 license: MIT
 keywords:
   - international-relations
@@ -20,7 +20,7 @@ authors:
   - name: "Andrew Fuller"
 preferred-citation:
   type: article
-  title: "Unified Equation of Interstate War (Directed-Dyad Variant) v27.0"
+  title: "Unified Equation of Interstate War (Directed-Dyad Variant) v28.0"
   authors:
     - name: "Andrew Fuller"
   year: 2026

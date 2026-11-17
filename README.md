@@ -10,16 +10,19 @@ given pair of states will move up or down a six-tier conflict ladder over the
 next year. It is intended both as a research instrument and as an operational
 early-warning / scoring tool for current interstate dyads.
 
-**Current model:** v27.0 — six-tier taxonomy, cost-field engine with
-status-quo-biased direction stage, Capability/Reach gate on strategic war, and
-WMD handled as a continuous severity modulator rather than a separate tier.
+**Current implemented model:** v28.0 — transition-specific hazards plus
+explicit economic interdependence: trade surface raises low-tier conflict
+exposure, directed trade leverage raises economic-coercion risk, and mutual
+dependence raises the cost of direct military escalation. See
+[`docs/models/Unified Equation of Interstate War (Directed-Dyad -6 v28 draft).md`](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-6%20v28%20draft%29.md).
 
 ---
 
 ## At a glance
 
 - **Multi-source data pipeline** integrating MIDB, UCDP, EUSANCT, CShapes,
-  V-Dem, COW NMC, and ATOP into a single directed-dyad-year schema.
+  V-Dem, COW NMC, ATOP, CEPII BACI, and CEPII TRADHIST into a single
+  directed-dyad-year schema.
 - **Stochastic-game model** with two paths to war: direct initiation and
   contagion / joining an existing war.
 - **Empirical backtest** on 2.3M dyad-years (1946–2014), with calibrated
@@ -52,7 +55,7 @@ virtual environment works too.
 
 ```bash
 # Clone or download the repository
-git clone <repo-url>       # to be added once the public GitHub repo is set up
+git clone https://github.com/afulle12/TIERS.git
 cd tiers
 
 # Option A: with uv
@@ -143,6 +146,8 @@ EUSANCT, ATOP). Download them from their official providers and place them in
 | V-Dem | v16 (Core) | Democracy proxy for `N_pub` | [v-dem.net/data](https://v-dem.net/data/) |
 | COW NMC | v7.0 | Capability ratios, CINC | [correlatesofwar.org/data-sets/national-material-capabilities](https://correlatesofwar.org/data-sets/national-material-capabilities/) |
 | ATOP | 3.0 | Alliance depth / treaty triggers | [dataverse.harvard.edu/dataset/doi:10.7910/DVN/IUUPWR](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IUUPWR) |
+| CEPII BACI | HS92 V202601 | 1995-2024 bilateral trade, v28 economic interdependence | [cepii.fr BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) |
+| CEPII TRADHIST | v4 | 1827-2014 historical bilateral trade and gravity data | [cepii.fr TRADHIST](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=32) |
 
 See `DATA_PROVENANCE.md` for source-by-source licensing and attribution notes.
 
@@ -170,22 +175,27 @@ python scripts/analysis/analyze_conflict_dyads.py
 python scripts/analysis/tier_transition_risk.py
 python scripts/analysis/tier_transition_risk_full.py
 
-# 6. Build the v27 structural inputs and features grid
+# 6. Build the v28 structural + economic feature grid
 python scripts/build/build_contiguity.py       # CShapes contiguity, distance, FMA
 python scripts/build/build_rivalry.py          # MIDB recency-decayed rivalry (Omega)
-python scripts/build/build_features_v27.py     # v27 features grid (parquet)
+python scripts/build/trade_country_crosswalk.py
+python scripts/build/build_trade_interdependence.py
+python scripts/build/build_features_v27.py     # v27 structural base grid
+python scripts/build/build_features_v28.py     # v28 trade-enhanced grid
 
 # 7. Backtest the models
-python scripts/model/backtest_eirene.py        # legacy v21 product-form
-python scripts/model/backtest_eirene_v27.py    # v27 cost-field engine
+python scripts/model/backtest_tiers.py         # legacy v21 product-form
+python scripts/model/backtest_tiers_v27.py     # retained v27 baseline
+python scripts/model/backtest_tiers_v28.py     # v28 transition-hazard engine
 
 # 8. Forward-score live dyads (latest available year)
-python scripts/model/eirene_score_v27.py
+python scripts/model/tiers_score_v28.py
 
 # 9. Run model invariants / sensitivity tests
 python scripts/model/testModelv10.py
-python scripts/model/eirene_invariants_testing.py
-python scripts/model/eirene_v27_invariants_testing.py
+python scripts/model/tiers_invariants_testing.py
+python scripts/model/tiers_v27_invariants_testing.py
+python scripts/model/tiers_v28_invariants_testing.py
 ```
 
 Generated outputs go to `output/analysis/` and `output/charts/`; intermediate
@@ -247,43 +257,85 @@ Three independent test suites run against the model:
 - `scripts/model/testModelv10.py` — 4-level systematic validation: invariants,
   local sensitivity tornado, Monte Carlo global sensitivity, and rank-order
   validity against an expert-ordered set of dyads.
-- `scripts/model/eirene_invariants_testing.py` — 5,000 random parameter sets
+- `scripts/model/tiers_invariants_testing.py` — 5,000 random parameter sets
   checked for probability bounds, monotonicity, and edge cases.
-- `scripts/model/eirene_v27_invariants_testing.py` — invariant and
-  edge-case suite for the v27.0 cost-field engine.
+- `scripts/model/tiers_v27_invariants_testing.py` — invariant and
+  edge-case suite for the retained v27.0 cost-field baseline.
+- `scripts/model/tiers_v28_invariants_testing.py` — probability-bound,
+  Capability/Reach gate, and economic-sign tests for v28.0.
+- `scripts/model/baseline_tiers_v27.py` — baseline comparison against
+  logistic-regression and random-forest models trained on the same v27
+  structural features.
 
-Historical backtest of the v27.0 cost-field engine on 1946–2014
-(train 1946–1989 / test 1990–2014):
+Historical backtest of the v28.0 transition-hazard engine on 1946–2014
+(train 1946–1989 / test 1990–2014), plus the v28 trade-enhanced 1995–2014
+window:
 
 | Threshold | Test AUC | Brier | Positives (test) |
 |---|---|---|---|
-| T0 → T1+ | 0.63 | 0.0228 | 622 |
-| T0 → T4+ | 0.86 | 0.0013 | 98 |
-| T0 → T5 | **0.94** | 0.0002 | 62 |
-| Any escalation | 0.66 | 0.0227 | 673 |
+| T0 → T1+ | 0.5403 | 0.0189 | 622 |
+| T0 → T4+ | 0.7832 | 0.0015 | 98 |
+| T0 → T5 | **0.9316** | 0.0002 | 62 |
+| Any escalation | 0.5745 | 0.0187 | 673 |
 
-The engine discriminates high-severity escalation (T0→T4+ and T0→T5)
-strongly, even though the cost-field occupancy inputs (B^econ, B^blood,
-V_i) are not yet attached and every row therefore runs in the
-diagnostic-fallback member. Low-severity onset (T0→T1+) remains the
-weakest threshold. These results have not yet been compared against a
-regression baseline, and confidence intervals are pending. For full
-results see `output/analysis/model_calibration_summary_v27.md`; the
-legacy v21 product-form results are in
-`output/analysis/model_calibration_summary.md` for comparison
-(v21 test AUC was 0.30–0.64, so v27 is a large improvement).
+Per-step adjacent-tier AUCs are also reported by the same backtest. Run
+`python scripts/model/backtest_tiers_v28.py` to produce headline, adjacent
+exact, adjacent cumulative, and trade-window tables. "Exact" scores
+`P(next tier = k+1)`; "cumulative" scores `P(next tier ≥ k+1)`.
+
+| Transition | Exact AUC | Exact positives | Cumulative AUC | Cumulative positives |
+|---|---:|---:|---:|---:|
+| T0 → T1 | 0.6789 | 106 | 0.5477 | 622 |
+| T1 → T2 | 0.4901 | 19 | 0.4210 | 36 |
+| T2 → T3 | 0.4752 | 9 | 0.5833 | 12 |
+| T3 → T4 | NA | 2 | NA | 2 |
+| T4 → T5 | NA | 1 | NA | 1 |
+
+T3→T4 and T4→T5 remain too sparse for stable one-year ROC estimates in the
+200k test sample.
+
+Trade-enhanced window (1995–2014, 200k sample):
+
+| Threshold | AUC | Brier | Positives |
+|---|---:|---:|---:|
+| T0 → T1+ | 0.5713 | 0.0198 | 639 |
+| T0 → T4+ | 0.8304 | 0.0013 | 76 |
+| T0 → T5 | 0.8802 | 0.0002 | 66 |
+| Any escalation | 0.6000 | 0.0196 | 686 |
+
+The reconciliation patch had little effect on the headline T0→T5 result
+because strategic-war escalation is still unilateral and governed mainly by
+the Capability/Reach gate; T0→T5 remains 0.94 AUC after refresh. The largest
+movement was the T0→T4+ threshold, which changed from 0.8591 to 0.8550 AUC.
+
+Baseline comparison on the same v27 feature grid, temporal split, and 200k-row
+test sample shows that the diagnostic-fallback engine is not yet outperforming
+simple statistical baselines except on T0→T5:
+
+| Threshold | TIERS v27 AUC | Best baseline AUC | Best baseline |
+|---|---:|---:|---|
+| T0 → T1+ | 0.6295 | 0.8264 | Logistic regression, balanced |
+| T0 → T4+ | 0.8550 | 0.8932 | Random forest, balanced |
+| T0 → T5 | **0.9380** | 0.9217 | Logistic regression, balanced |
+| Any escalation | 0.6569 | 0.8217 | Random forest, balanced |
+
+v28 results should be read as sign-constrained starting-prior results, not as
+fully calibrated estimates. The economic-interdependence block is now attached
+through `data/processed/trade_interdependence.*`; full MLE/Bayesian calibration
+of the v28 hazard coefficients remains pending. For full results see
+`output/analysis/model_calibration_summary_v28.md`; v27 and v21 summaries are
+retained for comparison.
 
 ---
 
 ## Limitations
 
-- **Cost field runs in diagnostic fallback.** The v27.0 cost-field engine
-  (`scripts/model/eirene_lib_v27.py`) is implemented and backtested, but the
-  cost-field occupancy inputs (B^econ, B^blood, V_i) have no attached data
-  source, so every row currently resolves to the diagnostic-fallback member.
-  See `docs/COVERAGE_MATRIX.md` for per-variable coverage. The legacy v21
-  product-form implementation (`eirene_lib.py`, `backtest_eirene.py`) is
-  retained for comparison.
+- **v28 coefficients are starting priors.** The v28 transition hazards use
+  sign-constrained priors from the draft model. The CEPII trade inputs are now
+  attached, but full coefficient calibration remains pending. The legacy v21
+  product-form implementation (`tiers_lib.py`, `backtest_tiers.py`) and v27
+  cost-field engine (`tiers_lib_v27.py`, `backtest_tiers_v27.py`) are retained
+  for comparison.
 - **Path 2 not backtested.** The historical backtest currently scores only
   direct initiation (Path 1). Contagion/joining behavior (Path 2) is tested for
   invariants but not evaluated against historical data.
@@ -307,7 +359,7 @@ specification document and the upstream data sources listed in
 
 ```bibtex
 @article{tiers2026,
-  title={Unified Equation of Interstate War (Directed-Dyad Variant) v27.0},
+  title={Unified Equation of Interstate War (Directed-Dyad Variant) v28.0},
   author={Fuller, Andrew},
   year={2026},
   month={July}
@@ -345,4 +397,4 @@ from the providers and comply with the respective terms. See
 ## Contact
 
 Author: Andrew Fuller  
-Repository URL: to be added once the public GitHub repo is set up.
+Repository URL: https://github.com/afulle12/TIERS

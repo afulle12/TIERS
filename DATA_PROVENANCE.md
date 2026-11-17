@@ -16,6 +16,8 @@ responsible for complying with the licensing terms of each source dataset.**
 | NMC (COW National Material Capabilities) | v7.0 abridged | 1816-2022 | Research use | Singer, J. D., Bremer, S. A., & Stuckey, J. (1972); updated. |
 | ATOP | 3.0 | 1815-onward | Research use | Leeds, B. A., Long, A. G., & Mitchell, S. M. (2000). *Alliance Treaty Obligations and Provisions*. |
 | Wikipedia (structured-wikipedia) | 2026-05-13 snapshot | 1816-onward | CC-BY-SA-4.0 | Wikimedia Foundation (2026). *Structured Wikipedia*, Hugging Face dataset. |
+| CEPII BACI | HS92 V202601 | 1995-2024 | Etalab Open Licence 2.0 | Gaulier, G., & Zignago, S. (2010). *BACI: International Trade Database at the Product-Level. The 1994-2007 Version*. CEPII Working Paper No. 2010-23. |
+| CEPII TRADHIST | v4 | 1827-2014 | Etalab Open Licence 2.0 | Fouquin, M., & Hugot, J. (2016). *Two Centuries of Bilateral Trade and Gravity Data: 1827-2014*. CEPII Working Paper No. 2016-14. |
 
 ## Tier definitions and source mapping
 
@@ -27,6 +29,22 @@ responsible for complying with the licensing terms of each source dataset.**
 | T4 — Limited Direct Military | Open, attributed exchange of fire between i and j forces | MIDB (hostlev≥3, militarized action) + Wikipedia (infobox parser, all years) |
 | T5 — Strategic War | Nationwide / multi-front warfare, sustained campaigns | MIDB (highest hostlev/fatality thresholds) + Wikipedia (infobox parser, all years) |
 | T0 — Peace | Inferred: no T1–T5 event in the dyad-year | Inverse of the above; inferred by the build pipeline |
+
+## Economic-interdependence data
+
+CEPII BACI and TRADHIST are normalized into a shared directed dyad-year
+source of truth at `data/processed/trade_interdependence.csv` (and
+`.parquet` when Parquet support is available). The key is
+`year, initiator_gwno, target_gwno`, matching the model feature grid.
+
+- BACI HS92 V202601 is used for 1995-2024 and is preferred in overlap
+  years because it is reconciled, product-level, and current.
+- TRADHIST v4 fills historical bilateral-trade coverage through 2014.
+- `data/processed/country_code_crosswalk.csv` records the BACI/TRADHIST
+  code-to-GWNO mapping and unresolved source codes.
+- The processed trade table includes observed flows, country trade totals,
+  directed dependence, mutual dependence, import/export leverage, trade
+  surface, and trade-surface percentile variables for the v28 economic block.
 
 ## Wikipedia-derived tier data (extension source)
 
@@ -122,6 +140,12 @@ snapshot, used under CC-BY-SA-4.0."
   Held separate from `conflict_dyads_full.csv`; not merged by default.
 - `data/processed/wiki_gwn_map.csv` — Wikidata-QID ↔ GWN-code
   reconciliation table (built once via SPARQL).
+- `data/processed/country_code_crosswalk.csv` — BACI/TRADHIST source-code
+  reconciliation to GWNO.
+- `data/processed/trade_interdependence.csv` (+ .parquet) — CEPII
+  BACI/TRADHIST directed dyad-year economic-interdependence source of truth.
+- `data/processed/dyads_with_features_v28.csv` (+ .parquet) — v27 structural
+  feature grid plus the v28 economic-interdependence block.
 
 ## Adding a new source
 
