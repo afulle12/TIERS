@@ -358,12 +358,12 @@ intellectual contribution.
 
 ## License
 
-Code: **MIT** (see `LICENSE`).
+Code: **MIT** (see [LICENSE](LICENSE)).
 
 Data: each source dataset is governed by its own license. The raw source files
 are not redistributed in this repository; users must download them directly
 from the providers and comply with the respective terms. See
-`DATA_PROVENANCE.md` for details.
+[DATA_PROVENANCE.md](DATA_PROVENANCE.md) for details.
 
 ---
 
