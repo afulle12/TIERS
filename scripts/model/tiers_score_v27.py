@@ -32,7 +32,7 @@ warnings.filterwarnings("ignore")
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "model"))
 
-from eirene_lib_v27 import (
+from tiers_lib_v27 import (
     ActorState,
     DyadState,
     InputState,

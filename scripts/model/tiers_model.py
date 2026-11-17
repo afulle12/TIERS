@@ -1,5 +1,5 @@
 """
-Eirene — Unified Equation of Interstate War, Dyadic Variant v2.1.
+TIERS — Unified Equation of Interstate War, Dyadic Variant v2.1.
 Implementation and scenario testing.
 """
 
@@ -352,7 +352,7 @@ nk_sk_B = State(
 # RUN
 # ============================================================================
 print("\n" + "#" * 78)
-print("# DYADIC WAR MODEL v2.1 — SCENARIO TEST RUN")
+print("# TIERS v2.1 — SCENARIO TEST RUN")
 print("# Probabilities are annualized (365-day) hazards under frozen fundamentals.")
 print("#" * 78 + "\n")
 

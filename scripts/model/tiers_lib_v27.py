@@ -1,5 +1,5 @@
 """
-Eirene v27.0 cost-field engine.
+TIERS v27.0 cost-field engine.
 
 Canonical implementation of the UIW Directed-Dyad variant v27.0 specification
 (`docs/models/Unified Equation of Interstate War (Directed-Dyad -5).md`).

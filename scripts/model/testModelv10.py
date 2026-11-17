@@ -1,5 +1,5 @@
 """
-Systematic test harness for the dyadic war model.
+Systematic test harness for the TIERS dyadic model.
 
 LEVEL 1 — Invariants (must hold for any input)
 LEVEL 2 — Local sensitivity (tornado at a baseline)
@@ -10,7 +10,7 @@ LEVEL 4 — Rank-order validity (Spearman vs. expert ordering)
 import copy
 import random
 import math
-from eirene_lib import State, p_init, p_direct, p_join, dyadic, PARAM_NAMES
+from tiers_lib import State, p_init, p_direct, p_join, dyadic, PARAM_NAMES
 
 random.seed(42)
 
@@ -149,7 +149,7 @@ def test_treaty_betrayal_penalty():
     """Allying with B's enemies (C_d_opp > 0.5) should suppress T_sup via C_b."""
     A_clean = State("A", N_pub=0.9, C_i=0.5, C_d_sup=0.8, C_d_opp=0.0)
     A_traitor = copy.deepcopy(A_clean); A_traitor.C_d_opp = 0.6  # also allied to enemies
-    from eirene_lib import treaty_triggers
+    from tiers_lib import treaty_triggers
     T_sup_clean, _ = treaty_triggers(A_clean)
     T_sup_traitor, _ = treaty_triggers(A_traitor)
     assert T_sup_traitor < T_sup_clean, "betrayal penalty did not suppress T_sup"
@@ -414,7 +414,7 @@ def level_5_notes():
 # ============================================================================
 if __name__ == "__main__":
     print("\n" + "#" * 78)
-    print("# DYADIC WAR MODEL — SYSTEMATIC TEST SUITE")
+    print("# TIERS — SYSTEMATIC TEST SUITE")
     print("#" * 78 + "\n")
     run_level_1()
     run_level_2()

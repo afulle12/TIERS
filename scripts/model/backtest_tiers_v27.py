@@ -1,6 +1,6 @@
 """Back-test the v27.0 cost-field engine against the T0-T5 dataset.
 
-Mirrors `backtest_eirene.py` (the v21 product-form backtest) so the v21 and
+Mirrors `backtest_tiers.py` (the v21 product-form backtest) so the v21 and
 v27 numbers can be compared directly:
   - Same train/test split: train 1946-1989, test 1990-2014.
   - Same ROC + calibration outputs.
@@ -43,7 +43,7 @@ OUT_ANALYSIS = os.path.join(ROOT, "output", "analysis")
 OUT_CHARTS = os.path.join(ROOT, "output", "charts")
 
 sys.path.insert(0, os.path.join(ROOT, "scripts", "model"))
-from eirene_lib_v27 import (
+from tiers_lib_v27 import (
     ActorState,
     DyadState,
     InputState,

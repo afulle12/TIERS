@@ -1,6 +1,6 @@
 """v27.0 invariants and identification-target tests.
 
-Mirrors `eirene_invariants_testing.py` (the v21 test harness) for the v27
+Mirrors `tiers_invariants_testing.py` (the v21 test harness) for the v27
 cost-field engine. Verifies:
 
   1. PROBABILITY BOUNDS - every output of the engine is in [0, 1].
@@ -27,7 +27,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(ROOT, "scripts", "model"))
 
-from eirene_lib_v27 import (
+from tiers_lib_v27 import (
     ActorState,
     ActiveMember,
     DyadState,
@@ -299,7 +299,7 @@ def main() -> int:
         test_member_resolution,
     ]
     print("=" * 78)
-    print("Eirene v27.0 INVARIANTS & IDENTIFICATION-TARGET TESTS")
+    print("TIERS v27.0 INVARIANTS & IDENTIFICATION-TARGET TESTS")
     print("=" * 78)
     fails = 0
     for t in tests:

@@ -1,4 +1,4 @@
-"""Importable module: Eirene dyadic model v2.1."""
+"""Importable module: TIERS dyadic model v2.1."""
 from dataclasses import dataclass, fields
 from typing import Dict
 import copy

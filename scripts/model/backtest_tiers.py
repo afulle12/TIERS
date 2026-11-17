@@ -42,7 +42,7 @@ OUT_CHARTS = os.path.join(ROOT, "output", "charts")
 YEAR_LO, YEAR_HI = 1946, 2014
 TRAIN_SPLIT = 1989  # train 1946-1989, test 1990-2014
 
-C_b = 0.95  # Betrayal penalty constant (from eirene_model.py)
+C_b = 0.95  # Betrayal penalty constant (from tiers_model.py)
 
 
 @dataclass

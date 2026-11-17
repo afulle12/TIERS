@@ -50020,5 +50020,5 @@
   Passed        : 5000
   Failed        : 0
   Success Rate  : 100.00%
-  Log file      : /home/andrew/Tresorit/Code/WarModel/docs/invariant_logs/invariant_test_v1.1.0_2026-05-06_142515.txt
+  Log file      : docs/invariant_logs/invariant_test_v1.1.0_2026-05-06_142515.txt
 ====================================================
