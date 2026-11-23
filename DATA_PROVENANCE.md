@@ -115,8 +115,8 @@ The extraction pipeline is:
   tiers; they depend on LLM extraction of free text.
 - T3 specifically is expected to under-detect: covert proxy support
   is exactly what underdocumented conflicts lack in Wikipedia, which
-  is why the existing pipeline also uses UCDP Dyadic as a structured
-  proxy.
+  is why the existing pipeline also uses UCDP Dyadic and the UCDP
+  External Support Dataset as structured proxies.
 - The Wikipedia snapshot is dated 2026-05-13, so events that occurred
   after the MIDB/EUSANCT cutoffs (2014/2015) are recoverable but with
   the precision/recall trade-offs documented in

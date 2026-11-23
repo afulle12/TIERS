@@ -7,7 +7,7 @@ sections 1.6, 1.9, 3.1, 3.8.
 
 | Variable | Spec § | Source | State in this run | Notes |
 |---|---|---|---|---|
-| $X_t$ — Current tier | 1.6.1 | `data/processed/dyad_states.parquet` (`uiw_tier`) | **observed** (T1/T3/T4/T5 all yrs; T2 1989+) | Shared pair-year max tier (`MID5` + `EUSANCT` + `TIES` + `ICB` + `DIPREP` + `UCDP`). `unobserved_tiers` marks pre-1989 T2 gap. |
+| $X_t$ — Current tier | 1.6.1 | `data/processed/dyad_states.parquet` (`uiw_tier`) | **observed** (T1/T3/T4/T5 all yrs; T2 1989+) | Shared pair-year max tier (`MID5` + `EUSANCT` + `TIES` + `ICB` + `DIPREP` + `UCDP_T3` + `UCDP_ESD` + `UCDP_INTERSTATE`). `unobserved_tiers` marks pre-1989 T2 gap. T3 is troop support only before 1975 (ESD military assistance from 1975). |
 | $D_k$ — Duration | 1.6.3 | `data/processed/dyad_states.parquet` (`d_k_years`) | **observed** (100%) | Years already spent at the current shared tier per directed pair. |
 | $\Omega$ — Rivalry | 1.6.4 | `data/processed/rivalry_omega.csv` (from MIDB 5.0 events 1900–2014) | **empirical** (5.7% of all rows; 1,652 pairs in 2014) | Directed: $i$'s rivalry toward $j$ is the decayed history of $j$'s militarised actions against $i$ (`ActorState.rivalry`). |
 | $\Xi$ — Contiguity | 1.6.4 | `data/processed/contiguity_xi.csv` (built from CShapes 2.0) | **empirical** (100%) | {0, 0.5, 1}; also feeds the Capability/Reach gate. |

@@ -4,8 +4,8 @@
 directed-dyad stochastic-game model of interstate conflict escalation,
 persistence, and de-escalation.
 
-TIERS merges seven major conflict and state-capability datasets into a
-unified directed-dyad-year table, then estimates the probability that any
+TIERS merges more than a dozen conflict, trade, and state-capability datasets
+into a unified directed-dyad-year table, then estimates the probability that any
 given pair of states will move up or down a six-tier conflict ladder over the
 next year. It is intended both as a research instrument and as an operational
 early-warning / scoring tool for current interstate dyads.
@@ -20,13 +20,15 @@ dependence raises the cost of direct military escalation. See
 
 ## At a glance
 
-- **Multi-source data pipeline** integrating MIDB, UCDP, EUSANCT, CShapes,
-  V-Dem, COW NMC, ATOP, CEPII BACI, and CEPII TRADHIST into a single
-  directed-dyad-year schema.
-- **Stochastic-game model** with two paths to war: direct initiation and
-  contagion / joining an existing war.
-- **Empirical backtest** on 2.3M dyad-years (1946–2014), with calibrated
-  parameters and ROC evaluation per escalation threshold.
+- **Multi-source data pipeline** integrating MIDB, UCDP (Dyadic and External
+  Support), EUSANCT, TIES, ICB, Pardee DRD, CShapes, V-Dem, COW NMC, ATOP,
+  CEPII BACI, and CEPII TRADHIST into a single directed-dyad-year schema.
+- **Transition-hazard model** (v28): one hazard per escalation step, skip
+  transitions, duration-dependent persistence and de-escalation, and an
+  economic-interdependence block, reconciled from both directions of a dyad.
+- **Empirical backtest** on 1.39M directed dyad-years (694k pair-years,
+  1946–2014), with ROC evaluation per escalation threshold and statistical
+  baselines.
 - **Graceful degradation** — the model remains valid when inputs are missing,
   degrading to simpler nested members rather than failing.
 - **Full version history** of model specs archived in [docs/model_drafts_archive/](docs/model_drafts_archive/).
@@ -139,8 +141,8 @@ EUSANCT, ATOP). Download them from their official providers and place them in
 | Dataset | Version | Used for | Download / registration |
 |---|---|---|---|
 | COW MIDB + MIDA + MIDIP + MIDI | 5.0 | T1, T4, T5 events | [correlatesofwar.org/data-sets/MIDs](https://correlatesofwar.org/data-sets/MIDs/) |
-| UCDP Dyadic | v26.1 | T3 proxy/support events | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
-| UCDP/PRIO Armed Conflict | v26.1 | T3 conflict metadata | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
+| UCDP Dyadic | v26.1 | T3 troop support, T4 interstate armed conflict, ESD name mapping | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
+| UCDP/PRIO Armed Conflict | v26.1 | Not read by the current build (reference only) | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | UCDP External Support (ESD) | 18.1 (triad-year) | T3 military assistance, 1975–2017; place `ucdp-esd-ty-181.dta` in `data/raw/ucdp_esd/` | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | EUSANCT | 2022 | T1 threats + T2 sanctions | [dataverse.harvard.edu](https://dataverse.harvard.edu/) |
 | TIES | v4.0 | T1 non-imposed sanction threats | [sanctions.web.unc.edu](https://sanctions.web.unc.edu/) |
@@ -160,9 +162,14 @@ See [DATA_PROVENANCE.md](DATA_PROVENANCE.md) for source-by-source licensing and 
 ## Running the pipeline
 
 ```bash
+# 0. Once, after downloading UCDP Dyadic: derive the UCDP T3 and T4 event files
+#    that the pipeline reads (data/raw/T3_broad_v26_1.csv, T4_interstate_v26_1.csv)
+python scripts/build/build_t3_dyads.py
+python scripts/build/build_ucdp_interstate_dyads.py
+
 # 1. Rebuild all data tables (state system, source coverage, MID5, EUSANCT,
-#    T1 union, dyad states, rivalry, trade interdependence, feature grids)
-#    and verify all data-contract tests:
+#    T1 union, ESD T3 events, dyad states, rivalry, trade interdependence,
+#    feature grids) and verify all data-contract tests:
 python scripts/build/build_pipeline.py
 
 # 2. Run the full test suite
@@ -180,7 +187,7 @@ create them. The raw-data folder links to download and provenance notes.
 
 The individual stage scripts under [scripts/build/](scripts/build/) ([state_system.py](scripts/build/state_system.py),
 [source_coverage.py](scripts/build/source_coverage.py), [build_mid_dyads.py](scripts/build/build_mid_dyads.py), [integrate_eusanct.py](scripts/build/integrate_eusanct.py),
-[build_t1_sources.py](scripts/build/build_t1_sources.py), [build_dyad_states.py](scripts/build/build_dyad_states.py), [build_rivalry.py](scripts/build/build_rivalry.py),
+[build_t1_sources.py](scripts/build/build_t1_sources.py), [build_esd_t3.py](scripts/build/build_esd_t3.py), [build_dyad_states.py](scripts/build/build_dyad_states.py), [build_rivalry.py](scripts/build/build_rivalry.py),
 [build_trade_interdependence.py](scripts/build/build_trade_interdependence.py), [build_features.py](scripts/build/build_features.py), [build_features_v27.py](scripts/build/build_features_v27.py),
 [build_features_v28.py](scripts/build/build_features_v28.py)) can also be run individually when iterating.
 
@@ -206,51 +213,60 @@ large CSVs/Parquet files go to [data/processed/](data/processed/).
 
 | Tier | Label | Definition |
 |---|---|---|
-| T0 | Peace | Inferred: no T1–T5 event in the dyad-year |
+| T0 | Peace | Inferred: no T1–T5 event in the dyad-year (tiers with no source that year are flagged in `unobserved_tiers`) |
 | T1 | Diplomatic Crisis | Protests, recalls, ultimatums, coercive threats |
 | T2 | Economic Coercion | Active sanctions, trade restrictions, financial exclusion |
 | T3 | Proxy/Indirect Military | Sustained, selective support to j's adversaries |
 | T4 | Limited Direct Military | Open, attributed exchange of fire |
 | T5 | Strategic War | Nationwide / multi-front warfare; gated by reach/contiguity |
 
-### Core equation (Path 1 — direct initiation)
+### v28 structure
 
-For actor *A* considering escalation against *B*:
+For a directed dyad *A → B* at current tier *k*, v28 computes
+`P(T_{t+1} = 0..5 | T_t = k, A, B)` in five stages:
 
-```
-P_direct(A → B) = (1 − N_pub_A) · β · M · O · S · F
+1. **Features**: the v27 structural block (tier, duration, contiguity,
+   capability ratio, directed rivalry, public constraint, alliance depth,
+   first-mover advantage, attribution, closing window) plus the economic block
+   (trade surface, mutual dependence, directed trade leverage).
+2. **Adjacent hazards**, one per step, each a logistic score with its own
+   sign-constrained terms:
+   `h_01` crisis onset, `h_12` economic coercion, `h_23` sanctions-to-proxy
+   substitution, `h_34` direct military escalation, `h_45` strategic war.
+3. **Skip hazards** (e.g. T0 → T4+), penalized by step distance unless
+   structural pressure is high.
+4. **De-escalation and persistence**: status-quo bias; de-escalation must be
+   earned through off-ramps or mutual economic pressure, and rivalry and
+   duration suppress it.
+5. **Directed reconciliation** of the A → B and B → A distributions into one
+   dyad-level next-tier distribution.
 
-where
-  M = max(avg(dP, R_d, A_div), P_v)                 # Motive
-  O = max(V_p, V_t) · (1 − C_T_B · (1 − W_v_A))     # Opportunity
-  S = avg(B, R_h, I_s)                              # Spark
-  F = 1 − (1 − I_a) · (1 − C_p*) · (1 − I_i)        # Friction
-```
-
-**Path 2 — joining an existing war** is driven by treaty triggers, ethnic
-kinship, strategic prestige, and the severity of an ongoing war.
-
-### Architecture highlights
-
-- **Cost-field engine**: each actor evaluates the cost of occupying each tier,
-  plus a forward-looking strategic term and a belief-coupling term.
-- **Status-quo-biased direction stage**: at neutral inputs the model predicts
-  persistence; escalation and de-escalation must be *earned* through shocks or
-  enablers.
-- **Capability/Reach gate**: T5 is reachable only if the dyad is contiguous or
-  one side can inflict considerable, sustainable damage on the other.
-- **Nested-model family**: missing inputs degrade the model to simpler, still-
-  valid members, each with a documented null value.
+The economic block is dual-use: trade surface raises low-tier exposure,
+directed leverage raises economic-coercion risk, and mutual dependence raises
+the cost of direct military escalation. The **Capability/Reach gate** keeps
+T5 reachable only if the dyad is contiguous or one side can inflict
+considerable, sustainable damage on the other. When neither side of a dyad
+has trade data, the dyad is scored by the v27 engine instead.
 
 The full specification is in
-[docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-5.md).
+[docs/models/Unified Equation of Interstate War (Directed-Dyad -6 v28 draft).md](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-6%20v28%20draft%29.md).
+
+### Earlier engines
+
+The v27 cost-field engine ([tiers_lib_v27.py](scripts/model/tiers_lib_v27.py), spec
+[Directed-Dyad -5](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-5.md)) and
+the v21 product-form engine ([tiers_lib.py](scripts/model/tiers_lib.py)), with its direct-initiation
+and war-joining paths, are kept for comparison.
 
 ---
 
 ## Validation
 
-Three independent test suites run against the model:
+The data and model are checked by:
 
+- [tests/](tests/) — pytest suite: data contracts on the built tables (one row
+  per directed dyad-year, shared tiers, coverage masks, symmetry, T3 source
+  rules), builder rule tests, and evaluation tests.
 - [scripts/model/testModelv10.py](scripts/model/testModelv10.py) — 4-level systematic validation: invariants,
   local sensitivity tornado, Monte Carlo global sensitivity, and rank-order
   validity against an expert-ordered set of dyads.
@@ -260,8 +276,8 @@ Three independent test suites run against the model:
   edge-case suite for the retained v27.0 cost-field baseline.
 - [scripts/model/tiers_v28_invariants_testing.py](scripts/model/tiers_v28_invariants_testing.py) — probability-bound,
   Capability/Reach gate, and economic-sign tests for v28.0.
-- [scripts/model/baseline_tiers_v27.py](scripts/model/baseline_tiers_v27.py) — baseline comparison against
-  logistic-regression and random-forest models trained on the same v27
+- [scripts/model/baseline_tiers_v27.py](scripts/model/baseline_tiers_v27.py) — baseline comparison against an
+  empirical transition matrix and a logistic regression on the trade and
   structural features.
 
 Historical backtest of the v28.0 transition-hazard engine on 1946–2014
@@ -313,24 +329,25 @@ calibrated estimates. For full reports see
 
 ## Limitations
 
-- **v28 coefficients are starting priors.** The v28 transition hazards use
-  sign-constrained priors from the draft model. The CEPII trade inputs are now
-  attached, but full coefficient calibration remains pending. The legacy v21
-  product-form implementation ([tiers_lib.py](scripts/model/tiers_lib.py), [backtest_tiers.py](scripts/model/backtest_tiers.py)) and v27
-  cost-field engine ([tiers_lib_v27.py](scripts/model/tiers_lib_v27.py), [backtest_tiers_v27.py](scripts/model/backtest_tiers_v27.py)) are retained
-  for comparison.
-- **Path 2 not backtested.** The historical backtest currently scores only
-  direct initiation (Path 1). Contagion/joining behavior (Path 2) is tested for
-  invariants but not evaluated against historical data.
-- **Defaults for structural inputs.** Several parameters — rivalry history
-  (`R_h`), diversionary incentives (`A_div`), contiguity/proximity, ethnic
-  kinship (`E_n`), prestige (`S_p`) — are set to neutral defaults because the
-  corresponding empirical datasets are not yet attached.
-- **C_d_opp is a placeholder.** Opposing alliance depth is currently computed
-  as `1 − C_d_sup` rather than a real third-party lookup.
-- **Calibration is partial.** Only the global `β` is calibrated to the observed
-  T0→T1+ rate. Full maximum-likelihood or Bayesian calibration over all model
-  parameters is pending.
+- **v28 coefficients are starting priors.** The reported v28 results use the
+  default sign-constrained priors from the draft model. Calibration scripts
+  ([calibrate_tiers_v28.py](scripts/model/calibrate_tiers_v28.py) and variants) write fitted priors that
+  `backtest_tiers_v28.py --priors` can load, but the tables above do not use
+  them.
+- **Uneven tier coverage.** Each tier comes from different sources with their
+  own periods (see [source_coverage.py](scripts/build/source_coverage.py)). T2 sanctions are unobserved
+  before 1989 and cover only US and EU senders. T3 has only troop support
+  before 1975, misses support in conflicts below 25 battle deaths, and has no
+  source for covert sabotage or military intimidation.
+- **War-joining not backtested.** The historical backtest scores direct
+  escalation only; contagion/joining an existing war is tested for invariants
+  but not evaluated against historical data.
+- **Defaults for structural inputs.** Rivalry (directed, from MID events) and
+  contiguity (CShapes) are empirical. Diversionary incentives (`A_div`),
+  ethnic kinship (`E_n`), and prestige (`S_p`) are still neutral defaults
+  because the corresponding datasets are not attached.
+- **T3 attribution is a prior.** T3 rows carry attribution 0.5 (0.7 for war
+  intensity or troop support), not a measured deniability score.
 
 ---
 
