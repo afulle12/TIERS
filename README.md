@@ -18,6 +18,19 @@ dependence raises the cost of direct military escalation. See
 
 ---
 
+## Tier taxonomy
+
+| Tier | Label | Definition |
+|---|---|---|
+| T0 | Peace | Inferred: no T1–T5 event in the dyad-year (tiers with no source that year are flagged in `unobserved_tiers`) |
+| T1 | Diplomatic Crisis | Protests, recalls, ultimatums, coercive threats |
+| T2 | Economic Coercion | Active sanctions, trade restrictions, financial exclusion |
+| T3 | Proxy/Indirect Military | Sustained, selective support to j's adversaries |
+| T4 | Limited Direct Military | Open, attributed exchange of fire |
+| T5 | Strategic War | Nationwide / multi-front warfare; gated by reach/contiguity |
+
+---
+
 ## At a glance
 
 - **Multi-source data pipeline** integrating MIDB, UCDP (Dyadic and External
@@ -37,6 +50,7 @@ dependence raises the cost of direct military escalation. See
 
 ## Table of contents
 
+- [Tier taxonomy](#tier-taxonomy)
 - [Installation](#installation)
 - [Data](#data)
 - [Running the pipeline](#running-the-pipeline)
@@ -209,16 +223,7 @@ large CSVs/Parquet files go to [data/processed/](data/processed/).
 
 ## Model overview
 
-### Tier taxonomy
-
-| Tier | Label | Definition |
-|---|---|---|
-| T0 | Peace | Inferred: no T1–T5 event in the dyad-year (tiers with no source that year are flagged in `unobserved_tiers`) |
-| T1 | Diplomatic Crisis | Protests, recalls, ultimatums, coercive threats |
-| T2 | Economic Coercion | Active sanctions, trade restrictions, financial exclusion |
-| T3 | Proxy/Indirect Military | Sustained, selective support to j's adversaries |
-| T4 | Limited Direct Military | Open, attributed exchange of fire |
-| T5 | Strategic War | Nationwide / multi-front warfare; gated by reach/contiguity |
+The model forecasts movement on the [tier ladder](#tier-taxonomy) above.
 
 ### v28 structure
 
