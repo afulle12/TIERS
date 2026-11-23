@@ -5,6 +5,48 @@ All notable changes to TIERS are recorded here. The format follows
 [Semantic Versioning](https://semver.org/) with the spec major version as the
 project version.
 
+## [Unreleased] - 2026-11-22 — T3 military assistance from UCDP ESD
+
+### Added
+- `scripts/build/build_esd_t3.py`: directed T3 events from UCDP External
+  Support Dataset 18.1 (triad-year, 1975–2017). A state's confirmed troops,
+  joint operations, weapons, training or funding to a party fighting another
+  state's government is a T3 event supporter -> that state. Alleged support,
+  support by state elements, non-state supporters, support to a government
+  against rebels, and materiel/intelligence/territory-only support are
+  excluded. Writes `data/processed/esd_t3_events.csv` (1,772 rows).
+- `source_coverage.py`: `UCDP_ESD` source (T3, 1975–2017); T3 partial note
+  updated.
+- `build_dyad_states.py` reads the ESD events as source `UCDP_ESD`;
+  `build_pipeline.py` runs `build_esd_t3.py` before it.
+- `tests/test_build_esd_t3.py` (8 rule tests) and an ESD contract check.
+
+### Effect
+- Shared T3 pair-years 1946–2014: 16 -> 851.
+- Test window (1990–2014): T3 -> T4+ becomes evaluable (2 -> 24 positives,
+  cumulative AUC 0.8482); T2 -> T3+ 42 -> 45 positives (AUC 0.6884).
+  Headline v28 AUCs move by at most 0.003; LogReg(trade+struct) escalation
+  AUC 0.7398 -> 0.7587.
+
+## [Unreleased] - 2026-11-22 — T3 direction fix
+
+### Fixed
+- `build_dyad_states.py`: UCDP T3 events now keep only supporters of
+  `side_b` (the side fighting the host government). Previously every
+  secondary supporter in an internationalised internal conflict, including the
+  3,115 of 3,305 rows that sent troops to *help* the host government, was a
+  hostile supporter -> host T3 event (e.g. USA -> Afghanistan 2010,
+  UK -> Iraq 2008, France -> Mali 2014, Cuba -> Angola 1980). Dropped rows
+  are logged in `dyad_states_dropped.csv` as `T3 support to host government`.
+- `tests/test_data_contracts.py`: every `UCDP_T3` event must trace to a
+  `side_b` supporter row.
+
+### Effect
+- Shared T3 pair-years 1946–2014: 1,081 -> 16.
+- Test window (1990–2014): T2 -> T3+ positives 57 -> 42 (AUC 0.6229 -> 0.7191);
+  T3 -> T4+ positives 11 -> 2. Headline AUCs move by at most 0.004
+  (onset-force 0.8246 -> 0.8218 on 266 positives).
+
 ## [Unreleased] - 2026-11 — Repair phase 2 (data): complete data & T1 union rebuild
 
 ### Added

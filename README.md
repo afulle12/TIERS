@@ -14,7 +14,7 @@ early-warning / scoring tool for current interstate dyads.
 explicit economic interdependence: trade surface raises low-tier conflict
 exposure, directed trade leverage raises economic-coercion risk, and mutual
 dependence raises the cost of direct military escalation. See
-[`docs/models/Unified Equation of Interstate War (Directed-Dyad -6 v28 draft).md`](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-6%20v28%20draft%29.md).
+[docs/models/Unified Equation of Interstate War (Directed-Dyad -6 v28 draft).md](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-6%20v28%20draft%29.md).
 
 ---
 
@@ -29,7 +29,7 @@ dependence raises the cost of direct military escalation. See
   parameters and ROC evaluation per escalation threshold.
 - **Graceful degradation** — the model remains valid when inputs are missing,
   degrading to simpler nested members rather than failing.
-- **Full version history** of model specs archived in `docs/model_drafts_archive/`.
+- **Full version history** of model specs archived in [docs/model_drafts_archive/](docs/model_drafts_archive/).
 
 ---
 
@@ -80,15 +80,15 @@ Requires Python 3.10 or newer.
 
 ### Running the Wikipedia tier-extraction pipeline
 
-The Wikipedia pipeline (`scripts/build/wiki_pipeline.py` and
-`scripts/build/_run_v2_pipeline.py`) is an orchestrator that runs
+The Wikipedia pipeline ([scripts/build/wiki_pipeline.py](scripts/build/wiki_pipeline.py) and
+[scripts/build/_run_v2_pipeline.py](scripts/build/_run_v2_pipeline.py)) is an orchestrator that runs
 seven stages end-to-end and produces
-`data/processed/conflict_dyads_wikipedia.csv`. The output is aligned
+[data/processed/conflict_dyads_wikipedia.csv](data/processed/conflict_dyads_wikipedia.csv). The output is aligned
 to the **v27.0 spec scheme** (T1=1, T2=2, T3=3, T4=4, T5=5) and the
 **v27.0 labels** (`T2-Economic Coercion`, `T3-Proxy/Indirect Military`),
 which differs from the legacy MIDB-based ground-truth labeling
 (T2 and T3 both at hostlev=3). See
-[`docs/wiki_pipeline.md`](docs/wiki_pipeline.md) for the full stage
+[docs/wiki_pipeline.md](docs/wiki_pipeline.md) for the full stage
 table, configuration knobs, and validation report format. Quick start:
 
 ```bash
@@ -115,7 +115,7 @@ and a separate event extractor. In the v2 design:
   and writes a directed-dyad-year table covering 1900–2025.
 - **Stage 6** resolves any unmapped country names via a final LLM
   pass, preserving the raw name in parentheses.
-- **Stage 7** compares against `conflict_dyads_full.csv` (compound
+- **Stage 7** compares against [conflict_dyads_full.csv](scripts/build/build_t0_dyads.py "Generated locally by build_t0_dyads.py") (compound
   sources split on `_`) and produces a validation report and
   diagnostics.
 
@@ -124,7 +124,7 @@ per-year precision/recall/F1, per-dyad mismatch table, and a
 cross-dataset comparison (agreement / disagreement / new) against
 all ground-truth datasets (MIDB, UCDP, EUSANCT, ATOP).
 
-Files in `scripts/build/legacy/` are from the old 9-stage design
+Files in [scripts/build/legacy/](scripts/build/legacy/) are from the old 9-stage design
 and are no longer used by the active pipeline.
 
 ---
@@ -134,13 +134,14 @@ and are no longer used by the active pipeline.
 The repository **does not include the raw source datasets** because several of
 them have licenses that restrict bulk redistribution (e.g., COW MIDB/NMC,
 EUSANCT, ATOP). Download them from their official providers and place them in
-`data/raw/` before running the pipeline.
+[data/raw/](DATA_PROVENANCE.md "Raw-data download and provenance notes") before running the pipeline.
 
 | Dataset | Version | Used for | Download / registration |
 |---|---|---|---|
 | COW MIDB + MIDA + MIDIP + MIDI | 5.0 | T1, T4, T5 events | [correlatesofwar.org/data-sets/MIDs](https://correlatesofwar.org/data-sets/MIDs/) |
 | UCDP Dyadic | v26.1 | T3 proxy/support events | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | UCDP/PRIO Armed Conflict | v26.1 | T3 conflict metadata | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
+| UCDP External Support (ESD) | 18.1 (triad-year) | T3 military assistance, 1975–2017; place `ucdp-esd-ty-181.dta` in `data/raw/ucdp_esd/` | [ucdp.uu.se/downloads](https://ucdp.uu.se/downloads/) |
 | EUSANCT | 2022 | T1 threats + T2 sanctions | [dataverse.harvard.edu](https://dataverse.harvard.edu/) |
 | TIES | v4.0 | T1 non-imposed sanction threats | [sanctions.web.unc.edu](https://sanctions.web.unc.edu/) |
 | ICB | v16 | T1 international crises (below T3) | [sites.duke.edu/icbdata](https://sites.duke.edu/icbdata/) |
@@ -152,7 +153,7 @@ EUSANCT, ATOP). Download them from their official providers and place them in
 | CEPII BACI | HS92 V202601 | 1995-2024 bilateral trade, v28 economic interdependence | [cepii.fr BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) |
 | CEPII TRADHIST | v4 | 1827-2014 historical bilateral trade and gravity data | [cepii.fr TRADHIST](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=32) |
 
-See `DATA_PROVENANCE.md` for source-by-source licensing and attribution notes.
+See [DATA_PROVENANCE.md](DATA_PROVENANCE.md) for source-by-source licensing and attribution notes.
 
 ---
 
@@ -174,11 +175,14 @@ python scripts/model/backtest_tiers_v28_by_tier.py  # v28 per-tier step breakdow
 python scripts/model/baseline_tiers_v27.py          # statistical baselines
 ```
 
-The individual stage scripts under `scripts/build/` (`state_system.py`,
-`source_coverage.py`, `build_mid_dyads.py`, `integrate_eusanct.py`,
-`build_t1_sources.py`, `build_dyad_states.py`, `build_rivalry.py`,
-`build_trade_interdependence.py`, `build_features.py`, `build_features_v27.py`,
-`build_features_v28.py`) can also be run individually when iterating.
+Links to locally generated files and output folders lead to the scripts that
+create them. The raw-data folder links to download and provenance notes.
+
+The individual stage scripts under [scripts/build/](scripts/build/) ([state_system.py](scripts/build/state_system.py),
+[source_coverage.py](scripts/build/source_coverage.py), [build_mid_dyads.py](scripts/build/build_mid_dyads.py), [integrate_eusanct.py](scripts/build/integrate_eusanct.py),
+[build_t1_sources.py](scripts/build/build_t1_sources.py), [build_dyad_states.py](scripts/build/build_dyad_states.py), [build_rivalry.py](scripts/build/build_rivalry.py),
+[build_trade_interdependence.py](scripts/build/build_trade_interdependence.py), [build_features.py](scripts/build/build_features.py), [build_features_v27.py](scripts/build/build_features_v27.py),
+[build_features_v28.py](scripts/build/build_features_v28.py)) can also be run individually when iterating.
 
 ```bash
 # 4. Forward-score live dyads (latest available year)
@@ -191,8 +195,8 @@ python scripts/model/tiers_v27_invariants_testing.py
 python scripts/model/tiers_v28_invariants_testing.py
 ```
 
-Generated outputs go to `output/analysis/` and `output/charts/`; intermediate
-large CSVs/Parquet files go to `data/processed/`.
+Generated outputs go to [output/analysis/](scripts/build/build_pipeline.py "Generated locally by the data and analysis pipeline") and [output/charts/](scripts/analysis/analyze_conflict_dyads.py "Generated locally by the analysis scripts"); intermediate
+large CSVs/Parquet files go to [data/processed/](data/processed/).
 
 ---
 
@@ -239,7 +243,7 @@ kinship, strategic prestige, and the severity of an ongoing war.
   valid members, each with a documented null value.
 
 The full specification is in
-`docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md`.
+[docs/models/Unified Equation of Interstate War (Directed-Dyad -5.md](docs/models/Unified%20Equation%20of%20Interstate%20War%20%28Directed-Dyad%20-5.md).
 
 ---
 
@@ -247,57 +251,63 @@ The full specification is in
 
 Three independent test suites run against the model:
 
-- `scripts/model/testModelv10.py` — 4-level systematic validation: invariants,
+- [scripts/model/testModelv10.py](scripts/model/testModelv10.py) — 4-level systematic validation: invariants,
   local sensitivity tornado, Monte Carlo global sensitivity, and rank-order
   validity against an expert-ordered set of dyads.
-- `scripts/model/tiers_invariants_testing.py` — 5,000 random parameter sets
+- [scripts/model/tiers_invariants_testing.py](scripts/model/tiers_invariants_testing.py) — 5,000 random parameter sets
   checked for probability bounds, monotonicity, and edge cases.
-- `scripts/model/tiers_v27_invariants_testing.py` — invariant and
+- [scripts/model/tiers_v27_invariants_testing.py](scripts/model/tiers_v27_invariants_testing.py) — invariant and
   edge-case suite for the retained v27.0 cost-field baseline.
-- `scripts/model/tiers_v28_invariants_testing.py` — probability-bound,
+- [scripts/model/tiers_v28_invariants_testing.py](scripts/model/tiers_v28_invariants_testing.py) — probability-bound,
   Capability/Reach gate, and economic-sign tests for v28.0.
-- `scripts/model/baseline_tiers_v27.py` — baseline comparison against
+- [scripts/model/baseline_tiers_v27.py](scripts/model/baseline_tiers_v27.py) — baseline comparison against
   logistic-regression and random-forest models trained on the same v27
   structural features.
 
 Historical backtest of the v28.0 transition-hazard engine on 1946–2014
 (train 1946–1989 / test 1990–2014, one row per unordered dyad-year, with
-`source_coverage.py` masks applied), plus the v28 trade-enhanced 1995–2014
+[source_coverage.py](scripts/build/source_coverage.py) masks applied), plus the v28 trade-enhanced 1995–2014
 window:
 
 | Target | Test AUC | Brier | Positives (test) |
 |---|---:|---:|---:|
-| Onset, any | 0.5637 | 0.0195 | 3,027 |
-| Onset, force | **0.8246** | 0.0008 | 258 |
+| Onset, any | 0.5624 | 0.0191 | 2,877 |
+| Onset, force | **0.8242** | 0.0008 | 250 |
 | Onset, war | NA (<20 pos) | NA | 14 |
-| Escalation | 0.5870 | 0.0205 | 3,533 |
-| De-escalation | 0.5577 | 0.1971 | 2,755 |
+| Escalation | 0.5876 | 0.0201 | 3,381 |
+| De-escalation | 0.5587 | 0.2061 | 2,784 |
 
-Per-step cumulative adjacent-tier AUCs are also reported (`backtest_tiers_v28_by_tier.py`):
+Per-step cumulative adjacent-tier AUCs are also reported ([backtest_tiers_v28_by_tier.py](scripts/model/backtest_tiers_v28_by_tier.py)):
 
 | Transition | Cumulative AUC | Positives |
 |---|---:|---:|
-| T0 → T1+ | 0.6518 | 2,608 |
-| T1 → T2+ | 0.5216 | 369 |
-| T2 → T3+ | 0.6229 | 57 |
-| T3 → T4+ | NA (<20 pos) | 11 |
+| T0 → T1+ | 0.6546 | 2,513 |
+| T1 → T2+ | 0.5144 | 363 |
+| T2 → T3+ | 0.6884 | 45 |
+| T3 → T4+ | 0.8482 | 24 |
 | T4 → T5 | NA (<20 pos) | 4 |
+
+T3 comes from UCDP troop support to the side fighting the host government
+(1946–) and, from 1975, UCDP ESD military assistance (troops, joint
+operations, weapons, training or funding) to a party fighting the target's
+government: 851 pair-years in 1946–2014. Before 1975 only troop support is
+recorded, so T3 is under-counted in most of the training window.
 
 Baseline comparison on `test_1990_2014` shows that the uncalibrated starting
 priors still trail simple logistic regression on the repaired grid:
 
 | Target | TIERS v28 AUC | Transition Matrix AUC | LogReg (`trade+struct`) AUC |
 |---|---:|---:|---:|
-| Onset, any | 0.5637 | 0.5000 | 0.7340 |
-| Onset, force | 0.8246 | 0.5000 | 0.9113 |
-| Escalation | 0.5870 | 0.5539 | 0.7383 |
-| De-escalation | 0.5577 | 0.6889 | 0.7077 |
+| Onset, any | 0.5624 | 0.5000 | 0.7426 |
+| Onset, force | 0.8242 | 0.5000 | 0.9132 |
+| Escalation | 0.5876 | 0.5589 | 0.7587 |
+| De-escalation | 0.5587 | 0.6894 | 0.7157 |
 
 v28 results should be read as sign-constrained starting-prior results, not as
 calibrated estimates. For full reports see
-`output/analysis/model_calibration_summary_v28.md`,
-`output/analysis/model_calibration_summary_v27.md`, and
-`output/analysis/baseline_summary_v28.md`.
+[output/analysis/model_calibration_summary_v28.md](scripts/model/backtest_tiers_v28.py "Generated locally by backtest_tiers_v28.py"),
+[output/analysis/model_calibration_summary_v27.md](scripts/model/backtest_tiers_v27.py "Generated locally by backtest_tiers_v27.py"), and
+[output/analysis/baseline_summary_v28.md](scripts/model/baseline_tiers_v27.py "Generated locally by baseline_tiers_v27.py").
 
 ---
 
@@ -306,8 +316,8 @@ calibrated estimates. For full reports see
 - **v28 coefficients are starting priors.** The v28 transition hazards use
   sign-constrained priors from the draft model. The CEPII trade inputs are now
   attached, but full coefficient calibration remains pending. The legacy v21
-  product-form implementation (`tiers_lib.py`, `backtest_tiers.py`) and v27
-  cost-field engine (`tiers_lib_v27.py`, `backtest_tiers_v27.py`) are retained
+  product-form implementation ([tiers_lib.py](scripts/model/tiers_lib.py), [backtest_tiers.py](scripts/model/backtest_tiers.py)) and v27
+  cost-field engine ([tiers_lib_v27.py](scripts/model/tiers_lib_v27.py), [backtest_tiers_v27.py](scripts/model/backtest_tiers_v27.py)) are retained
   for comparison.
 - **Path 2 not backtested.** The historical backtest currently scores only
   direct initiation (Path 1). Contagion/joining behavior (Path 2) is tested for
@@ -328,7 +338,7 @@ calibrated estimates. For full reports see
 
 If you use TIERS in academic work, please cite the current model
 specification document and the upstream data sources listed in
-`DATA_PROVENANCE.md`.
+[DATA_PROVENANCE.md](DATA_PROVENANCE.md).
 
 ```bibtex
 @article{tiers2026,
@@ -339,7 +349,7 @@ specification document and the upstream data sources listed in
 }
 ```
 
-See `CITATION.cff` for machine-readable citation metadata.
+See [CITATION.cff](CITATION.cff) for machine-readable citation metadata.
 
 ---
 

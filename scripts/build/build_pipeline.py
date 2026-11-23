@@ -8,6 +8,7 @@ interpreter, stopping immediately if any step or contract check fails:
   3. build_mid_dyads.py
   4. integrate_eusanct.py
   5. build_t1_sources.py
+  5b. build_esd_t3.py
   6. build_dyad_states.py
   7. build_contiguity.py (skipped if shapely is absent and contiguity_xi.csv exists)
   8. build_rivalry.py
@@ -52,6 +53,7 @@ def main() -> int:
         ("build_mid_dyads.py", "3. Build MID dyad events"),
         ("integrate_eusanct.py", "4. Integrate EUSANCT sanctions & threats"),
         ("build_t1_sources.py", "5. Build Section 2.8 T1 union events"),
+        ("build_esd_t3.py", "5b. Build UCDP ESD T3 military-assistance events"),
         ("build_dyad_states.py", "6. Resolve dyad events -> dyad states"),
     ]
     for script, label in steps:

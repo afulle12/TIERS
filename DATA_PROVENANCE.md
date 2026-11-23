@@ -10,6 +10,7 @@ responsible for complying with the licensing terms of each source dataset.**
 | MIDA / MIDIP / MIDI | 5.0 | 1816-2014 | Research use | Gibler & Miller (2021). |
 | UCDP Dyadic | v26.1 | 1946-onward | CC-BY 4.0 | Davies, S., Pettersson, T., Sollenberg, M., & Öberg, M. (2025). *Organized violence 1989–2024 and the return of armed conflict*. |
 | UCDP/PRIO Armed Conflict | v26.1 | 1946-onward | CC-BY 4.0 | Davies et al. (2025); UCDP/PRIO ACD Dataset Codebook. |
+| UCDP External Support Dataset (ESD), triad-year | 18.1 | 1975-2017 | CC-BY 4.0 | Meier, V., Karlén, N., Pettersson, T., & Croicu, M. (2023). *External support in armed conflicts: Introducing the UCDP External Support Dataset (ESD), 1975–2017*. Journal of Peace Research 60(3). |
 | EUSANCT | 2022 | 1989-2015 | Research use | Weber, P. M., & Schneider, G. (2022). *Post-Cold War Sanctioning by the EU, the UN, and the US: Introducing the EUSANCT Dataset*. |
 | TIES (Threat and Imposition of Economic Sanctions) | v4.0 / v4.1 | 1945-2005 | Research use | Morgan, T. C., Bapat, N., & Kobayashi, Y. (2014). *Threat and Imposition of Economic Sanctions 1945–2005*. |
 | ICB (International Crisis Behavior) | v16 | 1918-2022 | Research use | Brecher, M., Wilkenfeld, J., et al. (2025). *International Crisis Behavior Data Archive, Version 16*. |
@@ -29,7 +30,7 @@ responsible for complying with the licensing terms of each source dataset.**
 |---|---|---|
 | T1 — Diplomatic Crisis | Formal friction: protests, recalls, ultimatums, coercive threats | MID5 (`hostlev` 2–3 threats/displays + coalition-capped force, 1900–2014) + EUSANCT (`threat_dyad==1`, `sanction_dyad!=1`, 1989–2015) + TIES v4.0 (`threat==1`, non-imposed years, 1945–2005) + ICB v16 (crisis dyad-years below T3, 1918–2022) + Pardee DRD (`Focus==3` recalls/withdrawals/expulsions, 1960–2025) |
 | T2 — Economic Coercion | Active sanctions, trade restrictions, financial exclusion | EUSANCT (`sanction_dyad==1` for US/EU, 1989–2015; unobserved 1946–1988 via `source_coverage.py`) |
-| T3 — Proxy/Indirect Military | Sustained, selective material support to j's adversaries, directed at j | UCDP Dyadic v26.1, `type_of_conflict==4` troop support |
+| T3 — Proxy/Indirect Military | Sustained, selective material support to j's adversaries, directed at j | UCDP Dyadic v26.1, `type_of_conflict==4` troop support to the side fighting j's government (`side_b`), 1946–2025 + UCDP ESD 18.1, confirmed state troops, joint operations, weapons, training or funding to a party fighting j's government, 1975–2017 (`build_esd_t3.py`) |
 | T4 — Limited Direct Military | Open, attributed exchange of fire between i and j forces | MID5 (`hostlev==4` with target evidence) + UCDP Interstate Armed Conflict v26.1 |
 | T5 — Strategic War | Nationwide / multi-front warfare, sustained campaigns | MID5 (`hostlev==5` with target evidence) |
 | T0 — Peace | Inferred: no T1–T5 event in the dyad-year | Complement of T1–T5 events across `state_system` members |

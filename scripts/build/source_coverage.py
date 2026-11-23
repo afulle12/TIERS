@@ -44,8 +44,11 @@ SOURCES = (
     Source("UCDP_INTERSTATE", (4,), 1946, 2025,
            "interstate armed conflict with at least 25 battle deaths in the year"),
     Source("UCDP_T3", (3,), 1946, 2025,
-           "troop support to a party in an internationalised internal conflict; "
-           "covert or material support is not recorded"),
+           "troop support to the side fighting the host government in an "
+           "internationalised internal conflict"),
+    Source("UCDP_ESD", (3,), 1975, 2017,
+           "confirmed state troops, joint operations, weapons, training or funding "
+           "to a party fighting another state's government (UCDP ESD 18.1)"),
     Source("EUSANCT", (2,), 1989, 2015,
            "imposed sanctions by the United States and the European Union only"),
     # Section 2.8 T1 sources (integrated via build_t1_sources.py).
@@ -61,7 +64,8 @@ SOURCES = (
 PARTIAL_NOTES = {
     1: "militarised and sanction threats, non-violent crises, and recalls/expulsions; ordinary protests are not recorded",
     2: "United States and European Union senders only",
-    3: "troop support only; covert and material support is not recorded",
+    3: "material military assistance from 1975 (ESD), troop support only before; "
+       "support in conflicts under 25 battle deaths and covert sabotage are not recorded",
 }
 
 

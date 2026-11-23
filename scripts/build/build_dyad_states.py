@@ -7,6 +7,11 @@ Inputs
 ------
   data/processed/mid_dyad_events.csv   T1, T4, T5 from MID 5.0 (build_mid_dyads.py)
   data/raw/T3_broad_v26_1.csv          T3 proxy support, UCDP, supporter -> host
+                                       (only supporters of side_b, the side
+                                       fighting the host government, are kept)
+  data/processed/esd_t3_events.csv     T3 military assistance, UCDP ESD, supporter ->
+                                       state whose government the recipient fights
+                                       (build_esd_t3.py)
   data/raw/T4_interstate_v26_1.csv     T4 interstate armed conflict, UCDP
   data/processed/conflict_dyads_eus.csv  T2 sanctions, EUSANCT, sender -> target
   data/processed/state_system.csv      which states exist in which year
@@ -51,6 +56,7 @@ OUT_ANALYSIS = os.path.join(ROOT, "output", "analysis")
 MID_EVENTS_CSV = os.path.join(DATA_PROCESSED, "mid_dyad_events.csv")
 T3_CSV = os.path.join(DATA_RAW, "T3_broad_v26_1.csv")
 T4_INTERSTATE_CSV = os.path.join(DATA_RAW, "T4_interstate_v26_1.csv")
+ESD_CSV = os.path.join(DATA_PROCESSED, "esd_t3_events.csv")
 EUS_CSV = os.path.join(DATA_PROCESSED, "conflict_dyads_eus.csv")
 T1_UNION_CSV = os.path.join(DATA_PROCESSED, "t1_union_events.csv")
 MCT_CSV = os.path.join(DATA_RAW, "t1_sources", "mct_dataset_v09.csv")
@@ -107,7 +113,7 @@ def _attach_by_gwno(ev: pd.DataFrame, states: pd.DataFrame) -> tuple[pd.DataFram
 
 
 def load_events(states: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Collect every directed event from the four sources."""
+    """Collect every directed event from the sources."""
     frames, dropped = [], []
 
     mid = pd.read_csv(MID_EVENTS_CSV)
@@ -117,6 +123,18 @@ def load_events(states: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     frames.append(mid[EVENT_COLUMNS])
 
     t3 = pd.read_csv(T3_CSV).dropna(subset=["supporter_gwno", "host_gwno"])
+    # Only support to the side fighting the host government is hostile to the
+    # host. Troops sent to help the host government (side_a) are not T3.
+    pro_gov = t3["side_backed"] != "side_b"
+    dropped.append(pd.DataFrame({
+        "year": t3.loc[pro_gov, "year"].astype(int),
+        "initiator_gwno": t3.loc[pro_gov, "supporter_gwno"].astype(int),
+        "target_gwno": t3.loc[pro_gov, "host_gwno"].astype(int),
+        "source": "UCDP_T3",
+        "event_ref": "UCDP:" + t3.loc[pro_gov, "conflict_id"].astype(str),
+        "reason": "T3 support to host government",
+    }))
+    t3 = t3[~pro_gov]
     t3 = pd.DataFrame({
         "year": t3["year"].astype(int),
         "initiator_gwno": t3["supporter_gwno"].astype(int),
@@ -143,6 +161,21 @@ def load_events(states: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     kept, drop = _attach_by_gwno(t4, states)
     frames.append(kept)
     dropped.append(drop.assign(reason="UCDP interstate non-member"))
+
+    if os.path.exists(ESD_CSV):
+        esd = pd.read_csv(ESD_CSV)
+        esd = pd.DataFrame({
+            "year": esd["year"].astype(int),
+            "initiator_gwno": esd["supporter_gwno"].astype(int),
+            "target_gwno": esd["target_gwno"].astype(int),
+            "uiw_tier": 3,
+            "source": "UCDP_ESD",
+            "attribution": esd["attribution"].astype(float),
+            "event_ref": "ESD:" + esd["dyad_id"].astype(str),
+        }).drop_duplicates()
+        kept, drop = _attach_by_gwno(esd, states)
+        frames.append(kept)
+        dropped.append(drop.assign(reason="ESD non-member or self"))
 
     eus = pd.read_csv(EUS_CSV).dropna(subset=["initiator_gwno", "target_gwno"])
     eus = pd.DataFrame({

@@ -6,6 +6,7 @@ when those tables have not been built.
 from __future__ import annotations
 
 import os
+import sys
 
 import numpy as np
 import pandas as pd
@@ -109,6 +110,33 @@ def test_mid_events_never_reach_t2_or_t3():
     assert set(ev.loc[ev.source == "MID5", "uiw_tier"]) <= {1, 4, 5}
     assert set(ev.loc[ev.source == "EUSANCT", "uiw_tier"]) == {2}
     assert set(ev.loc[ev.source == "UCDP_T3", "uiw_tier"]) == {3}
+    esd = ev[ev.source == "UCDP_ESD"]
+    assert set(esd["uiw_tier"]) <= {3}
+    assert esd["year"].min() >= 1975
+
+
+@needs_states
+def test_t3_support_only_counts_against_the_government_it_fights():
+    """A supporter of the host government is not in a T3 conflict with the host."""
+    t3_raw = os.path.join(ROOT, "data", "raw", "T3_broad_v26_1.csv")
+    if not os.path.exists(t3_raw):
+        pytest.skip("raw UCDP T3 file not present")
+    ev = pd.read_csv(EVENTS)
+    ev = ev[ev.source == "UCDP_T3"]
+    sys.path.insert(0, os.path.join(ROOT, "scripts", "build"))
+    from state_system import cow_to_gw
+
+    raw = pd.read_csv(t3_raw).rename(columns={"supporter_gwno": "initiator_gwno", "host_gwno": "target_gwno"})
+    raw = raw.dropna(subset=["initiator_gwno", "target_gwno"])
+    for col in ("initiator_gwno", "target_gwno"):  # same code repair as the builder
+        raw[col] = [cow_to_gw(int(c), int(y)) for c, y in zip(raw[col], raw["year"], strict=True)]
+    raw["event_ref"] = "UCDP:" + raw["conflict_id"].astype(str)
+    j = ev.merge(
+        raw[["year", "event_ref", "initiator_gwno", "target_gwno", "side_backed"]],
+        on=["year", "event_ref", "initiator_gwno", "target_gwno"], how="left",
+    )
+    assert j["side_backed"].notna().all(), "a UCDP_T3 event has no source row"
+    assert (j["side_backed"] == "side_b").all()
 
 
 @needs_grid
